@@ -2,8 +2,8 @@
 import 'dart:convert';
 import 'package:doctors_app/Data/api_connection/api_connection.dart';
 import 'package:doctors_app/domain/models/bouquet.dart';
-import 'package:doctors_app/presentaion/Home/bloc/tdawa_states.dart';
-import 'package:doctors_app/presentaion/resources/color_manager.dart';
+import 'package:doctors_app/presentaion/bloc/tdawa/tdawa_states.dart';
+
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';

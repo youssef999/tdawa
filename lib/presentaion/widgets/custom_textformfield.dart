@@ -34,10 +34,10 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
   Widget build(BuildContext context) {
     if (widget.obx == true) {
       return Container(
-        padding: const EdgeInsets.only(right: 6),
+        padding: const EdgeInsets.only(right: 16,bottom: 20,left:14),
         decoration:BoxDecoration(
           borderRadius: BorderRadius.circular(20),
-          color:Colors.grey[100]
+          color:Colors.white
         ),
         child: TextFormField(
           keyboardType: TextInputType.text,
@@ -75,7 +75,7 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
       return Container(
         decoration:BoxDecoration(
             borderRadius: BorderRadius.circular(20),
-            color:Colors.grey[100]),
+            color:Colors.white),
 
         padding: const EdgeInsets.all(11),
         child: TextFormField(
@@ -104,7 +104,7 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
         padding: const EdgeInsets.all(11),
         decoration:BoxDecoration(
             borderRadius: BorderRadius.circular(20),
-            color:Colors.grey[100]),
+            color:Colors.white),
         child: TextFormField(
           onTap: widget.ontap(),
           obscureText: widget.obs,

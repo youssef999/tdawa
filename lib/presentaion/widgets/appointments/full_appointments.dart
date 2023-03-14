@@ -16,7 +16,7 @@ class AppointmentWidget extends StatelessWidget {
 
     return  SingleChildScrollView(
       child: Container(
-        height: 630,
+        height: 1230,
         color:Colors.grey[100],
         //width:double.infinity,
         padding:const EdgeInsets.only(top:9,left:7,right:7),
@@ -62,6 +62,17 @@ class AppointmentWidget extends StatelessWidget {
                                 Custom_Text(text:      listApp[index].time,color:Colors.grey,
                                   fontSize:15,alignment:Alignment.center,
                                 ),
+                                SizedBox(width: MediaQuery.of(context).size.width*0.5,),
+                                InkWell(
+                                  child:Image.asset("assets/images/delete.png"),
+                                  onTap:(){
+
+                                    print("delete");
+
+                                  }
+                                  ,
+                                ),
+
                               ],
                             ),
                             const SizedBox(height: 20,),

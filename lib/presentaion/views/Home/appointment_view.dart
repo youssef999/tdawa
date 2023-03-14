@@ -3,10 +3,9 @@
  import 'package:doctors_app/domain/models/ap.dart';
 import 'package:doctors_app/presentaion/resources/color_manager.dart';
 import 'package:doctors_app/presentaion/widgets/Custom_Text.dart';
-import 'package:doctors_app/presentaion/widgets/appointments/appountments.dart';
+import 'package:doctors_app/presentaion/widgets/appointments/full_appointments.dart';
 import 'package:flutter/material.dart';
 
-import '../widgets/appointments/full_appointments.dart';
 
 class AppointmentView extends StatelessWidget {
   List<Appointment> listApp;
@@ -24,7 +23,7 @@ class AppointmentView extends StatelessWidget {
       body:ListView(
         children: [
           const SizedBox(height: 40,),
-          const Custom_Text(text: 'حجز العملاء الخاص بك ',
+          const Custom_Text(text: 'الحجوزات  ',
           alignment:Alignment.center,
             color:Colors.black,
             fontSize:25,

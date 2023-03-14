@@ -1,12 +1,13 @@
 
-import 'package:doctors_app/presentaion/Home/bloc/tdawa_states.dart';
+import 'package:doctors_app/presentaion/bloc/tdawa/tdawa_cubit.dart';
+import 'package:doctors_app/presentaion/bloc/tdawa/tdawa_states.dart';
 import 'package:doctors_app/presentaion/resources/color_manager.dart';
 import 'package:doctors_app/presentaion/widgets/BAKA/baka_widget.dart';
 import 'package:doctors_app/presentaion/widgets/Custom_Text.dart';
 import 'package:doctors_app/presentaion/widgets/Custom_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'bloc/tdawa_cubit.dart';
+
 
 class TdawaPlusView extends StatelessWidget {
   const TdawaPlusView({Key? key}) : super(key: key);

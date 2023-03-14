@@ -1,17 +1,14 @@
-import 'package:doctors_app/domain/models/ap.dart';
-import 'package:doctors_app/presentaion/Home/bloc/tdawa_cubit.dart';
-import 'package:doctors_app/presentaion/Home/bloc/tdawa_states.dart';
-import 'package:doctors_app/presentaion/Home/tdawa_plus_view.dart';
+
+import 'package:doctors_app/presentaion/bloc/tdawa/tdawa_cubit.dart';
+import 'package:doctors_app/presentaion/bloc/tdawa/tdawa_states.dart';
 import 'package:doctors_app/presentaion/resources/color_manager.dart';
+import 'package:doctors_app/presentaion/views/Home/tdawa_plus_view.dart';
 import 'package:doctors_app/presentaion/widgets/Custom_Text.dart';
 import 'package:doctors_app/presentaion/widgets/Custom_button.dart';
 import 'package:doctors_app/presentaion/widgets/appointments/appountments.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
-
-import '../patient/patient_home_view.dart';
-import '../widgets/appointments/full_appointments.dart';
 import 'appointment_view.dart';
 
 class HomeView extends StatelessWidget {
@@ -32,7 +29,6 @@ class HomeView extends StatelessWidget {
                     toolbarHeight: 5,
                   ),
                   body:
-
                   Directionality(
                     textDirection: TextDirection.rtl,
                     child: Padding(
@@ -150,35 +146,72 @@ class HomeView extends StatelessWidget {
                           ),
                           Row(
                             children: [
-                              SizedBox(
+                              const SizedBox(
                                 width: 20,
                               ),
-                              Custom_Text(
+                              const Custom_Text(
                                 text: 'مواعيد تم حجزها ',
                                 color: Colors.black,
-                                fontSize: 20,
+                                 fontSize: 20,
                                 alignment: Alignment.topRight,
                               ),
-                              SizedBox(
+                              const SizedBox(
                                 width: 170,
                               ),
                               InkWell(
-                                child: Custom_Text(
+                                child: const Custom_Text(
                                   text: 'عرض الكل  ',
                                   color: ColorsManager.primary,
                                   fontSize: 18,
                                   alignment: Alignment.topLeft,
                                 ),
                                 onTap:(){
-                                  Get.to(PatientHomeView());
-                                 // Get.to(AppointmentView(
-                                 //   listApp: tdawaCubit.listAppointments,
-                                 // ));
+                                //  Get.to(const PatientHomeView());
+                                 Get.to(AppointmentView(
+                                   listApp: tdawaCubit.listAppointments,
+                                 ));
                                 },
                               ),
                             ],
                           ),
-                          FullAppointmentWidget(tdawaCubit.listAppointments)
+                          FullAppointmentWidget(tdawaCubit.listAppointments),
+                          SizedBox(height:20,),
+                          Row(
+                            children: [
+                              Custom_Text(text: 'اشترك vip',fontSize:20,alignment:Alignment.topRight),
+                              SizedBox(width:MediaQuery.of(context).size.width*0.57,),
+                              Container(child:Image.asset('assets/images/gold.png'),)
+                            ],
+                          ),
+                          InkWell(
+                            child: Card(
+                              child:Center(
+                                child: Column(
+                                  children: [
+                                    SizedBox(height: 20,),
+                                    Custom_Text(text: 'باقة vip',
+                                        fontSize:20,alignment:Alignment.center),
+
+                                    Custom_Text(text: 'تحصل علي ادارة عيادتك بشكل افضل',
+                                        fontSize:20,alignment:Alignment.center),
+
+                                    Custom_Text(text:'و حقق مكاسب اكثر ',
+                                        fontSize:20,alignment:Alignment.center),
+                                    SizedBox(height: 10,),
+                                    CustomButton(text: 'اشترك الان',
+                                        onPressed:(){
+                                          Get.to(const TdawaPlusView());
+                                        }, color1:ColorsManager.primary,
+                                        color2: Colors.white),
+                                    SizedBox(height: 10,),
+                                  ],
+                                ),
+                              ),
+                            ),
+                            onTap:(){
+                              Get.to(const TdawaPlusView());
+                            },
+                          )
                         ],
                       ),
                     ),

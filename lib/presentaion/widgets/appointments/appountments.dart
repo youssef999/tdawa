@@ -16,7 +16,7 @@ class FullAppointmentWidget extends StatelessWidget {
 
     return  SingleChildScrollView(
       child: Container(
-        height: 630,
+        height: 230,
         color:Colors.grey[100],
         //width:double.infinity,
         padding:const EdgeInsets.only(top:9,left:7,right:7),

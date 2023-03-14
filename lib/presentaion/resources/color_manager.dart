@@ -4,6 +4,8 @@ class ColorsManager {
 
   static const Color white = Color(0xFFFCFCFC);
   static const Color primary = Color(0xFFF495FD9);
+  static const Color primary5 = Color(0xFFF00477B);
+  static const Color primary6 = Color(0xFFF006BBA);
   static const Color primary2 = Color(0xFFFbcbcbc);
   static const Color primary3 = Color(0xFFF2c2c2c);
   static const Color primary4 = Colors.pinkAccent;
