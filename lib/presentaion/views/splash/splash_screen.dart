@@ -1,13 +1,11 @@
 import 'dart:async';
 import 'package:doctors_app/presentaion/resources/color_manager.dart';
-import 'package:doctors_app/presentaion/views/Home/dash_board.dart';
-import 'package:doctors_app/presentaion/views/Home/home_view.dart';
-import 'package:doctors_app/presentaion/views/choose/choose_view.dart';
-import 'package:doctors_app/presentaion/views/patient/patient_home_view.dart';
-import 'package:doctors_app/presentaion/views/splash/splash_screen2.dart';
+import 'package:doctors_app/presentaion/views/Doctor/Home/home_view.dart';
+import 'package:doctors_app/presentaion/views/HomeApp/choose/choose_view.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import '../User/Home/dash_board.dart';
 
 
 

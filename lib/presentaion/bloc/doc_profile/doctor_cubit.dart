@@ -24,13 +24,15 @@ class DoctorCubit extends Cubit<DoctorStates> {
   Future<DoctorModel> getDocotorData() async{
 
     final box=GetStorage();
-    String email=box.read('email')??'x';
-    print("eee==$email");
+    String docId=box.read('doc_Id')??'x';
+
     try{
       emit(getDoctorDataLoadingState());
       var res =await http.post(Uri.parse(API.getDoctorData),
           body: {
-            "doctor_email":'test@gmail.com',
+
+            "doctor_id":docId,
+
           }
       );
 

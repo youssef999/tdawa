@@ -2,32 +2,54 @@
 import 'package:doctors_app/presentaion/bloc/tdawa/tdawa_cubit.dart';
 import 'package:doctors_app/presentaion/bloc/tdawa/tdawa_states.dart';
 import 'package:doctors_app/presentaion/resources/color_manager.dart';
-import 'package:doctors_app/presentaion/views/Home/tdawa_plus_view.dart';
+import 'package:doctors_app/presentaion/views/Doctor/Payment/tdawa_plus_view.dart';
 import 'package:doctors_app/presentaion/widgets/Custom_Text.dart';
 import 'package:doctors_app/presentaion/widgets/Custom_button.dart';
 import 'package:doctors_app/presentaion/widgets/appointments/appountments.dart';
+import 'package:doctors_app/presentaion/widgets/drawer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
-import 'appointment_view.dart';
+import '../Appointments/appointment_view.dart';
 
 class HomeView extends StatelessWidget {
   const HomeView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+
+    int x=0;
+
     return BlocProvider(
-        create: (BuildContext context) => TdawaCubit()..getDocotorAppointments(),
+        create: (BuildContext context) => TdawaCubit()..getDoctorData()..getDocotorAppointments(),
         child: BlocConsumer<TdawaCubit, TdawaStates>(
-            listener: (context, state) {},
+            listener: (context, state) {
+              if(state is getDoctorDataSuccessState ){
+                x=1;
+              }
+              if(state is getDoctorDataLoadingState ){
+                x=2;
+              }
+            },
             builder: (context, state) {
               TdawaCubit tdawaCubit = TdawaCubit.get(context);
 
-              return Scaffold(
+              if(x==2){
+                return const Center(
+                  child: CircularProgressIndicator()
+                );
+              }
+              else if(x==1){
+                return Scaffold(
                   appBar: AppBar(
                     backgroundColor: ColorsManager.primary,
-                    toolbarHeight: 5,
+                    toolbarHeight: 110,
+                    title:Container(
+                        height: 100,
+                        child: Image.asset('assets/images/logo.png')),
+                    centerTitle: true,
                   ),
+                  drawer: const MainDrawer(),
                   body:
                   Directionality(
                     textDirection: TextDirection.rtl,
@@ -45,37 +67,41 @@ class HomeView extends StatelessWidget {
                               const SizedBox(
                                 width: 10,
                               ),
-                              CircleAvatar(
-                                backgroundColor: Colors.white,
-                                child: Image.asset(
-                                  'assets/images/doc.png',
-                                  fit: BoxFit.fill,
+                              Container(
+                                height: 120,
+                                color: ColorsManager.primary,
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Image.network(
+                                    tdawaCubit.doctorModel.doctor_image.toString(),
+                                    //fit: BoxFit.fill,
+                                  ),
                                 ),
                               ),
-                              const SizedBox(
-                                width: 30,
+                              SizedBox(
+                                width: MediaQuery.of(context).size.width*0.10,
                               ),
                               Column(
-                                children: const [
+                                children:  [
                                   Custom_Text(
-                                    text: 'name',
+                                    text:  tdawaCubit.doctorModel.doctor_name.toString(),
                                     alignment: Alignment.center,
                                     fontSize: 18,
                                     color: Colors.black,
                                   ),
-                                  SizedBox(
+                                  const SizedBox(
                                     height: 12,
                                   ),
-                                  Custom_Text(
-                                    text: 'Avaliable',
+                                  const Custom_Text(
+                                    text: 'نشط',
                                     alignment: Alignment.center,
                                     fontSize: 12,
                                     color: Colors.green,
                                   )
                                 ],
                               ),
-                              const SizedBox(
-                                width: 190,
+                              SizedBox(
+                                width: MediaQuery.of(context).size.width*0.24,
                               ),
                               SizedBox(
                                 height: 50,
@@ -104,27 +130,30 @@ class HomeView extends StatelessWidget {
                                       const SizedBox(
                                         height: 12,
                                       ),
-                                      const Custom_Text(
-                                        text: 'خصم 25 %',
-                                        fontSize: 19,
-                                        color: Colors.white,
-                                        alignment: Alignment.center,
-                                      ),
+
                                       const SizedBox(
                                         height: 5,
                                       ),
-                                      CustomButton(
-                                        text: 'اعلان جديد ',
-                                        color1: Colors.white,
-                                        color2: Colors.purple,
-                                        onPressed: () {
-                                          Get.to(const TdawaPlusView());
-                                        },
+
+                                      Padding(
+                                        padding: const EdgeInsets.only(right:18.0),
+                                        child: CustomButton(
+                                          text: ' الحجوزات الخاصة بك  ',
+                                          color1: Colors.white,
+                                          color2: Colors.purple,
+                                          onPressed: () {
+                                            Get.to(
+                                                AppointmentView(listApp: tdawaCubit.listAppointments,
+                                                  cubit: tdawaCubit,
+                                                ));
+
+                                          },
+                                        ),
                                       )
                                     ],
                                   ),
                                   const SizedBox(
-                                    width: 100,
+                                    width: 90,
                                   ),
                                   Container(
                                     padding: const EdgeInsets.all(10),
@@ -144,6 +173,7 @@ class HomeView extends StatelessWidget {
                           const SizedBox(
                             height: 12,
                           ),
+                          (tdawaCubit.listAppointments.isNotEmpty)?
                           Row(
                             children: [
                               const SizedBox(
@@ -152,7 +182,7 @@ class HomeView extends StatelessWidget {
                               const Custom_Text(
                                 text: 'مواعيد تم حجزها ',
                                 color: Colors.black,
-                                 fontSize: 20,
+                                fontSize: 20,
                                 alignment: Alignment.topRight,
                               ),
                               const SizedBox(
@@ -166,19 +196,23 @@ class HomeView extends StatelessWidget {
                                   alignment: Alignment.topLeft,
                                 ),
                                 onTap:(){
-                                //  Get.to(const PatientHomeView());
-                                 Get.to(AppointmentView(
-                                   listApp: tdawaCubit.listAppointments,
-                                 ));
+
+                                  //  Get.to(const PatientHomeView());
+                                  Get.to(AppointmentView(
+                                    listApp: tdawaCubit.listAppointments,
+                                    cubit: tdawaCubit,
+                                  ));
                                 },
                               ),
                             ],
-                          ),
+                          ):const SizedBox(height:1,),
                           FullAppointmentWidget(tdawaCubit.listAppointments),
-                          SizedBox(height:20,),
+
+
+                          const SizedBox(height:20,),
                           Row(
                             children: [
-                              Custom_Text(text: 'اشترك vip',fontSize:20,alignment:Alignment.topRight),
+                              const Custom_Text(text: 'اشترك vip',fontSize:20,alignment:Alignment.topRight),
                               SizedBox(width:MediaQuery.of(context).size.width*0.57,),
                               Container(child:Image.asset('assets/images/gold.png'),)
                             ],
@@ -188,22 +222,22 @@ class HomeView extends StatelessWidget {
                               child:Center(
                                 child: Column(
                                   children: [
-                                    SizedBox(height: 20,),
-                                    Custom_Text(text: 'باقة vip',
+                                    const SizedBox(height: 20,),
+                                    const Custom_Text(text: 'باقة vip',
                                         fontSize:20,alignment:Alignment.center),
 
-                                    Custom_Text(text: 'تحصل علي ادارة عيادتك بشكل افضل',
+                                    const Custom_Text(text: 'تحصل علي ادارة عيادتك بشكل افضل',
                                         fontSize:20,alignment:Alignment.center),
 
-                                    Custom_Text(text:'و حقق مكاسب اكثر ',
+                                    const Custom_Text(text:'و حقق مكاسب اكثر ',
                                         fontSize:20,alignment:Alignment.center),
-                                    SizedBox(height: 10,),
+                                    const SizedBox(height: 10,),
                                     CustomButton(text: 'اشترك الان',
                                         onPressed:(){
                                           Get.to(const TdawaPlusView());
                                         }, color1:ColorsManager.primary,
                                         color2: Colors.white),
-                                    SizedBox(height: 10,),
+                                    const SizedBox(height: 10,),
                                   ],
                                 ),
                               ),
@@ -216,7 +250,12 @@ class HomeView extends StatelessWidget {
                       ),
                     ),
                   ),
-                  );
+                );
+              }
+              return const Center(
+                  child: CircularProgressIndicator()
+              );
+
             }));
   }
 }

@@ -14,6 +14,7 @@ class Baka {
     required this.name,
     required this.details,
     required this.description,
+    required this.days,
     required this.price,
     required this.adv,
   });
@@ -22,11 +23,13 @@ class Baka {
   String name;
   String details;
   String description;
+ int days;
   String adv;
   double price;
 
   factory Baka.fromJson(Map<String, dynamic> json) => Baka(
     id: int.parse(json["id"]),
+    days: int.parse(json["days"]),
     name: json["name"],
     details: json["details"],
     description: json["description"],

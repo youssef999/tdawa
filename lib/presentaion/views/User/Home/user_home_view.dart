@@ -3,19 +3,18 @@ import 'package:doctors_app/domain/models/cat.dart';
 import 'package:doctors_app/presentaion/bloc/patient/patient_cubit.dart';
 import 'package:doctors_app/presentaion/bloc/patient/patient_states.dart';
 import 'package:doctors_app/presentaion/resources/color_manager.dart';
-import 'package:doctors_app/presentaion/views/search/searching_view.dart';
+import 'package:doctors_app/presentaion/views/User/search/searching_view.dart';
 import 'package:doctors_app/presentaion/widgets/Custom_Text.dart';
 import 'package:doctors_app/presentaion/widgets/ads_widget/ads_slider2.dart';
 import 'package:doctors_app/presentaion/widgets/ads_widget/ads_widget.dart';
 import 'package:doctors_app/presentaion/widgets/drawer.dart';
-import 'package:doctors_app/presentaion/widgets/search_bar_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
-import 'all_doctors_list_view.dart';
+import '../doctors/all_doctors_list_view.dart';
 
-class PatientHomeView extends StatelessWidget {
-  const PatientHomeView({Key? key}) : super(key: key);
+class UserHomeView extends StatelessWidget {
+  const UserHomeView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -40,9 +39,9 @@ class PatientHomeView extends StatelessWidget {
             padding: const EdgeInsets.all(8.0),
             child: Row(
               children: [
-                SizedBox(width:MediaQuery.of(context).size.width*0.25,),
 
-                Container(
+                SizedBox(width:MediaQuery.of(context).size.width*0.25,),
+                SizedBox(
                     height: 70,
                     child: Image.asset('assets/images/logo.png')),
              //   const Text('Tdawa',style:TextStyle(fontSize: 21),),
@@ -171,6 +170,7 @@ Widget CatWidget(List<Cat> catList){
                 ),
               ),
               onTap: () {
+
                 print(AllDoctorsView(catList[index].cat2));
                 Get.to(AllDoctorsView(catList[index].cat2));
               },

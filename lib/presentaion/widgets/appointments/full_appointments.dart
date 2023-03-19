@@ -1,4 +1,5 @@
 import 'package:doctors_app/domain/models/ap.dart';
+import 'package:doctors_app/presentaion/bloc/tdawa/tdawa_cubit.dart';
 import 'package:doctors_app/presentaion/resources/color_manager.dart';
 import 'package:doctors_app/presentaion/widgets/Custom_Text.dart';
 import 'package:flutter/material.dart';
@@ -7,8 +8,9 @@ import 'package:flutter/material.dart';
 class AppointmentWidget extends StatelessWidget {
 
   List<Appointment> listApp;
+  TdawaCubit cubit;
 
-  AppointmentWidget(this.listApp, {Key? key}) : super(key: key);
+  AppointmentWidget(this.listApp,this.cubit, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +46,7 @@ class AppointmentWidget extends StatelessWidget {
                                     height: 60,
                                     child: Image.asset('assets/images/person.png')),
 
-                                const SizedBox(width:30,),
+                                const SizedBox(width:100,),
                                 Custom_Text(text: listApp[index].date.toString().replaceAll('00:00:00.000','')
                                   ,color:ColorsManager.primary,
                                   fontSize:16,alignment:Alignment.center,
@@ -58,20 +60,20 @@ class AppointmentWidget extends StatelessWidget {
                                 Custom_Text(text:      listApp[index].userName,color:Colors.black,
                                   fontSize:20,alignment:Alignment.center,
                                 ),
-                                const SizedBox(width:30,),
+                                const SizedBox(width:100,),
                                 Custom_Text(text:      listApp[index].time,color:Colors.grey,
                                   fontSize:15,alignment:Alignment.center,
                                 ),
-                                SizedBox(width: MediaQuery.of(context).size.width*0.5,),
-                                InkWell(
-                                  child:Image.asset("assets/images/delete.png"),
-                                  onTap:(){
-
-                                    print("delete");
-
-                                  }
-                                  ,
-                                ),
+                                // SizedBox(width: MediaQuery.of(context).size.width*0.5,),
+                                // InkWell(
+                                //   child:Image.asset("assets/images/delete.png"),
+                                //   onTap:(){
+                                //
+                                //     print("delete");
+                                //
+                                //   }
+                                //   ,
+                                // ),
 
                               ],
                             ),

@@ -2,11 +2,12 @@
 
 
 import 'package:doctors_app/presentaion/resources/color_manager.dart';
-import 'package:doctors_app/presentaion/views/choose/choose_view.dart';
 import 'package:doctors_app/presentaion/widgets/Custom_Text.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+
+import '../views/HomeApp/choose/choose_view.dart';
 
 
 class MainDrawer extends StatefulWidget {
@@ -66,6 +67,7 @@ class _MainDrawerState extends State<MainDrawer> {
                         onTap:(){
                           final box=GetStorage();
                           box.remove('userId');
+                          box.remove('doc_Id');
                           Get.off(const ChooseView());
                         },
                       )

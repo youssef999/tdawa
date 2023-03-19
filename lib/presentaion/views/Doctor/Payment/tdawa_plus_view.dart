@@ -25,6 +25,7 @@ class TdawaPlusView extends StatelessWidget {
       TdawaCubit tdawaCubit = TdawaCubit.get(context);
 
    return Scaffold(
+     backgroundColor:Colors.grey[100],
         appBar:AppBar(
           backgroundColor:ColorsManager.primary,
            toolbarHeight: 5,

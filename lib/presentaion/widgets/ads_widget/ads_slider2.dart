@@ -3,11 +3,12 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:doctors_app/domain/models/ads.dart';
 import 'package:doctors_app/presentaion/resources/color_manager.dart';
-import 'package:doctors_app/presentaion/views/Home/ads_details_view.dart';
 import 'package:doctors_app/presentaion/widgets/Custom_Text.dart';
 import 'package:doctors_app/presentaion/widgets/Custom_button.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
+import '../../views/User/Ads/ads_details_view.dart';
 
 
 class AdsSlider2 extends StatelessWidget {
@@ -19,12 +20,17 @@ class AdsSlider2 extends StatelessWidget {
     return  CarouselSlider(
       options: CarouselOptions(height: 200.0,autoPlay:true),
       items: adsList.map((i) {
+
+      //
+      DateTime now = DateTime.now();
+      DateTime endDate = DateTime.parse(i.date_end.toString());
+      if (endDate.isAfter(now)) {
         return Builder(
           builder: (BuildContext context) {
             return InkWell(
               child: Container(
-             //   height: 120,
-                 width: MediaQuery.of(context).size.width*0.8,
+                //   height: 120,
+                  width: MediaQuery.of(context).size.width*0.8,
                   margin: const EdgeInsets.symmetric(horizontal: 9.0),
                   decoration: BoxDecoration(
                       boxShadow: const [
@@ -42,7 +48,7 @@ class AdsSlider2 extends StatelessWidget {
                         colors: [
                           ColorsManager.primary4,
                           ColorsManager.primary4,
-                          ColorsManager.white,
+                          //ColorsManager.white,
                           ColorsManager.primary4,
                           // ColorsManager.primary5,
                           // ColorsManager.primary6,
@@ -61,7 +67,7 @@ class AdsSlider2 extends StatelessWidget {
                       const SizedBox(height:8,),
                       Custom_Text(
                         text:i.name.toString(),
-                        color:ColorsManager.black,
+                        color:ColorsManager.white,
                         alignment:Alignment.center,
                         fontSize: 20,
                       ),
@@ -87,6 +93,16 @@ class AdsSlider2 extends StatelessWidget {
             );
           },
         );
+      }else{
+        return Container(
+          width: 290,
+          decoration: BoxDecoration(
+              borderRadius:BorderRadius.circular(17),
+              color:ColorsManager.primary4
+          ),
+          child:Image.asset('assets/images/logo.png'),
+        );
+      }
       }).toList(),
     );
   }

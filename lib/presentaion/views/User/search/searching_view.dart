@@ -4,12 +4,11 @@ import 'dart:convert';
 import 'package:doctors_app/Data/api_connection/api_connection.dart';
 import 'package:doctors_app/domain/models/user.dart';
 import 'package:doctors_app/presentaion/resources/color_manager.dart';
-import 'package:doctors_app/presentaion/views/patient/doctor-details_view.dart';
 import 'package:doctors_app/presentaion/widgets/Custom_Text.dart';
 import 'package:get/get.dart';
-import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
+import '../doctors/doctor-details_view.dart';
 
 
 

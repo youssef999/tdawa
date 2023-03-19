@@ -2,7 +2,7 @@
 
 class  DoctorModel {
 
-  int ?doctor_id;
+  String ?doctor_id;
   String? doctor_email;
   String ?doctor_name;
   String ?doctor_password;
@@ -42,7 +42,8 @@ class  DoctorModel {
 
   factory DoctorModel.fromJson(Map<String,dynamic>json)=>DoctorModel(
 
-      doctor_id:int.parse(json['doctor_id'].toString()),
+      doctor_id:json['doctor_id'],
+      //int.parse(json['doctor_id'].toString()),
      doctor_email: json['doctor_email'],
      doctor_name: json['doctor_name'],
       days:json["days"],

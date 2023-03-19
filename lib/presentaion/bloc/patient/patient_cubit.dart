@@ -25,17 +25,10 @@ class PatientCubit extends Cubit<PatientStates> {
   List<DoctorModel> searchList = [];
   List<Cat> catList = [];
   TextEditingController searchController=TextEditingController();
-  bool fav=false;
-  bool _fav=false;
-  List<Favorite> favList = [];
+
   User user=User();
 
-  setFavItem(bool fav){
-    print("SET");
-    print("FAV===$fav");
-    _fav=fav;
-    emit(setFavSuccessState());
-  }
+
 
 
 
@@ -49,8 +42,11 @@ class PatientCubit extends Cubit<PatientStates> {
 
       if(res.statusCode==200){
 
-        print(res.bodyBytes);
+        print(res.body);
         var responseBody =jsonDecode(res.body);
+
+        print(responseBody);
+
 
         if(responseBody["success"]==true) {
           print(responseBody['Data']);
@@ -79,14 +75,15 @@ class PatientCubit extends Cubit<PatientStates> {
 
   Future<List<DoctorModel>> getAllDoctors(String cat2) async{
 
+    print("Doctors");
     try{
-      emit(getAdsLoadingState());
+      emit(getDoctorsLoadingState());
       var res =await http.post(Uri.parse(API.allDoctorsData),body: {
         'cat2':cat2
       },
       );
       if(res.statusCode==200){
-        print(res.bodyBytes);
+        print(res.body);
         var responseBody =jsonDecode(res.body);
         if(responseBody["success"]==true) {
           print(responseBody['Data']);
@@ -102,12 +99,13 @@ class PatientCubit extends Cubit<PatientStates> {
       }
       else{
         print(res.statusCode);
-        emit(getAdsErrorState(error: 'error'));
+        emit(getDoctorsErrorState());
       }
     }
     catch(e){
+      print("Error===");
       print(e.toString());
-      emit(getAdsErrorState(error: e.toString()));
+      emit(getDoctorsErrorState());
     }
 
     return doctorList;
@@ -294,155 +292,7 @@ class PatientCubit extends Cubit<PatientStates> {
 
 
 
-  addToFavList(DoctorModel docInfo)async{
 
-    final box=GetStorage();
-    String userId=box.read('userId').toString();
-
-// print( docInfo.doctor_id.toString());
-    try{
-      var res = await http.post(Uri.parse(API.addFav), body: {
-        'user_id':userId.toString(),
-        'doctor_id': docInfo.doctor_id.toString(),
-      });
-
-      print("res${res.body}");
-
-      if (res.statusCode == 200) {
-        print("......HERE...ADD.....FAV........");
-
-        var resOfFavValidate = jsonDecode((res.body));
-
-        if (resOfFavValidate['success'] == true) {
-
-          print("success");
-
-
-          //validateFavList(docInfo);
-
-
-        } else {
-          print("errrorr");
-
-        }
-      }
-    }catch(e){
-
-      print("ERROR22::$e");
-
-    }
-  }
-
-  deleteFromFavList(DoctorModel docInfo)async{
-    final box=GetStorage();
-    String userId=box.read('userId').toString();
-
-    try{
-      var res = await http.post(Uri.parse(API.deleteFav), body: {
-        'user_id':'1',
-        'doctor_id': docInfo.doctor_id.toString(),
-      });
-
-      print("res${res.body}");
-
-      if (res.statusCode == 200) {
-        print("......HERE....FAV..DELETE......");
-
-        var resOfFavValidate = jsonDecode((res.body));
-
-        if (resOfFavValidate['success'] == true) {
-
-          print("fav_DELETE_SUCCESS");
-
-          //    validateFavList(docInfo);
-
-
-        } else {
-          print("eee");
-        }
-      }
-    }catch(e){
-
-      print("ERROR22::$e");
-
-    }
-  }
-
-  validateFavList(DoctorModel docInfo) async{
-    final box=GetStorage();
-    String userId=box.read('userId').toString();
-
-    try{
-      var res = await http.post(Uri.parse(API.validateFav), body: {
-        'user_id':'1',
-        'doctor_id':docInfo.doctor_id.toString(),
-      });
-
-      print("res${res.body}");
-
-      if (res.statusCode == 200) {
-
-        print("......HERE....FAV..VALIDATE......");
-
-        var resOfFavValidate = jsonDecode((res.body));
-
-        if (resOfFavValidate['favFound'] == true) {
-          print("favFound");
-          setFavItem(true);
-
-        } else {
-
-          print("Item not in Fav");
-          setFavItem(false);
-        }
-
-      }
-    }catch(e){
-
-      print("ERROR22::$e");
-
-    }
-
-  }
-
-  Future <List<Favorite>> getUserFav()async {
-
-    print("get USER FAV");
-    // final box = GetStorage();
-    // String userId = box.read('userId').toString();
-    try{
-      var res = await http.post(Uri.parse(API.getFav),
-          body: {
-            'user_id': '1'
-          }
-      );
-
-      if (res.statusCode == 200) {
-
-        print("API222");
-        print("res======${res.body}");
-        var responseBody = jsonDecode(res.body);
-        if (responseBody["success"] == true) {
-          (responseBody['favData'] as List).forEach((eachRecord) {
-
-            favList.add(Favorite.fromJson(eachRecord));
-
-            print("DOC=="+favList[0].fav_id.toString());
-          });
-          print("Fav Data =====$favList");
-        }
-      }
-      else {
-        print("eeee");
-      }
-
-    }
-    catch(e){
-      print("CART ERROR == $e");
-
-    }
-    return  favList;
-  }
 
 
 

@@ -15,6 +15,7 @@ class Ads {
     required this.details,
     required this.image,
     required this.day,
+    required this.date_end,
 
     required this.doctor_name,
     required this.doctor_email,
@@ -34,6 +35,7 @@ class Ads {
   String name;
   String day;
   String details;
+  DateTime date_end;
   String image;
   String doctor_name;
   String doctor_email;
@@ -61,32 +63,33 @@ class Ads {
   factory Ads.fromJson(Map<String, dynamic> json) => Ads(
     id: int.parse(json["id"]),
     name: json["name"]??"",
+    date_end: DateTime.parse(json["date_end"]),
     details: json["details"]??"",
     image: json["image"]??"",
    doctor_id:int.parse(json['doctor_id'].toString()),
-  doctor_email: json['doctor_email'],
-  doctor_name: json['doctor_name'],
-  doctor_password:json['doctor_password'],
-  doctor_cat: json["doctor_cat"],
-  cat2:json["cat2"],
+  doctor_email: json['doctor_email']??'',
+  doctor_name: json['doctor_name']??'',
+  doctor_password:json['doctor_password']??"",
+  doctor_cat: json["doctor_cat"]??"",
+  cat2:json["cat2"]??"",
   day:json["days"]??"",
-  doctor_degree: json["doctor_degree"],
-  doctor_info: json["doctor_info"],
-  doctor_phone: json["doctor_phone"],
-  doctor_image:json['doctor_image'],
-  position:json['position'],
-  price:json['price'],
-  address: json["address1"],
-  address2: json["address2"],
-  address3: json["address3"],
+  doctor_degree: json["doctor_degree"]??"",
+  doctor_info: json["doctor_info"]??"",
+  doctor_phone: json["doctor_phone"]??"",
+  doctor_image:json['doctor_image']??"",
+  position:json['position']??"",
+  price:json['price']??"",
+  address: json["address1"]??"",
+  address2: json["address2"]??"",
+  address3: json["address3"]??"",
 
-  time: json["time1"],
-  time2: json["time2"],
-  time3: json["time3"],
+  time: json["time1"]??"",
+  time2: json["time2"]??"",
+  time3: json["time3"]??"",
 
-  location: json['location1'],
-  location2: json['location2'],
-  location3: json['location3'],
+  location: json['location1']??"",
+  location2: json['location2']??"",
+  location3: json['location3']??"",
 
 
 

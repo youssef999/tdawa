@@ -28,10 +28,12 @@ class AuthCubit extends Cubit<AuthStates> {
   TextEditingController degreeController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   TextEditingController passwordCheck = TextEditingController();
+  TextEditingController priceController = TextEditingController();
 
   TextEditingController  addressController = TextEditingController();
   TextEditingController  timeController = TextEditingController();
   TextEditingController  locationController = TextEditingController();
+  TextEditingController  days = TextEditingController();
 
 
   TextEditingController  addressController2 = TextEditingController();
@@ -101,55 +103,95 @@ class AuthCubit extends Cubit<AuthStates> {
 
 
   registerAndSaveUserRecord() async {
-    try {
-      emit(RegisterLoadingState());
-      var res =
-      await http.post(Uri.parse(API.signup), body:
-      {
-        "doctor_email":emailController.text.trim(),
-        "doctor_password":passwordController.text.trim(),
-        "doctor_name":nameController.text.trim(),
-        "doctor_cat":catController.text.trim(),
-        "doctor_info":infoController.text.trim(),
-        "doctor_masters":masterController.text.trim(),
-        "doctor_degree":degreeController.text.trim(),
-        "doctor_phone":phoneController.text.trim(),
-        "doctor_image":imageLink,
-        "address1":addressController.text,
-        "address2":addressController2.text,
-        "address3":addressController3.text,
-        "time1":timeController.text,
-        "time2":timeController2.text,
-        "time3":timeController3.text,
-        "location1":locationController.text,
-        "location2":locationController2.text,
-        "location3":locationController3.text,
-      }
-      );
 
-      if (res.statusCode == 200) {
-        emit(RegisterSuccessState());
-        var resOfSignUp = jsonDecode(res.body);
-
-        print(resOfSignUp);
-        if (resOfSignUp['Success'] == true) {
-
-          print("SUCCESS");
-
-
-        } else {
-          print(res.body);
-          print("error${res.statusCode}");
-          emit(RegisterErrorState('not 200'));
-
-        }
-      }
-    } catch (e) {
-      print("ERROR==$e");
-      emit(RegisterErrorState(e.toString()));
-
+    if(emailController.text.contains('@')==false){
+      Get.snackbar('البريد الاكتروني خاطئ','');
     }
-  }
+   else if(passwordController.text.length<6){
+      Get.snackbar('كلمة السر يجب ان تساوي او تزيد عن  6 احرف ','');
+    }
+    else if(catController.text.length<2){
+      Get.snackbar('ادخل التخصص بشكل سليم ','');
+    }
+    else if(nameController.text.length<2){
+      Get.snackbar('ادخل الاسم بشكل سليم ','');
+    }
+    else if(infoController.text.length<3){
+      Get.snackbar('ادخل معلومات الطبيب  بشكل سليم ','');
+    }
+    else if(masterController.text.length<3){
+      Get.snackbar('ادخل درجة العلمية  بشكل سليم ','');
+    }
+    else if(priceController.text.length<1){
+      Get.snackbar('ادخل السعر  بشكل سليم ','');
+    }
+    else if(phoneController.text.length<7){
+      Get.snackbar('ادخل رقم هاتفك  بشكل سليم ','');
+    }
+    else if(addressController.text.length<2){
+      Get.snackbar('ادخل العنوان  بشكل سليم ','');
+    }
+    else if(timeController.text.length<1){
+      Get.snackbar('ادخل التوقيت  بشكل سليم ','');
+    }
+    else if(locationController.text.length<6){
+      Get.snackbar('ادخل العنوان بشكل سليم ','');
+    }
+    else{
+      try {
+        emit(RegisterLoadingState());
+        var res =
+        await http.post(Uri.parse(API.signup), body:
+        {
+          "doctor_email":emailController.text.trim(),
+          "doctor_password":passwordController.text.trim(),
+          "doctor_name":nameController.text.trim(),
+          "doctor_cat":catController.text.trim(),
+          "doctor_info":infoController.text.trim(),
+          "doctor_masters":masterController.text.trim(),
+          "doctor_degree":degreeController.text.trim(),
+          "price":priceController.text.trim(),
+          "doctor_phone":phoneController.text.trim(),
+          "doctor_image":imageLink,
+          "address1":addressController.text,
+          "address2":addressController2.text,
+          "address3":addressController3.text,
+          "time1":timeController.text,
+          "time2":timeController2.text,
+          "time3":timeController3.text,
+          "location1":locationController.text,
+          "location2":locationController2.text,
+          "location3":locationController3.text,
+        }
+        );
+
+        if (res.statusCode == 200) {
+          emit(RegisterSuccessState());
+          var resOfSignUp = jsonDecode(res.body);
+
+          print(resOfSignUp);
+          if (resOfSignUp['Success'] == true) {
+
+            print("SUCCESS");
+
+
+          } else {
+            print(res.body);
+            print("error${res.statusCode}");
+            emit(RegisterErrorState('not 200'));
+
+          }
+        }
+      } catch (e) {
+        print("ERROR==$e");
+        emit(RegisterErrorState(e.toString()));
+
+      }
+    }
+    }
+
+
+
 
   login() async {
 
@@ -167,9 +209,6 @@ class AuthCubit extends Cubit<AuthStates> {
       if (res.statusCode == 200) {
         print("200");
 
-
-        emit(LoginSuccessState());
-
         var resOfLogin = jsonDecode((res.body));
 
         if (resOfLogin['success'] == true) {
@@ -182,9 +221,8 @@ class AuthCubit extends Cubit<AuthStates> {
           box.write('doc_Id',doc_Info.doctor_id);
 
           print("SUCCESSS");
-          Get.snackbar(
-              '', 'Login DONE ', backgroundColor: ColorsManager.primary2,
-              colorText: Colors.white);
+          emit(LoginSuccessState());
+
 
         }
 
@@ -267,18 +305,17 @@ class AuthCubit extends Cubit<AuthStates> {
           box.write('email', user.email);
           box.write('userName',user.name);
           box.write('userId', user.id);
-
           print(user.id);
 
-
           print("SUCCESSS");
-
 
           Get.snackbar(
               '', ' تم تسجيل الدخول بنجاح  ', backgroundColor: ColorsManager.primary2,
               colorText: Colors.white);
 
           emit(UserLoginSuccessState());
+
+
         }
         else {
           emit(UserLoginErrorState('not 200'));

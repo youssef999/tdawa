@@ -42,6 +42,17 @@ class getDoctorsSuccessState extends PatientStates{
 
   getDoctorsSuccessState();
 }
+class getDoctorsLoadingState extends PatientStates{
+
+
+  getDoctorsLoadingState();
+}
+
+class getDoctorsErrorState extends PatientStates{
+
+
+  getDoctorsErrorState();
+}
 
 class getCatSuccessState extends PatientStates{
 

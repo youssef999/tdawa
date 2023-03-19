@@ -11,21 +11,21 @@ String appointmentToJson(List<Appointment> data) => json.encode(List<dynamic>.fr
 class Appointment {
   Appointment({
     required this.id,
-    required this.doctorName,
+    required this.doctorId,
     required this.userName,
     required this.date,
     required this.time,
   });
 
   int id;
-  String doctorName;
+  String doctorId;
   String userName;
   DateTime date;
   String time;
 
   factory Appointment.fromJson(Map<String, dynamic> json) => Appointment(
     id: int.parse(json["id"]),
-    doctorName: json["doctor_name"],
+    doctorId: json["doctor_id"],
     userName: json["user_name"],
     date: DateTime.parse(json["date"]),
     time: json["time"],
@@ -33,7 +33,7 @@ class Appointment {
 
   Map<String, dynamic> toJson() => {
     "id": id,
-    "doctor_name": doctorName,
+    "doctor_id": doctorId,
     "user_name": userName,
     "date": "${date.year.toString().padLeft(4, '0')}-${date.month.toString().padLeft(2, '0')}-${date.day.toString().padLeft(2, '0')}",
     "time": time,

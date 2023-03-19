@@ -10,6 +10,8 @@ class API {
   static const userSignup = '$hostConnection/doctor/user_signup.php';
   static const appointments = '$hostConnection/doctor/ap.php';
   static const getDoctorData = '$hostConnection/doctor/doctor_data.php';
+  static const getDoctorAds = '$hostConnection/doctor/get_doctor_ads.php';
+  static const RenewAd = '$hostConnection/doctor/renew_ad.php';
   static const allCat = '$hostConnection/doctor/cat.php';
 
   static const addBooking = '$hostConnection/doctor/add_booking.php';
@@ -28,11 +30,14 @@ class API {
   static const ads = '$hostConnection/doctor/ads.php';
   static const admin_login = '$hostConnection/admin/login.php';
   static const getUserData = '$hostConnection/doctor/get_user_data.php';
+  static const adAds = '$hostConnection/doctor/add_ads.php';
+  // static const getDoctorData= '$hostConnection/doctor/doctor_data.php';
 
   static const updateData = '$hostConnection/doctor/update_data.php';
+  static const updateAd = '$hostConnection/doctor/update_ad.php';
   //
-  // static const addToFav = '$hostConnection/patient/fav/add.php';
-  // static const  readFav= '$hostConnection/patient/fav/read.php';
+  // static const addToFav = '$hostConnection/User/fav/add.php';
+  // static const  readFav= '$hostConnection/User/fav/read.php';
 
   //upload new items
   static const uploadItem = '$hostConnection/items/upload.php';
