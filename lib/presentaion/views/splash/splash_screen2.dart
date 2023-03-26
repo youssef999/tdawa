@@ -29,6 +29,7 @@ class _SplashScreen2State extends State<SplashScreen2> {
     return Scaffold(
       appBar:AppBar(
         toolbarHeight: 1,
+        elevation: 0,
         backgroundColor:ColorsManager.primary,
       ),
       body:Container(

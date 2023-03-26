@@ -3,10 +3,12 @@ import 'package:doctors_app/presentaion/resources/color_manager.dart';
 import 'package:doctors_app/presentaion/widgets/Custom_Text.dart';
 import 'package:flutter/material.dart';
 
+import '../../../domain/models/booking.dart';
+
 
 class FullAppointmentWidget extends StatelessWidget {
 
-  List<Appointment> listApp;
+  List<Booking> listApp;
 
   FullAppointmentWidget(this.listApp, {Key? key}) : super(key: key);
 
@@ -17,7 +19,7 @@ class FullAppointmentWidget extends StatelessWidget {
     if(listApp.isNotEmpty){
       return  SingleChildScrollView(
         child: Container(
-          height: 230,
+          height: 240,
           color:Colors.grey[100],
           //width:double.infinity,
           padding:const EdgeInsets.only(top:9,left:7,right:7),
@@ -41,7 +43,7 @@ class FullAppointmentWidget extends StatelessWidget {
                                 height: 60,
                                 child: Image.asset('assets/images/person.png')),
                             const SizedBox(height: 10,),
-                            Custom_Text(text:      listApp[index].userName,color:Colors.black,
+                            Custom_Text(text:      listApp[index].name.toString(),color:Colors.black,
                               fontSize:20,alignment:Alignment.center,
                             ),
                             const SizedBox(height: 10,),

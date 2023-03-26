@@ -23,6 +23,33 @@ class getAdsErrorState extends PatientStates{
 }
 
 
+
+
+
+
+
+class getBestOffersSuccessState extends PatientStates{
+}
+
+class getBestOffersLoadingState extends PatientStates{
+}
+
+class getBestOffersErrorState extends PatientStates{
+
+  String error;
+
+  getBestOffersErrorState({required this.error});
+}
+
+
+
+
+
+
+
+
+
+
 class setFavSuccessState extends PatientStates{
 }
 
@@ -53,6 +80,26 @@ class getDoctorsErrorState extends PatientStates{
 
   getDoctorsErrorState();
 }
+
+
+
+class TopDoctorsSuccessState extends PatientStates{
+
+
+  TopDoctorsSuccessState();
+}
+class TopDoctorsLoadingState extends PatientStates{
+
+
+  TopDoctorsLoadingState();
+}
+
+class TopDoctorsErrorState extends PatientStates{
+
+
+  TopDoctorsErrorState();
+}
+
 
 class getCatSuccessState extends PatientStates{
 

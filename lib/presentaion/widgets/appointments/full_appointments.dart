@@ -4,10 +4,12 @@ import 'package:doctors_app/presentaion/resources/color_manager.dart';
 import 'package:doctors_app/presentaion/widgets/Custom_Text.dart';
 import 'package:flutter/material.dart';
 
+import '../../../domain/models/booking.dart';
+
 
 class AppointmentWidget extends StatelessWidget {
 
-  List<Appointment> listApp;
+  List<Booking> listApp;
   TdawaCubit cubit;
 
   AppointmentWidget(this.listApp,this.cubit, {Key? key}) : super(key: key);
@@ -15,10 +17,9 @@ class AppointmentWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-
     return  SingleChildScrollView(
       child: Container(
-        height: 1230,
+        height: 12230,
         color:Colors.grey[100],
         //width:double.infinity,
         padding:const EdgeInsets.only(top:9,left:7,right:7),
@@ -56,25 +57,37 @@ class AppointmentWidget extends StatelessWidget {
                             const SizedBox(height: 10,),
                             Row(
                               children: [
-                                const SizedBox(width: 10,),
-                                Custom_Text(text:      listApp[index].userName,color:Colors.black,
+                                const SizedBox(width: 140,),
+                                Custom_Text(text:      listApp[index].name.toString(),color:Colors.black,
                                   fontSize:20,alignment:Alignment.center,
                                 ),
-                                const SizedBox(width:100,),
-                                Custom_Text(text:      listApp[index].time,color:Colors.grey,
-                                  fontSize:15,alignment:Alignment.center,
+                                const SizedBox(width: 70,),
+                                Column(
+                                  children: [
+                                    Custom_Text(text:      'اليوم ',color:Colors.black,
+                                      fontSize:20,alignment:Alignment.center,
+                                    ),
+                                    const SizedBox(height: 10,),
+                                    Custom_Text(text:      listApp[index].day.toString(),color:Colors.grey,
+                                      fontSize:16,alignment:Alignment.center,
+                                    ),
+                                  ],
                                 ),
-                                // SizedBox(width: MediaQuery.of(context).size.width*0.5,),
-                                // InkWell(
-                                //   child:Image.asset("assets/images/delete.png"),
-                                //   onTap:(){
-                                //
-                                //     print("delete");
-                                //
-                                //   }
-                                //   ,
-                                // ),
+                              ],
+                            ),
+                            const SizedBox(height: 10,),
 
+                            const SizedBox(height: 10,),
+                            Row(
+                              children: [
+                                const SizedBox(width: 30,),
+                                Custom_Text(text:      'رقم الهاتف',color:ColorsManager.primary,
+                                  fontSize:14,alignment:Alignment.center,
+                                ),
+                                const SizedBox(width: 30,),
+                                Custom_Text(text:      listApp[index].phone.toString(),color:ColorsManager.primary,
+                                  fontSize:14,alignment:Alignment.center,
+                                ),
                               ],
                             ),
                             const SizedBox(height: 20,),
@@ -92,5 +105,6 @@ class AppointmentWidget extends StatelessWidget {
             }),
       ),
     );
+
   }
 }

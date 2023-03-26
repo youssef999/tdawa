@@ -36,6 +36,7 @@ class DoctorProfileView extends StatelessWidget {
         return Scaffold(
           appBar:AppBar(
             toolbarHeight: 5,
+            elevation: 0,
             backgroundColor:ColorsManager.primary,
           ),
           body:

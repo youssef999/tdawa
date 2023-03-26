@@ -5,7 +5,9 @@ import 'package:doctors_app/domain/models/ads.dart';
 import 'package:doctors_app/domain/models/bouquet.dart';
 import 'package:doctors_app/presentaion/bloc/tdawa/tdawa_cubit.dart';
 import 'package:doctors_app/presentaion/bloc/tdawa/tdawa_states.dart';
+import 'package:doctors_app/presentaion/const/app_message.dart';
 import 'package:doctors_app/presentaion/resources/color_manager.dart';
+import 'package:doctors_app/presentaion/views/Doctor/Home/dashboard.dart';
 import 'package:doctors_app/presentaion/views/Doctor/Home/home_view.dart';
 import 'package:doctors_app/presentaion/widgets/Custom_Text.dart';
 import 'package:doctors_app/presentaion/widgets/Custom_button.dart';
@@ -26,8 +28,9 @@ class BakaView extends StatelessWidget {
         child: BlocConsumer<TdawaCubit,TdawaStates>(
             listener:(context,state){
               if(state is RenewDoctorAdsSuccessState){
-                Get.snackbar('تم تجديد اعلانك بنجاح ', '');
-                Get.offAll(const HomeView());
+
+                appMessage(text: 'تم تجديد اعلانك بنجاح');
+                Get.offAll( DashBoardDoctorView(type: 'doctor',));
               }
             },
             builder:(context,state){
@@ -39,6 +42,7 @@ class BakaView extends StatelessWidget {
                 appBar:AppBar(
                   backgroundColor:ColorsManager.primary,
                   toolbarHeight: 5,
+                  elevation: 0,
                 ),
                 body:Directionality(
                   textDirection: TextDirection.rtl,

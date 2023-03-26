@@ -6,11 +6,13 @@
 import 'package:doctors_app/domain/models/booking.dart';
 import 'package:doctors_app/presentaion/bloc/booking/booking_cubit.dart';
 import 'package:doctors_app/presentaion/bloc/booking/booking_states.dart';
+import 'package:doctors_app/presentaion/const/app_message.dart';
 import 'package:doctors_app/presentaion/resources/color_manager.dart';
 import 'package:doctors_app/presentaion/widgets/Custom_Text.dart';
 import 'package:doctors_app/presentaion/widgets/Custom_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get/get.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class UserBookingView extends StatelessWidget {
@@ -28,6 +30,7 @@ class UserBookingView extends StatelessWidget {
               return Scaffold(
                 appBar: AppBar(
                   toolbarHeight: 6,
+                  elevation: 0,
                   backgroundColor: ColorsManager.primary,
                 ),
                 body: Container(
@@ -67,6 +70,8 @@ class UserBookingView extends StatelessWidget {
 }
 
 
+
+
 Widget BookingWidget(List<Booking> listApp,BookingCubit cubit) {
 
    print("LIST");
@@ -104,7 +109,7 @@ Widget BookingWidget(List<Booking> listApp,BookingCubit cubit) {
                                children: [
                                  SizedBox(
                                      height: 80,
-                                     width: MediaQuery.of(context).size.width * 0.3,
+                                     width: MediaQuery.of(context).size.width * 0.29,
                                      child: Image.network(
                                          listApp[index].doctor_image.toString())),
 
@@ -113,7 +118,7 @@ Widget BookingWidget(List<Booking> listApp,BookingCubit cubit) {
                                  ),
 
                                  SizedBox(
-                                   width: MediaQuery.of(context).size.width * 0.3,
+                                   width: MediaQuery.of(context).size.width * 0.32,
                                    child: Column(
                                      children: [
                                        Custom_Text(
@@ -134,19 +139,37 @@ Widget BookingWidget(List<Booking> listApp,BookingCubit cubit) {
                                        const SizedBox(
                                          height: 10,
                                        ),
-                                       Custom_Text(
-                                         text: listApp[index].time.toString(),
-                                         color: Colors.grey,
-                                         fontSize: 16,
-                                         alignment: Alignment.center,
+                                       Row(
+                                         children: [
+                                           const SizedBox(
+                                             width: 10,
+                                           ),
+                                           Custom_Text(
+                                             text: listApp[index].date.toString(),
+                                             color: Colors.grey,
+                                             fontSize: 12,
+                                             alignment: Alignment.center,
+                                           ),
+                                           const SizedBox(
+                                             width: 6,
+                                           ),
+                                           Custom_Text(
+                                             text: listApp[index].day.toString(),
+                                             color: ColorsManager.primary,
+                                             fontSize: 14,
+                                             alignment: Alignment.center,
+                                           ),
+                                         ],
                                        ),
+
+
                                        const SizedBox(
                                          height: 10,
                                        ),
                                        Custom_Text(
-                                         text: listApp[index].day.toString(),
-                                         color: Colors.grey,
-                                         fontSize: 16,
+                                         text: listApp[index].time.toString(),
+                                         color: ColorsManager.primary,
+                                         fontSize: 15,
                                          alignment: Alignment.center,
                                        ),
 
@@ -178,18 +201,19 @@ Widget BookingWidget(List<Booking> listApp,BookingCubit cubit) {
                                  ),
 
                                  SizedBox(
-                                     width: MediaQuery.of(context).size.width * 0.1),
+                                     width: MediaQuery.of(context).size.width * 0.08),
 
                                  InkWell(
                                    child: const SizedBox(
-                                     child:Icon(Icons.messenger_sharp,color:Colors.green,size:40),
+                                     child:Icon(Icons.messenger_rounded,color:ColorsManager.primary
+                                         ,size:32),
                                    ),
                                    onTap:(){
                                      print(listApp[index].doctor_phone.toString());
-                                     url(listApp[index].doctor_phone.toString());
+                                     sendWhatsApp(listApp[index].doctor_phone.toString(),'');
+
                                    },
                                  )
-
                                ],
                              ),
                              const SizedBox(
@@ -200,7 +224,7 @@ Widget BookingWidget(List<Booking> listApp,BookingCubit cubit) {
                        ),
                      ),
                      onTap: () {
-                       // Get.to(DoctorDetailsView(listApp[index]));
+
                      },
                    ),
                  ),
@@ -234,14 +258,30 @@ Widget BookingWidget(List<Booking> listApp,BookingCubit cubit) {
    }
 
  }
- String url(String phone) {
+//  String url(String phone) {
+//
+//    if (Platform.isAndroid) {
+//      // add the [https]
+//      return "https://wa.me/$phone/?text=${Uri.parse('')}"; // new line
+//    } else {
+//      // add the [https]
+//      return "https://api.whatsapp.com/send?phone=$phone=${Uri.parse('')}"; // new line
+//    }
+// }
 
-   if (Platform.isAndroid) {
-     // add the [https]
-     return "https://wa.me/$phone/?text=${Uri.parse('')}"; // new line
-   } else {
-     // add the [https]
-     return "https://api.whatsapp.com/send?phone=$phone=${Uri.parse('')}"; // new line
+ sendWhatsApp(String phone,String msg)async{
+
+   String url(){
+     if(Platform.isAndroid){
+       return 'whatsapp://send?phone=$phone&text=$msg';
+       //  return 'whatsapp://wa.me/$phone/?text=${Uri.parse(msg)}';
+     }
+     else{
+       return 'whatsapp://send?phone=$phone&text=$msg';
+       //  return 'whatsapp://send?$phone=phone&text=$msg';
+       //   return 'whatsapp://wa.me/$phone&text=$msg';
+     }
    }
-
-}
+   await canLaunch(url())?launch(url()) :launch(url());
+   //ScaffoldMessenger.of(context).showSnackBar(SnackBar(content:Text('there is no whats app in your device')));
+ }

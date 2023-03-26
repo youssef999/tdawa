@@ -13,14 +13,15 @@ import 'home_view.dart';
 
 
 class DashBoardDoctorView extends StatelessWidget {
-  const DashBoardDoctorView({Key? key}) : super(key: key);
+  String type;
+  DashBoardDoctorView({Key? key,required this.type}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
 
 
     List<Widget> fragmentScreens = [
-      const HomeView(),
+      HomeView(type: type,),
       const DoctorAdsView(),
       const DoctorProfileView()
     ];

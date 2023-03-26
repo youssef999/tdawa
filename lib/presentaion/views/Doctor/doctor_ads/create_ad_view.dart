@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:doctors_app/presentaion/bloc/tdawa/tdawa_cubit.dart';
 import 'package:doctors_app/presentaion/bloc/tdawa/tdawa_states.dart';
+import 'package:doctors_app/presentaion/const/app_message.dart';
 import 'package:doctors_app/presentaion/widgets/Custom_Text.dart';
 import 'package:doctors_app/presentaion/widgets/Custom_button.dart';
 import 'package:doctors_app/presentaion/widgets/custom_textformfield.dart';
@@ -8,6 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 import '../../../resources/color_manager.dart';
+import '../Home/dashboard.dart';
 import '../Home/home_view.dart';
 
 class CreateAdView extends StatelessWidget {
@@ -19,23 +21,19 @@ class CreateAdView extends StatelessWidget {
    @override
    Widget build(BuildContext context) {
      return BlocProvider(
-         create: (BuildContext context) => TdawaCubit()..getDoctorData()..getDocotorAppointments(),
+         create: (BuildContext context) => TdawaCubit(),
          child: BlocConsumer<TdawaCubit, TdawaStates>(
          listener: (context, state) {
 
            if(state is addNewAdSuccessState){
-             Get.snackbar('', 'تم اضافة اعلانك بنجاح ',
-              backgroundColor:ColorsManager.primary,colorText:Colors.white,
-               icon:const Icon(Icons.ad_units_rounded)
-             );
-             Get.offAll(const HomeView());
+             appMessage(text:'تم اضافة اعلانك بنجاح' );
+
+             Get.offAll( DashBoardDoctorView(type: 'doctor',));
            }
 
            if(state is addNewAdErrorState){
-             Get.snackbar('', 'خطا في اضافة اعلانك ',
-                 backgroundColor:ColorsManager.primary,colorText:Colors.white,
-                 icon:const Icon(Icons.ad_units_rounded)
-             );
+             appMessage(text:'خطا في اضافة اعلانك ' );
+
 
            }
          },
@@ -47,6 +45,7 @@ class CreateAdView extends StatelessWidget {
        appBar: AppBar(
          backgroundColor:ColorsManager.primary,
          toolbarHeight: 4,
+         elevation: 0,
        ),
        body:Padding(
          padding: const EdgeInsets.all(25.0),

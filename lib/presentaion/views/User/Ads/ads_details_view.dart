@@ -1,16 +1,14 @@
 
-
-
-
- import 'package:doctors_app/domain/models/ads.dart';
+import 'dart:io';
+import 'package:doctors_app/domain/models/ads.dart';
 import 'package:doctors_app/presentaion/resources/color_manager.dart';
 import 'package:doctors_app/presentaion/widgets/Custom_Text.dart';
 import 'package:doctors_app/presentaion/widgets/Custom_button.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
+import 'package:url_launcher/url_launcher.dart';
 import '../booking/book_view.dart';
-import '../booking/user_boking_view.dart';
+
 
 class AdDetailsView extends StatelessWidget {
 
@@ -23,6 +21,7 @@ class AdDetailsView extends StatelessWidget {
      return Scaffold(
        appBar:AppBar(
          toolbarHeight: 1,
+         elevation: 0,
          backgroundColor:ColorsManager.primary,
        ),
        body:Container(
@@ -163,26 +162,11 @@ class AdDetailsView extends StatelessWidget {
                        ],
                      ),
                      onTap:(){
+
                        url(ad.location.toString());
                      },
                    ),
-                   // Row(
-                   //   children: [
-                   //
-                   //     const Icon(Icons.timelapse,color:ColorsManager.primary,),
-                   //     const SizedBox(width: 20,),
-                   //     const Custom_Text(text: 'الميعاد   -  ',alignment:Alignment.topRight,
-                   //       fontSize:15,
-                   //       color:ColorsManager.black,
-                   //     ),
-                   //     const SizedBox(width: 10,),
-                   //     Custom_Text(text: doctorData.time.toString(),alignment:Alignment.topRight,
-                   //       fontSize:15,
-                   //       color:ColorsManager.black,
-                   //     ),
-                   //
-                   //   ],
-                   // ),
+
 
                    const SizedBox(height: 10,),
                    (ad.address2.toString()!='')?
@@ -371,4 +355,24 @@ class AdDetailsView extends StatelessWidget {
        ),
      );
    }
+ }
+ url(String url)async{
+
+   String url(){
+     if(Platform.isAndroid){
+       return url.toString();
+       //  return 'whatsapp://wa.me/$phone/?text=${Uri.parse(msg)}';
+     }
+     else{
+       return url.toString();
+       //  return 'whatsapp://send?$phone=phone&text=$msg';
+       //   return 'whatsapp://wa.me/$phone&text=$msg';
+     }
+   }
+
+   await canLaunch(url())?launch(url()) :launch(url());
+  // appMessage(text: 'هناك خطا');
+   //await canLaunch(url())?launch(url());
+
+   //ScaffoldMessenger.of(context).showSnackBar(SnackBar(content:Text('there is no whats app in your device')));
  }

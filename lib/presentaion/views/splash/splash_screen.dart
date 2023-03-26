@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'package:doctors_app/presentaion/resources/color_manager.dart';
-import 'package:doctors_app/presentaion/views/Doctor/Home/home_view.dart';
-import 'package:doctors_app/presentaion/views/HomeApp/choose/choose_view.dart';
+import 'package:doctors_app/presentaion/views/Country/countries_view.dart';
+import 'package:doctors_app/presentaion/views/Doctor/Home/dashboard.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -28,11 +28,20 @@ class _MySplashScreenState extends State<SplashView>
     // String docId=box.read('doc_Id');
     // String email=box.read('email');
     String userId=box.read('userId')??'x';
+    String modId=box.read('mod_Id')??'x';
+
+
     Timer(const Duration(seconds: 5), () async
     {
-      if(docId !='x'){
+      if(modId !='x'){
 
-       Get.offAll(const HomeView());
+        Get.offAll( DashBoardDoctorView (type: 'mod',));
+
+      }
+
+      else if(docId !='x'){
+
+        Get.offAll( DashBoardDoctorView (type: 'doctor',));
 
       }
 
@@ -42,7 +51,8 @@ class _MySplashScreenState extends State<SplashView>
 
       }
       else{
-        Get.offAll(const ChooseView());
+        Get.offAll(const CountriesView());
+
       }
 
     });

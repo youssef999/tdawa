@@ -1,6 +1,7 @@
 
 import 'package:doctors_app/presentaion/bloc/auth/auth_cubit.dart';
 import 'package:doctors_app/presentaion/bloc/auth/auth_states.dart';
+import 'package:doctors_app/presentaion/const/app_message.dart';
 import 'package:doctors_app/presentaion/resources/color_manager.dart';
 import 'package:doctors_app/presentaion/views/User/user_auth/user_login_view.dart';
 import 'package:doctors_app/presentaion/widgets/Custom_Text.dart';
@@ -12,7 +13,7 @@ import 'package:get/get.dart';
 
 
 
-class UserRegisterView extends StatelessWidget {
+ class UserRegisterView extends StatelessWidget {
  String cat;
 
 
@@ -26,22 +27,16 @@ class UserRegisterView extends StatelessWidget {
           child: BlocConsumer<AuthCubit, AuthStates>(
               listener: (context, state) {
                 if (state is UserRegisterSuccessState) {
-                  Get.to(UserLoginView(
+                  Get.offAll(UserLoginView(
                     cat: 'user',
                   ));
-                  Get.snackbar('تم انشاء الحساب بنجاح ', '',
-                      backgroundColor: ColorsManager.primary4,
-                      icon: const Icon(
-                        Icons.ad_units_rounded, color: Colors.white,)
-                  );
+                  appMessage(text: 'تم انشاء الحساب بنجاح');
+
                 }
 
                 if (state is UserRegisterErrorState) {
-                  Get.snackbar('خطا في انشاء الحساب', '',
-                      backgroundColor: ColorsManager.primary4,
-                      icon: const Icon(
-                        Icons.dangerous_rounded, color: Colors.red,)
-                  );
+                  appMessage(text: 'خطا في انشاء الحساب');
+
                 }
               },
               builder: (context, state) {
@@ -153,19 +148,15 @@ class UserRegisterView extends StatelessWidget {
                   Get.to(UserLoginView(
                     cat: 'doctor',
                   ));
-                  Get.snackbar('تم انشاء الحساب بنجاح ', '',
-                      backgroundColor: ColorsManager.primary4,
-                      icon: const Icon(
-                        Icons.ad_units_rounded, color: Colors.white,)
-                  );
+
+                  appMessage(text: 'تم انشاء الحساب بنجاح');
+
                 }
 
                 if (state is UserRegisterErrorState) {
-                  Get.snackbar('خطا في انشاء الحساب', '',
-                      backgroundColor: ColorsManager.primary4,
-                      icon: const Icon(
-                        Icons.dangerous_rounded, color: Colors.red,)
-                  );
+
+                  appMessage(text: 'خطا في انشاء الحساب');
+
                 }
               },
               builder: (context, state) {
@@ -254,11 +245,13 @@ class UserRegisterView extends StatelessWidget {
                               ),
                               const SizedBox(height: 30,),
 
-                              CustomButton(text: "انشاء الحساب ",
-                                  onPressed: () {
-                                    authCubit.registerAndSaveUserRecord();
-                                  }, color1: ColorsManager.primary,
-                                  color2: Colors.white),
+                              // CustomButton(text: "انشاء الحساب ",
+                              //     onPressed: () {
+                              //       authCubit.registerAndSaveUserRecord(
+                              //         selectedOption: sele
+                              //       );
+                              //     }, color1: ColorsManager.primary,
+                              //     color2: Colors.white),
 
                             ],
                           ),

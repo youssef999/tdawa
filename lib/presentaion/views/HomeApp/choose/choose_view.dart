@@ -9,6 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../User/user_auth/user_login_view.dart';
+import '../../sales/sales_code.dart';
 
 class ChooseView extends StatelessWidget {
   const ChooseView({Key? key}) : super(key: key);
@@ -18,6 +19,7 @@ class ChooseView extends StatelessWidget {
     return Scaffold(
       appBar:AppBar(
         toolbarHeight: 5,
+        elevation: 0,
         backgroundColor:ColorsManager.primary,
       ),
       body:
@@ -61,7 +63,7 @@ class ChooseView extends StatelessWidget {
                           SizedBox(height:6,),
                           Custom_Text(
                             text: 'نسعى لتحقيق الأفضل لك و الوصول لعدد كبير من المرضى  ',
-                            fontSize: 14,
+                            fontSize: 12,
                             color: Colors.grey,
                             alignment:Alignment.center,
                           ),
@@ -107,13 +109,13 @@ class ChooseView extends StatelessWidget {
                             SizedBox(height:6,),
                             Custom_Text(
                               text: 'نضع صحتك في المقام الاول احجز افضل الاطباء ',
-                              fontSize: 14,
+                              fontSize: 12,
                               color: Colors.grey,
                               alignment:Alignment.center,
                             ),
                             Custom_Text(
                               text: ' في دقيقة واحدة فقط توصيلك بالمختص المناسب',
-                              fontSize: 14,
+                              fontSize: 12,
                               color: Colors.grey,
                               alignment:Alignment.center,
                             ),
@@ -127,6 +129,7 @@ class ChooseView extends StatelessWidget {
                 Get.to(const SplashScreen2());
               },
             ),
+            const SizedBox(height: 40,),
 
           ],
         ),

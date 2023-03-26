@@ -8,6 +8,9 @@ class  DoctorModel {
   String ?doctor_password;
   String ?doctor_image;
   String ?doctor_phone;
+  String ?doctor_phone1;
+  String ?doctor_phone2;
+  String ?doctor_phone3;
   String ?doctor_cat;
   String ?cat2;
   String ?doctor_info;
@@ -15,6 +18,7 @@ class  DoctorModel {
   String ?position;
   String ?price;
   String ?days;
+  String ?country;
 
   String ?address;
   String ?address2;
@@ -25,12 +29,13 @@ class  DoctorModel {
   String ?location;
   String ?location2;
   String ?location3;
-
+  int ? rate;
   DoctorModel({
 
     this.doctor_id, this.doctor_email, this.doctor_name,
-    this.doctor_phone,this.doctor_cat,
-    this.doctor_degree,this.cat2,this.days,
+    this.doctor_phone,this.doctor_cat,this.country,
+    this.doctor_degree,this.cat2,this.days,this.rate,
+    this.doctor_phone1,this.doctor_phone2,this.doctor_phone3,
     this.address,this.address2,this.address3,
     this.time,this.time2,this.time3,
     this.location,this.location2,this.location3,
@@ -46,6 +51,8 @@ class  DoctorModel {
       //int.parse(json['doctor_id'].toString()),
      doctor_email: json['doctor_email'],
      doctor_name: json['doctor_name'],
+        country: json['country'],
+      rate:int.parse(json['rate']),
       days:json["days"],
       doctor_password:json['doctor_password'],
       doctor_cat: json["doctor_cat"],
@@ -53,17 +60,18 @@ class  DoctorModel {
       doctor_degree: json["doctor_degree"],
       doctor_info: json["doctor_info"],
       doctor_phone: json["doctor_phone"],
+      doctor_phone1: json["doctor_phone1"],
+      doctor_phone2: json["doctor_phone2"],
+      doctor_phone3: json["doctor_phone3"],
       doctor_image:json['doctor_image'],
       position:json['position'],
       price:json['price'],
      address: json["address1"],
      address2: json["address2"],
      address3: json["address3"],
-
      time: json["time1"],
      time2: json["time2"],
      time3: json["time3"],
-
      location: json['location1'],
      location2: json['location2'],
      location3: json['location3'],

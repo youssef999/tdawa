@@ -28,6 +28,7 @@ import 'doctor_edit_ad.dart';
     TdawaCubit tdawaCubit = TdawaCubit.get(context);
     return Scaffold(
       appBar:AppBar(
+        elevation: 0,
         backgroundColor:ColorsManager.primary,
         toolbarHeight: 10,
       ),

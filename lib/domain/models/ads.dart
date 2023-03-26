@@ -16,6 +16,8 @@ class Ads {
     required this.image,
     required this.day,
     required this.date_end,
+    required this.country,
+    required this.best,
 
     required this.doctor_name,
     required this.doctor_email,
@@ -35,6 +37,8 @@ class Ads {
   String name;
   String day;
   String details;
+  String country;
+  String best;
   DateTime date_end;
   String image;
   String doctor_name;
@@ -63,6 +67,8 @@ class Ads {
   factory Ads.fromJson(Map<String, dynamic> json) => Ads(
     id: int.parse(json["id"]),
     name: json["name"]??"",
+    best: json["best"]??"",
+    country: json["country"]??"",
     date_end: DateTime.parse(json["date_end"]),
     details: json["details"]??"",
     image: json["image"]??"",

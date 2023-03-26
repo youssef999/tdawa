@@ -1,12 +1,12 @@
-
 import 'dart:convert';
 import 'package:doctors_app/domain/models/user.dart';
 import 'package:doctors_app/domain/models/user_model.dart';
 import 'package:doctors_app/presentaion/bloc/auth/auth_states.dart';
+import 'package:doctors_app/presentaion/const/app_message.dart';
+import 'package:doctors_app/presentaion/views/sales/sales_code.dart';
 import 'package:doctors_app/presentaion/widgets/Custom_Text.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:doctors_app/Data/api_connection/api_connection.dart';
-import 'package:doctors_app/presentaion/resources/color_manager.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
@@ -14,7 +14,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_storage/get_storage.dart';
 
 
-class AuthCubit extends Cubit<AuthStates> {
+ class AuthCubit extends Cubit<AuthStates> {
   AuthCubit() :super(AppIntialState());
 
   // objects mn nfsy
@@ -23,6 +23,9 @@ class AuthCubit extends Cubit<AuthStates> {
   TextEditingController catController = TextEditingController();
   TextEditingController emailController = TextEditingController();
   TextEditingController phoneController = TextEditingController();
+  TextEditingController phoneController1 = TextEditingController();
+  TextEditingController phoneController2 = TextEditingController();
+  TextEditingController phoneController3 = TextEditingController();
   TextEditingController infoController = TextEditingController();
   TextEditingController masterController = TextEditingController();
   TextEditingController degreeController = TextEditingController();
@@ -54,30 +57,6 @@ class AuthCubit extends Cubit<AuthStates> {
   XFile? pickedImageXFile;
 
 
-  // void validateUserEmail() async {
-  //   try {
-  //     var res = await http.post(Uri.parse(API.validateEmail),
-  //         body: {'user_email': emailController.text.trim()});
-  //
-  //     print("res==${res.body}");
-  //
-  //     if (res.statusCode == 200) {
-  //       var resBodyofValidateEmail = jsonDecode((res.body));
-  //       if (resBodyofValidateEmail['emailFound']) {
-  //         Get.snackbar('', 'Done', backgroundColor: ColorsManager.primary2,
-  //             colorText: Colors.white);
-  //       } else {
-  //         print("here");
-  //         registerAndSaveUserRecord();
-  //       }
-  //     }
-  //   } catch (e) {
-  //     print("ERRORxxx::$e");
-  //     Get.snackbar('', 'Error', backgroundColor: ColorsManager.primary2,
-  //         colorText: Colors.white);
-  //   }
-  // }
-
   removeNew(){
     x1=false;
     emit(removeNewSuccess());
@@ -102,41 +81,53 @@ class AuthCubit extends Cubit<AuthStates> {
   }
 
 
-  registerAndSaveUserRecord() async {
+  registerAndSaveUserRecord({required String selectedOption}) async {
+
+    final box=GetStorage();
+    String country=box.read('country')??'x';
 
     if(emailController.text.contains('@')==false){
-      Get.snackbar('البريد الاكتروني خاطئ','');
+
+      appMessage(text: 'البريد الاكتروني خاطئ');
+
     }
    else if(passwordController.text.length<6){
-      Get.snackbar('كلمة السر يجب ان تساوي او تزيد عن  6 احرف ','');
+      appMessage(text: 'كلمة السر يجب ان تساوي او تزيد عن  6 احرف');
+
     }
     else if(catController.text.length<2){
-      Get.snackbar('ادخل التخصص بشكل سليم ','');
+      appMessage(text: 'ادخل التخصص بشكل سليم');
     }
     else if(nameController.text.length<2){
-      Get.snackbar('ادخل الاسم بشكل سليم ','');
+      appMessage(text: 'ادخل الاسم بشكل سليم');
+
     }
     else if(infoController.text.length<3){
-      Get.snackbar('ادخل معلومات الطبيب  بشكل سليم ','');
+
+      appMessage(text: 'ادخل معلومات الطبيب  بشكل سليم');
     }
-    else if(masterController.text.length<3){
-      Get.snackbar('ادخل درجة العلمية  بشكل سليم ','');
+    else if(degreeController.text.length<3){
+      appMessage(text: 'ادخل درجة العلمية  بشكل سليم');
+
     }
     else if(priceController.text.length<1){
-      Get.snackbar('ادخل السعر  بشكل سليم ','');
+      appMessage(text: 'ادخل السعر  بشكل سليم');
     }
     else if(phoneController.text.length<7){
-      Get.snackbar('ادخل رقم هاتفك  بشكل سليم ','');
+      appMessage(text: 'ادخل رقم هاتفك  بشكل سليم');
+
     }
     else if(addressController.text.length<2){
-      Get.snackbar('ادخل العنوان  بشكل سليم ','');
+      appMessage(text: 'ادخل العنوان  بشكل سليم');
+
     }
     else if(timeController.text.length<1){
-      Get.snackbar('ادخل التوقيت  بشكل سليم ','');
+      appMessage(text: 'ادخل التوقيت  بشكل سليم');
+
+
     }
-    else if(locationController.text.length<6){
-      Get.snackbar('ادخل العنوان بشكل سليم ','');
-    }
+
+
     else{
       try {
         emit(RegisterLoadingState());
@@ -152,7 +143,11 @@ class AuthCubit extends Cubit<AuthStates> {
           "doctor_degree":degreeController.text.trim(),
           "price":priceController.text.trim(),
           "doctor_phone":phoneController.text.trim(),
+          "doctor_phone2":phoneController2.text.trim(),
+          "doctor_phone3":phoneController3.text.trim(),
+          "doctor_phone1":phoneController1.text.trim(),
           "doctor_image":imageLink,
+           'cat2':selectedOption,
           "address1":addressController.text,
           "address2":addressController2.text,
           "address3":addressController3.text,
@@ -162,18 +157,19 @@ class AuthCubit extends Cubit<AuthStates> {
           "location1":locationController.text,
           "location2":locationController2.text,
           "location3":locationController3.text,
+           'country':country
         }
         );
 
         if (res.statusCode == 200) {
-          emit(RegisterSuccessState());
+
           var resOfSignUp = jsonDecode(res.body);
 
           print(resOfSignUp);
           if (resOfSignUp['Success'] == true) {
 
             print("SUCCESS");
-
+            emit(RegisterSuccessState());
 
           } else {
             print(res.body);
@@ -196,6 +192,8 @@ class AuthCubit extends Cubit<AuthStates> {
   login() async {
 
     emit(LoginLoadingState());
+
+
     try {
 
       var res = await http.post(Uri.parse(API.login), body: {
@@ -279,60 +277,60 @@ class AuthCubit extends Cubit<AuthStates> {
   }
 
   userLogin() async {
+    if(emailController.text=='sales@gmail.com'&&passwordController.text=='123456'){
+      Get.to( SalesCodeView());
+    }
+    else{
+      emit(UserLoginLoadingState());
+      try {
 
-    emit(UserLoginLoadingState());
-    try {
+        var res = await http.post(Uri.parse(API.userLogin), body: {
+          'email': emailController.text.trim(),
+          'password': passwordController.text.trim(),
+        });
 
-      var res = await http.post(Uri.parse(API.userLogin), body: {
-        'email': emailController.text.trim(),
-        'password': passwordController.text.trim(),
-      });
+        print("res${res.body}");
 
-      print("res${res.body}");
-
-      if (res.statusCode == 200) {
-        print("200");
-
-
-        var resOfLogin = jsonDecode((res.body));
-
-        if (resOfLogin['success'] == true) {
-
-        user = User.fromJson(resOfLogin['userData']);
-
-          print("UserINfo====${user.email}");
-          final box = GetStorage();
-          box.write('email', user.email);
-          box.write('userName',user.name);
-          box.write('userId', user.id);
-          print(user.id);
-
-          print("SUCCESSS");
-
-          Get.snackbar(
-              '', ' تم تسجيل الدخول بنجاح  ', backgroundColor: ColorsManager.primary2,
-              colorText: Colors.white);
-
-          emit(UserLoginSuccessState());
+        if (res.statusCode == 200) {
+          print("200");
 
 
+          var resOfLogin = jsonDecode((res.body));
+
+          if (resOfLogin['success'] == true) {
+
+            user = User.fromJson(resOfLogin['userData']);
+
+            print("UserINfo====${user.email}");
+            final box = GetStorage();
+            box.write('email', user.email);
+            box.write('userName',user.name);
+            box.write('userId', user.id);
+            print(user.id);
+
+            print("SUCCESSS");
+            // appMessage(text: 'تم تسجيل الدخول بنجاح');
+
+
+            emit(UserLoginSuccessState());
+
+
+          }
+          else {
+            emit(UserLoginErrorState('not 200'));
+
+          }
         }
-        else {
-          emit(UserLoginErrorState('not 200'));
-
+        else{
+          print(res.statusCode);
         }
-      }
-      else{
-        print(res.statusCode);
-      }
-    } catch (e) {
-      print(e);
-      emit(UserLoginErrorState(e.toString()));
+      } catch (e) {
+        print(e);
+        emit(UserLoginErrorState(e.toString()));
 
+      }
     }
   }
-
-
   showDialogBox(BuildContext context) {
     return showDialog(
         context: context,

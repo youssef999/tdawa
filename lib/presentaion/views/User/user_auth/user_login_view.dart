@@ -1,8 +1,10 @@
 
 import 'package:doctors_app/presentaion/bloc/auth/auth_cubit.dart';
 import 'package:doctors_app/presentaion/bloc/auth/auth_states.dart';
+import 'package:doctors_app/presentaion/const/app_message.dart';
 import 'package:doctors_app/presentaion/resources/color_manager.dart';
 import 'package:doctors_app/presentaion/views/Doctor/Home/home_view.dart';
+import 'package:doctors_app/presentaion/views/Doctor/moderator/mod_login_view.dart';
 
 import 'package:doctors_app/presentaion/views/User/user_auth/user_register_view.dart';
 import 'package:doctors_app/presentaion/widgets/Custom_Text.dart';
@@ -37,23 +39,17 @@ import '../Home/dash_board.dart';
                 listener: (context, state) {
 
                   if(state is UserLoginSuccessState){
-                    Get.to(const DashBoardFragment());
-                    Get.snackbar(' تم تسجيل الدخول بنجاح  ', '',backgroundColor:ColorsManager.primary4,
-                        icon:const Icon(Icons.ad_units_rounded,color:Colors.white,)
-                    );
+                    Get.offAll(const DashBoardFragment());
+                    appMessage(text: 'تم تسجيل الدخول بنجاح');
                   }
 
                   if(state is  UserLoginErrorState){
-
-                    Get.snackbar('خطا في تسجيل دخول ', '',backgroundColor:ColorsManager.primary4,
-                        icon:const Icon(Icons.dangerous_rounded,color:Colors.red,)
-                    );
+                    appMessage(text: 'خطا في تسجيل دخول');
                   }
+
                   if(state is  UserLoginLoadingState){
                     print("LOADING");
                   }
-
-
                 },
                 builder: (context, state) {
 
@@ -108,11 +104,11 @@ import '../Home/dash_board.dart';
                                   ontap:(){},
                                   type:TextInputType.text,
                                 ),
-                                const SizedBox(height: 10,),
-                                const Custom_Text(text: 'نسيت كلمة المرور',
-                                  fontSize:16,
-                                  color:ColorsManager.primary,
-                                ),
+                                // const SizedBox(height: 10,),
+                                // const Custom_Text(text: 'نسيت كلمة المرور',
+                                //   fontSize:16,
+                                //   color:ColorsManager.primary,
+                                // ),
                                 const SizedBox(height: 40,),
                                 CustomButton(text: "تسجيل الدخول ",
                                     onPressed: (){
@@ -161,43 +157,37 @@ import '../Home/dash_board.dart';
             child: BlocConsumer<AuthCubit, AuthStates>(
                 listener: (context, state) {
 
-                  if(state is UserLoginSuccessState){
+                  if(state is LoginSuccessState){
 
-                    Get.offAll(const DashBoardFragment());
-                    Get.snackbar(' تم تسجيل الدخول بنجاح  ', '',backgroundColor:ColorsManager.primary4,
-                        icon:const Icon(Icons.ad_units_rounded,color:Colors.white,)
-                    );
+                    Get.offAll( DashBoardDoctorView(type: 'doctor',));
+
+                    appMessage(text: 'تم تسجيل الدخول بنجاح');
 
                   }
 
                   if(state is  LoginErrorState){
 
-                    Get.snackbar('خطا في تسجيل دخول ', '',backgroundColor:ColorsManager.primary4,
-                        icon:const Icon(Icons.dangerous_rounded,color:Colors.red,)
-                    );
+                    appMessage(text: 'خطا في تسجيل دخول');
                   }
 
 
                   if(state is LoginSuccessState){
 
-                    Get.offAll(const DashBoardDoctorView());
-                    Get.snackbar(' تم تسجيل الدخول بنجاح  ', '',backgroundColor:ColorsManager.primary4,
-                        icon:const Icon(Icons.ad_units_rounded,color:Colors.white,)
-                    );
+                    Get.offAll( DashBoardDoctorView(type: 'doctor',));
+
+                    appMessage(text: 'تم تسجيل الدخول بنجاح');
+
 
                   }
 
                   if(state is  LoginErrorState){
 
-                    Get.snackbar('خطا في تسجيل دخول ', '',backgroundColor:ColorsManager.primary4,
-                        icon:const Icon(Icons.dangerous_rounded,color:Colors.red,)
-                    );
+                    appMessage(text: 'خطا في تسجيل دخول');
+
                   }
                   if(state is  LoginLoadingState){
                     print("LOADING");
                   }
-
-
                 },
                 builder: (context, state) {
 
@@ -252,14 +242,11 @@ import '../Home/dash_board.dart';
                                   ontap:(){},
                                   type:TextInputType.text,
                                 ),
-                                const SizedBox(height: 10,),
-                                const Custom_Text(text: 'نسيت كلمة المرور',
-                                  fontSize:16,
-                                  color:ColorsManager.primary,
-                                ),
+
                                 const SizedBox(height: 40,),
                                 CustomButton(text: "تسجيل الدخول ",
                                     onPressed: (){
+
 
                                       authCubit.login();
 
@@ -284,7 +271,28 @@ import '../Home/dash_board.dart';
                                     ],
                                   ),
                                   onTap:(){
-                                    Get.to(const RegisterView());
+                                    Get.to( RegisterView());
+                                    },
+                                ),
+                                SizedBox(height: 20,),
+                                InkWell(
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: const [
+                                      Custom_Text(text: 'انت احد مديري حساب لطبيب ',
+                                          fontSize:17,
+                                          color:Colors.grey
+                                      ),
+                                      SizedBox(width: 10,),
+                                      Custom_Text(text: 'تسجيل كمدير حساب  ',
+                                          fontSize:15,
+                                          color:ColorsManager.primary
+                                      ),
+
+                                    ],
+                                  ),
+                                  onTap:(){
+                                    Get.to( ModLoginView());
                                     },
                                 )
 

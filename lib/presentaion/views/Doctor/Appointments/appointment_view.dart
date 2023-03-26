@@ -7,9 +7,11 @@ import 'package:doctors_app/presentaion/widgets/Custom_Text.dart';
 import 'package:doctors_app/presentaion/widgets/appointments/full_appointments.dart';
 import 'package:flutter/material.dart';
 
+import '../../../../domain/models/booking.dart';
+
 
 class AppointmentView extends StatelessWidget {
-  List<Appointment> listApp;
+  List<Booking> listApp;
   TdawaCubit cubit;
 
 
@@ -22,6 +24,7 @@ class AppointmentView extends StatelessWidget {
       return  Scaffold(
         appBar:AppBar(
           toolbarHeight: 6,
+          elevation: 0,
           backgroundColor:ColorsManager.primary,
         ),
         body:ListView(

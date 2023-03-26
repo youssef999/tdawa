@@ -12,6 +12,7 @@ class NoDataView extends StatelessWidget {
     return Scaffold(
       appBar:AppBar(
         toolbarHeight: 6,
+        elevation: 0,
         backgroundColor:ColorsManager.primary,
       ),
       body:

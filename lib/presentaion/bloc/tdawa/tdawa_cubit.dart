@@ -1,24 +1,22 @@
-
 import 'dart:convert';
 import 'package:doctors_app/Data/api_connection/api_connection.dart';
 import 'package:doctors_app/domain/models/ads.dart';
+import 'package:doctors_app/domain/models/booking.dart';
 import 'package:doctors_app/domain/models/bouquet.dart';
 import 'package:doctors_app/domain/models/user.dart';
 import 'package:doctors_app/presentaion/bloc/tdawa/tdawa_states.dart';
-import 'package:doctors_app/presentaion/resources/color_manager.dart';
+import 'package:doctors_app/presentaion/const/app_message.dart';
 import 'package:doctors_app/presentaion/widgets/Custom_Text.dart';
-
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:image_picker/image_picker.dart';
+import '../../../domain/models/moderator.dart';
 
-import '../../../domain/models/ap.dart';
 
-
-class TdawaCubit extends Cubit<TdawaStates> {
+ class TdawaCubit extends Cubit<TdawaStates> {
   TdawaCubit() :super(AppIntialState());
 
   static TdawaCubit get(context) => BlocProvider.of(context);
@@ -29,14 +27,22 @@ class TdawaCubit extends Cubit<TdawaStates> {
   Color cardColor=Colors.grey;
   Color cardColor2=Colors.white;
   Color cardColor3=Colors.white;
-  List<Appointment> listAppointments = [];
+  List<Booking> listAppointments = [];
   List<Baka> bakaList = [];
+  List<Mod> modList = [];
   DoctorModel doctorModel=DoctorModel();
+  Mod mod=Mod();
   List<Ads> adsList = [];
 
 
   TextEditingController adNameController=TextEditingController();
   TextEditingController adDetailsController=TextEditingController();
+
+  TextEditingController emailController=TextEditingController();
+  TextEditingController passwordController=TextEditingController();
+
+  TextEditingController nameController=TextEditingController();
+  TextEditingController codeController=TextEditingController();
 
   var imageLink='';
   final ImagePicker _picker=ImagePicker();
@@ -51,6 +57,7 @@ class TdawaCubit extends Cubit<TdawaStates> {
    cardColor3=Colors.white;
    emit(displayFirstSuccessState());
  }
+
   dispalySecond(){
     p2=true;
     p3=false;
@@ -60,6 +67,7 @@ class TdawaCubit extends Cubit<TdawaStates> {
     p1=false;
     emit(displaySecondSuccessState());
   }
+
   dispalyThird(){
     p3=true;
     p2=false;
@@ -124,14 +132,14 @@ print("IMAGE====="+imageLink);
         emit(UpdateDoctorAdsErrorState(error: 'error'));
       }
     }else{
-      Get.snackbar('لم تقم باي تعديل','');
+      appMessage(text: 'لم تقم باي تعديل');
+
     }
 
 
 
 
   }
-
 
   void RenewAd
       ({required String id,required String nameHint,required String detailsHint,
@@ -182,24 +190,64 @@ print("IMAGE====="+imageLink);
   }
 
 
+ modLogin() async {
+
+    emit(ModLoginLoadingState());
 
 
+    try {
+
+      var res = await http.post(Uri.parse(API.ModLogin), body: {
+
+        'name': nameController.text.trim(),
+        'code': codeController.text.trim(),
+      });
+
+      print("res${res.body}");
+
+      if (res.statusCode == 200) {
+        print("200");
+
+        var resOfLogin = jsonDecode((res.body));
+
+        if (resOfLogin['success'] == true) {
+    mod = Mod.fromJson(resOfLogin['userData']);
+    final box=GetStorage();
+    box.write('doc_Id',mod.doctor_id.toString());
+    box.write('mod_Id',mod.id.toString());
+          print("UserINfo====${mod.doctor_id}");
 
 
+          print("SUCCESSS");
+          emit(ModLoginSuccessState());
 
 
+        }
 
+        else {
+          emit(ModLoginErrorState( error: 'not 200'));
 
+        }
+      }
+      else{
+        print(res.statusCode);
+      }
+    } catch (e) {
+      print(e);
+      emit(ModLoginErrorState( error: 'not 200'));
 
-  Future<List<Appointment>> getDocotorAppointments() async{
+    }
+  }
+
+  Future<List<Booking>> getDocotorBoking() async{
     final box=GetStorage();
     String doctorId=box.read('doc_Id')??"x";
     try{
       emit(getAppointmentsLoadingState());
-      var res =await http.post(Uri.parse(API.appointments),
-      body: {
-        "doctor_id":doctorId,
-      }
+      var res =await http.post(Uri.parse(API.DoctorBookings),
+          body: {
+            "doctor_id":doctorId,
+          }
       );
 
       if(res.statusCode==200){
@@ -207,11 +255,11 @@ print("IMAGE====="+imageLink);
         var responseBody =jsonDecode(res.body);
 
         if(responseBody["success"]==true) {
-          print("APPPOINTMENTS");
+          print("Bookings");
           print(responseBody['Data']);
           (responseBody['Data']as List).forEach ((eachRecord) {
 
-            listAppointments.add(Appointment.fromJson(eachRecord));
+            listAppointments.add(Booking.fromJson(eachRecord));
 
           });
           print("Appointment===$listAppointments");
@@ -262,6 +310,126 @@ print("IMAGE====="+imageLink);
 
    return bakaList;
   }
+
+  Future<List<Mod>> getAllMod() async{
+
+    try{
+      emit(getModLoadingState());
+      var res =await http.get(Uri.parse(API.getMod),
+      );
+
+      if(res.statusCode==200){
+        print(res.body);
+        var responseBody =jsonDecode(res.body);
+        if(responseBody["success"]==true) {
+          print(responseBody['Data']);
+
+          (responseBody['Data']as List).forEach ((eachRecord) {
+
+            modList.add(Mod.fromJson(eachRecord));
+
+          });
+          print("MOD===$modList");
+        }
+        emit(getModSuccessState());
+      }
+      else{
+        emit(getModErrorState(error: 'error'));
+      }
+    }
+    catch(e){
+      print('ERRRORRR');
+      print(e);
+      emit(getModErrorState(error: 'error'));
+    }
+
+    return modList;
+  }
+
+  addNewMod() async {
+
+    final box=GetStorage();
+    String Id=box.read('doc_Id')??'x';
+    print("ID"+Id);
+    if(nameController.text.length>2&&codeController.text.length>3){
+      try {
+        emit(AddModLoadingState());
+        var res =
+        await http.post(Uri.parse(API.addMod), body:
+        {
+          "name":nameController.text.trim(),
+          "code":codeController.text.trim(),
+          "doctor_id":Id
+        }
+        );
+
+        if (res.statusCode == 200) {
+
+          var resOfSignUp = jsonDecode(res.body);
+
+          print(resOfSignUp);
+          if (resOfSignUp['Success'] == true) {
+
+            emit(AddModSuccessState());
+
+          } else {
+            print(res.body);
+            print("error${res.statusCode}");
+            emit(AddModErrorState( error: 'not 200'));
+
+          }
+        }
+      } catch (e) {
+        print("ERROR==$e");
+        emit(AddModErrorState( error: 'not 200'));
+
+
+      }
+    }else{
+
+      appMessage(text: 'ادخل البيانات بشكل سليم');
+
+    }
+
+  }
+
+  deleteMod(String id) async {
+
+    emit(DeleteModLoadingState());
+      try {
+
+        var res =
+        await http.post(Uri.parse(API.deleteMod), body:
+        {
+          "id":id,
+        }
+        );
+
+        if (res.statusCode == 200) {
+
+          print('HERE');
+          var resOfSignUp = jsonDecode(res.body);
+
+          print(resOfSignUp);
+          if (resOfSignUp['Success'] == true) {
+
+            emit(DeleteModSuccessState());
+
+          } else {
+            print(res.body);
+            print("error${res.statusCode}");
+            emit(DeleteModErrorState( error: 'not 200'));
+
+          }
+        }
+      } catch (e) {
+        print("ERROR==$e");
+        emit(DeleteModErrorState( error: 'not 200'));
+      }
+
+
+  }
+
 
   Future<DoctorModel> getDoctorData() async{
 
@@ -354,6 +522,7 @@ print("IMAGE====="+imageLink);
     print(futureDate);
     final box=GetStorage();
     String doctorId=box.read('doc_Id')??'x';
+    String country=box.read('country')??'x';
     print("ID=======$doctorId");
 
     if(adNameController.text.length>2&&adDetailsController.text.length>3&& imageLink.length>2)
@@ -368,6 +537,7 @@ print("IMAGE====="+imageLink);
           'name':adNameController.text,
           'details':adDetailsController.text,
           'image':imageLink,
+          'country':country,
           'date_end':futureDate.toString()
         }
         );
@@ -398,27 +568,21 @@ print("IMAGE====="+imageLink);
 
      if(adNameController.text.length<2){
 
-      Get.snackbar('', 'ادخل اسم الاعلان بشكل سليم ',
-       backgroundColor:ColorsManager.primary,
-        colorText:Colors.white,
-        icon:const Icon(Icons.ad_units_rounded,color:Colors.white,size:32,)
-      );
+
+       appMessage(text: 'ادخل اسم الاعلان بشكل سليم');
+
     }
 
     if(adDetailsController.text.length<2){
-       Get.snackbar('', 'ادخل تفاصيل الاعلان بشكل سليم ',
-           backgroundColor:ColorsManager.primary,
-           colorText:Colors.white,
-           icon:const Icon(Icons.ad_units_rounded,color:Colors.white,size:32,)
-       );
+
+      appMessage(text: 'ادخل تفاصيل الاعلان بشكل سليم');
+
      }
 
     if(imageLink.length<2){
-      Get.snackbar('', 'صورة الاعلان مطلوبة  ',
-          backgroundColor:ColorsManager.primary,
-          colorText:Colors.white,
-          icon:const Icon(Icons.ad_units_rounded,color:Colors.white,size:32,)
-      );
+
+      appMessage(text: 'صورة الاعلان مطلوبة');
+
     }
   }
 
@@ -531,8 +695,6 @@ print("IMAGE====="+imageLink);
 
     }
   }
-
-
 
 }
 

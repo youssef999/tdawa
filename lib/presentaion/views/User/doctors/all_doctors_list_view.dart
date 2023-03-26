@@ -1,21 +1,19 @@
 
-
-import 'package:doctors_app/domain/models/ap.dart';
 import 'package:doctors_app/domain/models/user.dart';
 import 'package:doctors_app/presentaion/bloc/patient/patient_cubit.dart';
 import 'package:doctors_app/presentaion/bloc/patient/patient_states.dart';
 import 'package:doctors_app/presentaion/resources/color_manager.dart';
 import 'package:doctors_app/presentaion/widgets/Custom_Text.dart';
-import 'package:doctors_app/presentaion/widgets/appointments/appountments.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'doctor-details_view.dart';
 
 class AllDoctorsView extends StatelessWidget {
   String cat2;
 
-  AllDoctorsView(this.cat2);
+  AllDoctorsView(this.cat2, {super.key});
 
 
   @override
@@ -36,6 +34,7 @@ class AllDoctorsView extends StatelessWidget {
               return Scaffold(
                 appBar: AppBar(
                   toolbarHeight: 6,
+                  elevation: 0,
                   backgroundColor: ColorsManager.primary,
                 ),
                 body: Container(
@@ -119,137 +118,185 @@ class AllDoctorsView extends StatelessWidget {
 
 Widget AllDoctorsWidget(List<DoctorModel> listApp,PatientCubit cubit) {
 
+  final box=GetStorage();
+ String country= box.read('country')??'x';
+  List<DoctorModel>list=[];
+ if(listApp.isNotEmpty){
+   return SingleChildScrollView(
+     child: Container(
+       height:9130,
+       color: Colors.grey[200],
+       //width:double.infinity,
+       padding: const EdgeInsets.only(top: 9, left: 7, right: 7),
+       child:
+       ListView.builder(
+           physics: const NeverScrollableScrollPhysics(),
+           itemCount: listApp.length,
+           itemBuilder: (context, index) {
 
-  return SingleChildScrollView(
-    child: Container(
-      height:9130,
-      color: Colors.grey[200],
-      //width:double.infinity,
-      padding: const EdgeInsets.only(top: 9, left: 7, right: 7),
-      child:
-      ListView.builder(
-          physics: const NeverScrollableScrollPhysics(),
-          itemCount: listApp.length,
-          itemBuilder: (context, index) {
-            return Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: InkWell(
-                child: Container(
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(15),
-                      color: Colors.white70),
-                  child: Directionality(
-                    textDirection: TextDirection.rtl,
-                    child: Column(
-                      children: [
-                        const SizedBox(
-                          height: 12,
-                        ),
-                        Row(
-                          children: [
-                            SizedBox(
-                                height: 80,
-                                width: MediaQuery.of(context).size.width * 0.3,
-                                child: Image.network(
-                                    listApp[index].doctor_image.toString())),
+             if(listApp[index].country==country){
+               list.add(listApp[index]);
 
-                            const SizedBox(
-                              width: 50,
-                            ),
+               return Padding(
+                 padding: const EdgeInsets.all(8.0),
+                 child: InkWell(
+                   child: Container(
+                     decoration: BoxDecoration(
+                         borderRadius: BorderRadius.circular(15),
+                         color: Colors.white),
+                     child: Directionality(
+                       textDirection: TextDirection.rtl,
+                       child: Column(
+                         children: [
+                           const SizedBox(
+                             height: 12,
+                           ),
+                           Row(
+                             children: [
+                               SizedBox(
+                                   height: 90,
+                                   width: MediaQuery.of(context).size.width * 0.35,
+                                   child: Image.network(
+                                       listApp[index].doctor_image.toString())),
 
-                            SizedBox(
-                              width: MediaQuery.of(context).size.width * 0.3,
-                              child: Column(
-                                children: [
-                                  Custom_Text(
-                                    text: listApp[index].doctor_name.toString(),
-                                    color: ColorsManager.black,
-                                    fontSize: 16,
-                                    alignment: Alignment.center,
-                                  ),
-                                  const SizedBox(
-                                    height: 10,
-                                  ),
-                                  Custom_Text(
-                                    text: listApp[index].doctor_cat.toString(),
-                                    color: ColorsManager.primary,
-                                    fontSize: 16,
-                                    alignment: Alignment.center,
-                                  ),
-                                  const SizedBox(
-                                    height: 10,
-                                  ),
-                                  Row(
-                                    children: [
-                                      const SizedBox(
-                                        width: 21,
-                                      ),
-                                      Custom_Text(
-                                        text: 'سعر الكشف '.toString(),
-                                        color: Colors.grey,
-                                        fontSize: 14,
-                                        alignment: Alignment.center,
-                                      ),
-                                      const SizedBox(
-                                        width: 12,
-                                      ),
-                                      Custom_Text(
-                                        text: listApp[index].price.toString(),
-                                        color: ColorsManager.primary,
-                                        fontSize: 16,
-                                        alignment: Alignment.center,
-                                      ),
-                                    ],
-                                  ),
-                                ],
-                              ),
-                            ),
+                               const SizedBox(
+                                 width: 23,
+                               ),
 
-                    //         SizedBox(
-                    //             width: MediaQuery.of(context).size.width * 0.1),
-                    // Positioned(
-                    //   top: MediaQuery.of(context).padding.top,
-                    //   left: 0,
-                    //   right: 0,
-                    //   child: Row(
-                    //     children: [
-                    //       IconButton(onPressed: (){
-                    //         if(cubit.fav){
-                    //           print("xxx");
-                    //           //
-                    //     cubit.deleteFromFavList(listApp[index]);
-                    //         }
-                    //
-                    //         else{
-                    //           print("yyy");
-                    //           cubit.addToFavList(listApp[index]);
-                    //         }
-                    //       }, icon:
-                    //
-                    //       Icon(
-                    //      cubit.fav?Icons.bookmark:Icons.bookmark_border_outlined,
-                    //         color:ColorsManager.purple2,
-                    //       ))
-                    //     ],
-                    //   ),
-                    //   //
-                    // )
-                            //Image.asset('assets/images/vec1.png')
-                          ],
-                        ),
-                        const SizedBox(
-                          height: 12,
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-                onTap: () {
-                  Get.to(DoctorDetailsView(listApp[index]));
-                },
-              ),
-            );
-          }),
-    ),
-  );
+                               SizedBox(
+                                // width: MediaQuery.of(context).size.width * 0.3,
+                                 child: Column(
+                                   children: [
+                                     Custom_Text(
+                                       text: listApp[index].doctor_name.toString(),
+                                       color: ColorsManager.black,
+                                       fontSize: 16,
+                                       alignment: Alignment.center,
+                                     ),
+                                     const SizedBox(
+                                       height: 10,
+                                     ),
+                                     Custom_Text(
+                                       text: listApp[index].doctor_cat.toString(),
+                                       color: ColorsManager.primary,
+                                       fontSize: 16,
+                                       alignment: Alignment.center,
+                                     ),
+                                     const SizedBox(
+                                       height: 10,
+                                     ),
+                                     Row(
+                                       children: [
+                                         const SizedBox(
+                                           width: 21,
+                                         ),
+                                         Custom_Text(
+                                           text: 'سعر الكشف '.toString(),
+                                           color: Colors.grey,
+                                           fontSize: 14,
+                                           alignment: Alignment.center,
+                                         ),
+                                         const SizedBox(
+                                           width: 12,
+                                         ),
+                                         Custom_Text(
+                                           text: listApp[index].price.toString(),
+                                           color: ColorsManager.primary,
+                                           fontSize: 16,
+                                           alignment: Alignment.center,
+                                         ),
+                                       ],
+                                     ),
+                                   ],
+                                 ),
+                               ),
+
+
+                             ],
+                           ),
+                           const SizedBox(
+                             height: 12,
+                           ),
+                         ],
+                       ),
+                     ),
+                   ),
+                   onTap: () {
+                     Get.to(DoctorDetailsView(listApp[index]));
+                   },
+                 ),
+               );
+             }
+             if(list.isEmpty){
+               return    Container(
+                 color:Colors.white,
+                 child:
+
+                 Center(
+                   child:
+
+                   Column(
+                     mainAxisAlignment:MainAxisAlignment.center,
+                     crossAxisAlignment: CrossAxisAlignment.center,
+                     children: [
+
+                       SizedBox(
+                         height:260,
+                         child:Image.asset("assets/images/data.png"),
+                       ),
+                       const SizedBox(height: 11,),
+                       const Custom_Text(
+                         text: 'القسم لا يحتوي علي بيانات الان ',
+                         fontSize: 22,
+                         color:Colors.black,
+                         alignment:Alignment.center,
+                       ),
+                       const SizedBox(height: 400,),
+
+                     ],
+                   ),
+                 ),
+               );
+             }
+             else{
+               return const SizedBox(height: 2,);
+             }
+
+           }),
+     ),
+   );
+ }
+
+ else{
+   return     Container(
+     color:Colors.white,
+     child:
+
+     Center(
+       child:
+
+       Column(
+         mainAxisAlignment:MainAxisAlignment.center,
+         crossAxisAlignment: CrossAxisAlignment.center,
+         children: [
+
+           SizedBox(
+             height:260,
+             child:Image.asset("assets/images/data.png"),
+           ),
+           const SizedBox(height: 11,),
+           const Custom_Text(
+             text: 'القسم لا يحتوي علي بيانات الان ',
+             fontSize: 22,
+             color:Colors.black,
+             alignment:Alignment.center,
+           ),
+           const SizedBox(height: 400,),
+
+         ],
+       ),
+     ),
+   );
+ }
+
 }

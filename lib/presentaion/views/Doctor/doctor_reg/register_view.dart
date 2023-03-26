@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:another_flushbar/flushbar.dart';
 import 'package:doctors_app/presentaion/bloc/auth/auth_cubit.dart';
 import 'package:doctors_app/presentaion/bloc/auth/auth_states.dart';
+import 'package:doctors_app/presentaion/const/app_message.dart';
 import 'package:doctors_app/presentaion/resources/color_manager.dart';
 import 'package:doctors_app/presentaion/widgets/Custom_Text.dart';
 import 'package:doctors_app/presentaion/widgets/Custom_button.dart';
@@ -14,40 +15,58 @@ import '../../User/user_auth/user_login_view.dart';
 
 
 
-class RegisterView extends StatelessWidget {
-  const RegisterView({Key? key}) : super(key: key);
+class RegisterView extends StatefulWidget {
+  @override
+  State<RegisterView> createState() => _RegisterViewState();
+}
+
+class _RegisterViewState extends State<RegisterView> {
+//   RegisterView({Key? key}) : super(key: key);
+  List<String> _options = ['طبيب', 'مستشفي', 'صيدلية','علاج نفسي','مركز تجميل','مركز اشاعة وتحليل','اخري'];
+
+  String selectedOption='طبيب';
+
+  Widget _buildRadioList() {
+    return Column(
+      children: _options
+          .map(
+            (option) => RadioListTile(
+          title: Text(option),
+          value: option,
+          groupValue: selectedOption,
+          onChanged: (value) {
+            setState(() {
+              selectedOption = value.toString();
+            });
+          },
+        ),
+      )
+          .toList(),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
+
     return BlocProvider(
         create: (BuildContext context) => AuthCubit(),
         child: BlocConsumer<AuthCubit, AuthStates>(
             listener: (context, state) {
 
               if(state is RegisterSuccessState){
-                Get.snackbar('', 'تم انشاء حسابك بنجاح',backgroundColor:ColorsManager.primary,
-                icon:const Icon(Icons.ad_units,color:Colors.white),
-                colorText:Colors.white
-                );
-                Get.off(UserLoginView(
+
+                appMessage(text: 'تم انشاء حسابك بنجاح');
+
+              Get.offAll(UserLoginView(
                   cat: 'doctor',
                 ));
               }
 
               if(state is RegisterErrorState){
 
+                appMessage(text: 'حدث خطا ربما ادخلت بيانات بشكل خاطئ');
 
 
-                Flushbar(
-                  padding: const EdgeInsets.all(8),
-                  flushbarPosition:FlushbarPosition.TOP,
-                  message: " حدث خطا ربما ادخلت بيانات بشكل خاطئ ",
-                  icon: const Icon(Icons.error,
-                      size: 28.0, color: ColorsManager.primary),
-                  duration: const Duration(seconds: 3),
-                  leftBarIndicatorColor: Colors.black,
-                  backgroundColor:ColorsManager.black,)
-                    .show(context);
               }
             },
             builder: (context, state) {
@@ -56,6 +75,7 @@ class RegisterView extends StatelessWidget {
                 backgroundColor:ColorsManager.white,
                 appBar: AppBar(
                   elevation: 0,
+
                   backgroundColor: ColorsManager.primary,
                   toolbarHeight: 1,
                 ),
@@ -71,11 +91,14 @@ class RegisterView extends StatelessWidget {
                             const SizedBox(height: 20,),
                             Image.asset('assets/images/logo2.png'),
                             const SizedBox(height: 10,),
-                            const Custom_Text(text: 'بيانات الطبيب',
+                            const Custom_Text(text: ' بيانات الطبيب',
                               fontSize:24,
                               alignment:Alignment.center,
                               color:Colors.black,
                             ),
+
+                            _buildRadioList(),
+
                             const SizedBox(height: 20,),
                             authCubit.pickedImageXFile != null?
                              InkWell(
@@ -205,17 +228,7 @@ class RegisterView extends StatelessWidget {
                               type:TextInputType.text,
                             ),
                             const SizedBox(height: 10,),
-                            // CustomTextFormField(
-                            //   controller:authCubit.masterController,
-                            //   color:Colors.black,
-                            //   hint: "الشهادات  ",
-                            //   max:4,
-                            //   obs: false,
-                            //   obx: false,
-                            //   ontap:(){},
-                            //   type:TextInputType.text,
-                            // ),
-                            // const SizedBox(height: 10,),
+
                             CustomTextFormField(
                               controller:authCubit.passwordController,
                               color:Colors.black,
@@ -248,6 +261,15 @@ class RegisterView extends StatelessWidget {
                                   obx: false,
                                   ontap:(){},
                                   type:TextInputType.text,
+                                ),
+                                CustomTextFormField(
+                                  controller:authCubit.phoneController1,
+                                  color:Colors.black,
+                                  hint: "رقم الهاتف",
+                                  obs: false,
+                                  obx: false,
+                                  ontap:(){},
+                                  type:TextInputType.phone,
                                 ),
                                 const SizedBox(height: 10,),
                                 CustomTextFormField(
@@ -308,6 +330,15 @@ class RegisterView extends StatelessWidget {
                                   obx: false,
                                   ontap:(){},
                                   type:TextInputType.text,
+                                ),
+                                CustomTextFormField(
+                                  controller:authCubit.phoneController2,
+                                  color:Colors.black,
+                                  hint: "رقم الهاتف",
+                                  obs: false,
+                                  obx: false,
+                                  ontap:(){},
+                                  type:TextInputType.phone,
                                 ),
                                 const SizedBox(height: 10,),
                                 CustomTextFormField(
@@ -370,6 +401,15 @@ class RegisterView extends StatelessWidget {
                                   ontap:(){},
                                   type:TextInputType.text,
                                 ),
+                                CustomTextFormField(
+                                  controller:authCubit.phoneController3,
+                                  color:Colors.black,
+                                  hint: "رقم الهاتف",
+                                  obs: false,
+                                  obx: false,
+                                  ontap:(){},
+                                  type:TextInputType.phone,
+                                ),
                                 const SizedBox(height: 10,),
                                 CustomTextFormField(
                                   controller:authCubit.timeController3,
@@ -399,7 +439,7 @@ class RegisterView extends StatelessWidget {
                             const SizedBox(height: 20,),
                             CustomButton(text: "تسجيل",
                                 onPressed: (){
-                                  authCubit.registerAndSaveUserRecord();
+                                  authCubit.registerAndSaveUserRecord(selectedOption: selectedOption);
                                 }, color1:ColorsManager.primary,
                                 color2: Colors.white),
                             const SizedBox(height: 30,),

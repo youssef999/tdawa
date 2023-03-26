@@ -3,6 +3,7 @@
 
  import 'package:doctors_app/presentaion/bloc/patient/patient_cubit.dart';
 import 'package:doctors_app/presentaion/bloc/patient/patient_states.dart';
+import 'package:doctors_app/presentaion/const/app_message.dart';
 import 'package:doctors_app/presentaion/resources/color_manager.dart';
 import 'package:doctors_app/presentaion/widgets/Custom_Text.dart';
 import 'package:doctors_app/presentaion/widgets/Custom_button.dart';
@@ -35,8 +36,8 @@ class _EditViewState extends State<EditView> {
         listener:(context,state){
 
           if(state is UpdateDataSuccessState){
-            Get.snackbar('', 'تم تعديل بياناتك بنجاح',icon:const Icon(Icons.ad_units),
-                colorText:Colors.white,backgroundColor:ColorsManager.primary2);
+
+            appMessage(text: 'تم تعديل بياناتك بنجاح');
 
             Get.offAll(const DashBoardFragment());
           }
@@ -49,16 +50,19 @@ class _EditViewState extends State<EditView> {
     return Scaffold(
 
       appBar:AppBar(
+        elevation: 0,
         toolbarHeight: 5,
         backgroundColor:ColorsManager.primary,
       ),
       body:Padding(
-        padding: const EdgeInsets.all(30.0),
-        child: Column(
+        padding: const EdgeInsets.only(left:30.0,right: 30),
+        child: ListView(
           children: [
             const SizedBox(height: 20,),
 
-            Image.asset('assets/images/logo2.png'),
+            Container(
+                height: 100,
+                child: Image.asset('assets/images/logo2.png')),
             const SizedBox(height: 40,),
             const Custom_Text(
               text: 'البريد الالكتروني ',

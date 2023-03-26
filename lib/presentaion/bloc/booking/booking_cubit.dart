@@ -2,6 +2,7 @@
 import 'dart:convert';
 import 'package:doctors_app/domain/models/booking.dart';
 import 'package:doctors_app/domain/models/user.dart';
+import 'package:doctors_app/presentaion/const/app_message.dart';
 import 'package:doctors_app/presentaion/widgets/Custom_Text.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:doctors_app/Data/api_connection/api_connection.dart';
@@ -60,18 +61,17 @@ class BookingCubit extends Cubit<BookingStates> {
           emit(AddBookingSuccessState());
           // Booking doc_Info =  Booking.fromJson(resOfLogin['userData']);
 
+          appMessage(text: 'تم ارسال طلبك بنجاح ');
 
           print("SUCCESSS");
-          Get.snackbar('', 'تم ارسال طلبك بنجاح   ', backgroundColor: ColorsManager.primary2,
-              colorText: Colors.white);
-          //      Get.off(DashBoardFragment());
+
 
         }
 
         else {
           emit(AddBookingErrorState('not 200'));
-          Get.snackbar('', 'حدث خطا حاول مرة اخري  ',
-              backgroundColor: ColorsManager.primary2, colorText: Colors.white);
+          appMessage(text: 'حدث خطا حاول مرة اخري ');
+
         }
       }
       else{
@@ -80,10 +80,8 @@ class BookingCubit extends Cubit<BookingStates> {
     } catch (e) {
       print(e);
       emit(AddBookingErrorState(e.toString()));
+      appMessage(text: 'حدث خطا ');
 
-      Get.snackbar(
-          '', 'حدث خطا  ', backgroundColor: ColorsManager.primary2,
-          colorText: Colors.white);
     }
   }
 

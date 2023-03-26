@@ -21,6 +21,7 @@ class DoctorDetailsView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar:AppBar(
+        elevation: 0,
         toolbarHeight: 6,
         backgroundColor:ColorsManager.primary,
       ),
@@ -110,23 +111,12 @@ class DoctorDetailsView extends StatelessWidget {
                   url(doctorData.location.toString());
                 },
               ),
-              // Row(
-              //   children: [
-              //
-              //     const Icon(Icons.timelapse,color:ColorsManager.primary,),
-              //     const SizedBox(width: 20,),
-              //     const Custom_Text(text: 'الميعاد   -  ',alignment:Alignment.topRight,
-              //       fontSize:15,
-              //       color:ColorsManager.black,
-              //     ),
-              //     const SizedBox(width: 10,),
-              //     Custom_Text(text: doctorData.time.toString(),alignment:Alignment.topRight,
-              //       fontSize:15,
-              //       color:ColorsManager.black,
-              //     ),
-              //
-              //   ],
-              // ),
+              SizedBox(height: 10,),
+              Custom_Text(text: doctorData.doctor_phone1.toString(),alignment:Alignment.center,
+                fontSize:15,
+                color:Colors.grey,
+              ),
+
 
               const SizedBox(height: 10,),
               (doctorData.address2.toString()!='')?
@@ -170,7 +160,11 @@ class DoctorDetailsView extends StatelessWidget {
                   url(doctorData.location2.toString());
                 },
               ),
-
+              SizedBox(height: 10,),
+              Custom_Text(text: doctorData.doctor_phone2.toString(),alignment:Alignment.center,
+                fontSize:15,
+                color:Colors.grey,
+              ),
 
               const SizedBox(height: 15,),
               (doctorData.address3.toString()!='')?
@@ -212,7 +206,11 @@ class DoctorDetailsView extends StatelessWidget {
                     url(doctorData.location3.toString());
                   },
                 ),
-
+              SizedBox(height: 10,),
+              Custom_Text(text: doctorData.doctor_phone3.toString(),alignment:Alignment.center,
+                fontSize:15,
+                color:Colors.grey,
+              ),
               const SizedBox(height: 25,),
               Row(
                 children: [

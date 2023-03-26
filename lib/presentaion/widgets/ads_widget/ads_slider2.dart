@@ -7,6 +7,7 @@ import 'package:doctors_app/presentaion/widgets/Custom_Text.dart';
 import 'package:doctors_app/presentaion/widgets/Custom_button.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 
 import '../../views/User/Ads/ads_details_view.dart';
 
@@ -17,14 +18,32 @@ class AdsSlider2 extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    final box=GetStorage();
+    String c=box.read('country')??"x";
+    List<Ads>newList=[];
+    // List<Best> newList = adsList.where((now2) =>endDate.isBefore(now) ).toList();
+
+    for(int i=0;i<adsList.length;i++){
+      print('HEREXXX');
+      DateTime now = DateTime.now();
+      DateTime endDate = DateTime.parse(adsList[i].date_end.toString());
+      if(endDate.isAfter(now)&&adsList[i].country==c&&adsList[i].best=='true'){
+        print('HERETRUEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE');
+        newList.add(adsList[i]);
+      }
+    }
+    print("LIST000============"+newList.toString());
+
+
     return  CarouselSlider(
       options: CarouselOptions(height: 200.0,autoPlay:true),
-      items: adsList.map((i) {
+      items: newList.map((i) {
 
       //
-      DateTime now = DateTime.now();
-      DateTime endDate = DateTime.parse(i.date_end.toString());
-      if (endDate.isAfter(now)) {
+      // DateTime now = DateTime.now();
+      // DateTime endDate = DateTime.parse(i.date_end.toString());
+      // if (endDate.isAfter(now) &&i.country==c) {
         return Builder(
           builder: (BuildContext context) {
             return InkWell(
@@ -93,16 +112,16 @@ class AdsSlider2 extends StatelessWidget {
             );
           },
         );
-      }else{
-        return Container(
-          width: 290,
-          decoration: BoxDecoration(
-              borderRadius:BorderRadius.circular(17),
-              color:ColorsManager.primary4
-          ),
-          child:Image.asset('assets/images/logo.png'),
-        );
-      }
+      // }else{
+      //   return Container(
+      //     width: 290,
+      //     decoration: BoxDecoration(
+      //         borderRadius:BorderRadius.circular(17),
+      //         color:ColorsManager.primary4
+      //     ),
+      //     child:Image.asset('assets/images/logo.png'),
+      //   );
+      // }
       }).toList(),
     );
   }

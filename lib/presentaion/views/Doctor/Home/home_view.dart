@@ -13,7 +13,8 @@ import 'package:get/get.dart';
 import '../Appointments/appointment_view.dart';
 
 class HomeView extends StatelessWidget {
-  const HomeView({Key? key}) : super(key: key);
+  String type;
+   HomeView({Key? key,required this.type}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +22,7 @@ class HomeView extends StatelessWidget {
     int x=0;
 
     return BlocProvider(
-        create: (BuildContext context) => TdawaCubit()..getDoctorData()..getDocotorAppointments(),
+        create: (BuildContext context) => TdawaCubit()..getDoctorData()..getDocotorBoking(),
         child: BlocConsumer<TdawaCubit, TdawaStates>(
             listener: (context, state) {
               if(state is getDoctorDataSuccessState ){
@@ -42,6 +43,7 @@ class HomeView extends StatelessWidget {
               else if(x==1){
                 return Scaffold(
                   appBar: AppBar(
+                    elevation: 0,
                     backgroundColor: ColorsManager.primary,
                     toolbarHeight: 110,
                     title:Container(
@@ -49,7 +51,9 @@ class HomeView extends StatelessWidget {
                         child: Image.asset('assets/images/logo.png')),
                     centerTitle: true,
                   ),
-                  drawer: const MainDrawer(),
+                  drawer:  MainDrawer(
+                    type: type,
+                  ),
                   body:
                   Directionality(
                     textDirection: TextDirection.rtl,
@@ -65,13 +69,13 @@ class HomeView extends StatelessWidget {
                           Row(
                             children: [
                               const SizedBox(
-                                width: 10,
+                                width: 7,
                               ),
                               Container(
                                 height: 120,
                                 color: ColorsManager.primary,
                                 child: Padding(
-                                  padding: const EdgeInsets.all(8.0),
+                                  padding: const EdgeInsets.all(6.0),
                                   child: Image.network(
                                     tdawaCubit.doctorModel.doctor_image.toString(),
                                     //fit: BoxFit.fill,
@@ -152,10 +156,11 @@ class HomeView extends StatelessWidget {
                                       )
                                     ],
                                   ),
-                                  const SizedBox(
-                                    width: 90,
+                                   SizedBox(
+                                    width:MediaQuery.of(context).size.width*0.2,
                                   ),
                                   Container(
+                              height:90,
                                     padding: const EdgeInsets.all(10),
                                     child: Image.asset('assets/images/logo.png'),
                                   )
@@ -177,7 +182,7 @@ class HomeView extends StatelessWidget {
                           Row(
                             children: [
                               const SizedBox(
-                                width: 20,
+                                width: 12,
                               ),
                               const Custom_Text(
                                 text: 'مواعيد تم حجزها ',
@@ -185,8 +190,8 @@ class HomeView extends StatelessWidget {
                                 fontSize: 20,
                                 alignment: Alignment.topRight,
                               ),
-                              const SizedBox(
-                                width: 170,
+                             SizedBox(
+                                width: MediaQuery.of(context).size.width*0.3,
                               ),
                               InkWell(
                                 child: const Custom_Text(
@@ -213,7 +218,9 @@ class HomeView extends StatelessWidget {
                           Row(
                             children: [
                               const Custom_Text(text: 'اشترك vip',fontSize:20,alignment:Alignment.topRight),
-                              SizedBox(width:MediaQuery.of(context).size.width*0.57,),
+                              SizedBox(
+                                width: MediaQuery.of(context).size.width*0.43,
+                              ),
                               Container(child:Image.asset('assets/images/gold.png'),)
                             ],
                           ),

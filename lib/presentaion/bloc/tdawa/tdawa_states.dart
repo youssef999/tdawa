@@ -31,6 +31,29 @@ class getAppointmentsErrorState extends TdawaStates{
   getAppointmentsErrorState({required this.error});
 }
 
+class ModLoginSuccessState extends TdawaStates{
+}
+
+class ModLoginLoadingState extends TdawaStates{
+}
+
+class ModLoginErrorState extends TdawaStates{
+  String error;
+
+  ModLoginErrorState({required this.error});
+}
+
+
+
+
+
+
+
+
+
+
+
+
 class getBakaSuccessState extends TdawaStates{
 }
 
@@ -42,6 +65,56 @@ class getBakaErrorState extends TdawaStates{
 
   getBakaErrorState({required this.error});
 }
+
+
+
+class getModSuccessState extends TdawaStates{
+}
+
+class getModLoadingState extends TdawaStates{
+}
+
+class getModErrorState extends TdawaStates{
+  String error;
+
+  getModErrorState({required this.error});
+}
+
+
+
+
+class DeleteModSuccessState extends TdawaStates{
+}
+
+class DeleteModLoadingState extends TdawaStates{
+}
+
+class DeleteModErrorState extends TdawaStates{
+  String error;
+
+  DeleteModErrorState({required this.error});
+}
+
+
+
+
+
+
+
+class AddModSuccessState extends TdawaStates{
+}
+
+class AddModLoadingState extends TdawaStates{
+}
+
+class AddModErrorState extends TdawaStates{
+  String error;
+
+  AddModErrorState({required this.error});
+}
+
+
+
 
 
 class getDoctorDataSuccessState extends TdawaStates{

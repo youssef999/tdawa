@@ -35,6 +35,7 @@ import 'baka_view.dart';
     return Scaffold(
       appBar:AppBar(
         toolbarHeight: 5,
+        elevation: 0,
         backgroundColor:ColorsManager.primary,
       ),
       body:

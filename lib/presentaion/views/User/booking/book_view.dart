@@ -46,6 +46,7 @@ class _BookingViewState extends State<BookingView> {
     return Scaffold(
       appBar:AppBar(
         toolbarHeight: 6,
+        elevation: 0,
         backgroundColor:ColorsManager.primary,
       ),
       body:Padding(

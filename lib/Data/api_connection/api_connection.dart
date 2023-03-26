@@ -1,26 +1,32 @@
 
 
 class API {
-  static const hostConnection = 'http://192.168.1.13/tdawa';
+
+  static const hostConnection ='http://192.168.1.13/tdawa';
+      //'http://192.168.1.5/tdawa';
+     // 'http://192.168.1.13/tdawa';
+      //'http://192.168.1.13/tdawa';
   static const hostConnectionUser = '$hostConnection/user';
   static const validateEmail = '$hostConnection/user/validate_email.php';
   static const signup = '$hostConnection/doctor/signup.php';
   static const login = '$hostConnection/doctor/login.php';
+  static const ModLogin = '$hostConnection/doctor/mod_login.php';
+  static const getMod = '$hostConnection/doctor/All_moderators.php';
+  static const addMod = '$hostConnection/doctor/moderators_add.php';
+  static const deleteMod = '$hostConnection/doctor/delete_mod.php';
   static const userLogin = '$hostConnection/doctor/user_login.php';
   static const userSignup = '$hostConnection/doctor/user_signup.php';
   static const appointments = '$hostConnection/doctor/ap.php';
+  static const DoctorBookings = '$hostConnection/doctor/get_doctor_booking.php';
   static const getDoctorData = '$hostConnection/doctor/doctor_data.php';
   static const getDoctorAds = '$hostConnection/doctor/get_doctor_ads.php';
   static const RenewAd = '$hostConnection/doctor/renew_ad.php';
   static const allCat = '$hostConnection/doctor/cat.php';
-
   static const addBooking = '$hostConnection/doctor/add_booking.php';
   static const getBooking = '$hostConnection/doctor/get_booking.php';
   static const SEARCH = '$hostConnection/doctor/search.php';
-
   static const allDoctorsData = '$hostConnection/patient/all_doctors.php';
-
-
+  static const Country = '$hostConnection/doctor/country.php';
   static const addFav = '$hostConnection/doctor/add_fav.php';
   static const deleteFav = '$hostConnection/doctor/delete.php';
   static const validateFav = '$hostConnection/doctor/validate.php';
@@ -28,6 +34,12 @@ class API {
 
   static const bouquet = '$hostConnection/doctor/bouquet.php';
   static const ads = '$hostConnection/doctor/ads.php';
+
+  static const TopDoctors = '$hostConnection/doctor/top_doctors.php';
+
+  static const Best = '$hostConnection/doctor/ads.php';
+
+
   static const admin_login = '$hostConnection/admin/login.php';
   static const getUserData = '$hostConnection/doctor/get_user_data.php';
   static const adAds = '$hostConnection/doctor/add_ads.php';

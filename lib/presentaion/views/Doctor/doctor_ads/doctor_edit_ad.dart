@@ -2,7 +2,9 @@
 import 'dart:io';
 
 import 'package:doctors_app/presentaion/bloc/tdawa/tdawa_cubit.dart';
+import 'package:doctors_app/presentaion/const/app_message.dart';
 import 'package:doctors_app/presentaion/resources/color_manager.dart';
+import 'package:doctors_app/presentaion/views/Doctor/Home/dashboard.dart';
 import 'package:doctors_app/presentaion/views/Doctor/Home/home_view.dart';
 import 'package:doctors_app/presentaion/widgets/Custom_Text.dart';
 import 'package:doctors_app/presentaion/widgets/Custom_button.dart';
@@ -37,9 +39,9 @@ class _EditViewState extends State<DoctorEditView> {
               if(state is UpdateDoctorAdsSuccessState)
 
               {
-                Get.snackbar('', 'تم تعديل بياناتك بنجاح',icon:const Icon(Icons.ad_units),
-                    colorText:Colors.white,backgroundColor:ColorsManager.primary2);
-                Get.offAll(const HomeView());
+                appMessage(text: 'تم تعديل بياناتك بنجاح');
+
+                Get.offAll( DashBoardDoctorView(type: 'doctor',));
               }
             },
             builder:(context,state){
@@ -51,6 +53,7 @@ class _EditViewState extends State<DoctorEditView> {
 
                   appBar:AppBar(
                     toolbarHeight: 5,
+                    elevation: 0,
                     backgroundColor:ColorsManager.primary,
                   ),
                   body:Padding(
