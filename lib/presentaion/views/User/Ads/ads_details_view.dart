@@ -25,13 +25,13 @@ class AdDetailsView extends StatelessWidget {
          backgroundColor:ColorsManager.primary,
        ),
        body:Container(
-         color:Colors.white,
-         padding: const EdgeInsets.all(20.0),
+         color:   ColorsManager.primaryx,
+         padding:  EdgeInsets.all(20.0),
          child: ListView(
            children:[
 
              Container(
-               decoration: const BoxDecoration(
+               decoration:  BoxDecoration(
                  borderRadius:BorderRadius.all(Radius.circular(30)),
                  color:ColorsManager.primary
                ),
@@ -87,15 +87,15 @@ class AdDetailsView extends StatelessWidget {
                        Custom_Text(
                          text: ad.doctor_name.toString(),
                          color:ColorsManager.black,
-                         fontSize: 20,
+                         fontSize: 18,
                          alignment:Alignment.topRight,
                        ),
-                   SizedBox(width: MediaQuery.of(context).size.width*0.49,),
+                   SizedBox(width: MediaQuery.of(context).size.width*0.29,),
                        Custom_Text(
                          alignment:Alignment.topRight,
                          text: ad.doctor_cat.toString(),
                          color:ColorsManager.primary,
-                         fontSize: 20,
+                         fontSize: 18,
                        ),
                      ],
                    ),
@@ -115,7 +115,7 @@ class AdDetailsView extends StatelessWidget {
                    Row(
                      children: [
 
-                       const Icon(Icons.phone,color:ColorsManager.primary,),
+                   Icon(Icons.phone,color:ColorsManager.primary,),
                        const SizedBox(width: 20,),
                        Custom_Text(text:ad.doctor_phone.toString(),alignment:Alignment.topRight,
                          fontSize:15,
@@ -132,7 +132,7 @@ class AdDetailsView extends StatelessWidget {
                    Row(
                      children: [
 
-                       const Icon(Icons.place,color:ColorsManager.primary,),
+                     Icon(Icons.place,color:ColorsManager.primary,),
                        const SizedBox(width: 20,),
                        Custom_Text(text: ad.address.toString(),alignment:Alignment.topRight,
                          fontSize:15,
@@ -149,7 +149,7 @@ class AdDetailsView extends StatelessWidget {
                    const SizedBox(height: 15,),
                    InkWell(
                      child: Row(
-                       children: const [
+                       children:  [
                          SizedBox(width: 60,),
                          Icon(Icons.maps_ugc_sharp,color:ColorsManager.primary,),
                          SizedBox(width: 20,),
@@ -174,7 +174,7 @@ class AdDetailsView extends StatelessWidget {
                    Row(
                      children: [
 
-                       const Icon(Icons.place,color:ColorsManager.primary,),
+                    Icon(Icons.place,color:ColorsManager.primary,),
                        const SizedBox(width: 20,),
                        Custom_Text(text: ad.address2.toString(),alignment:Alignment.topRight,
                          fontSize:15,
@@ -194,7 +194,7 @@ class AdDetailsView extends StatelessWidget {
                    if(ad.location2!='')
                      InkWell(
                        child: Row(
-                         children: const [
+                         children: [
                            SizedBox(width: 60,),
                            Icon(Icons.maps_ugc_sharp,color:ColorsManager.primary,),
                            SizedBox(width: 20,),
@@ -218,7 +218,7 @@ class AdDetailsView extends StatelessWidget {
                    Row(
                      children: [
 
-                       const Icon(Icons.place,color:ColorsManager.primary,),
+                       Icon(Icons.place,color:ColorsManager.primary,),
                        const SizedBox(width: 20,),
                        Custom_Text(text: ad.address3.toString(),alignment:Alignment.topRight,
                          fontSize:15,
@@ -236,7 +236,7 @@ class AdDetailsView extends StatelessWidget {
                    if(ad.location3!='')
                      InkWell(
                        child: Row(
-                         children: const [
+                         children:  [
                            SizedBox(width: 60,),
                            Icon(Icons.maps_ugc_sharp,color:ColorsManager.primary,),
                            SizedBox(width: 20,),
@@ -257,7 +257,7 @@ class AdDetailsView extends StatelessWidget {
                    Row(
                      children: [
 
-                       const Icon(Icons.price_change,color:ColorsManager.primary,),
+                   Icon(Icons.price_change,color:ColorsManager.primary,),
                        const SizedBox(width: 20,),
                        const Custom_Text(text: 'السعر   -  ',alignment:Alignment.topRight,
                          fontSize:15,

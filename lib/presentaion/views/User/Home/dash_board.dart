@@ -62,9 +62,9 @@ class DashBoardFragment extends StatelessWidget {
               indexNumber.value = value;
             },
             showSelectedLabels: true,
-            backgroundColor: ColorsManager.primary,
+            backgroundColor: ColorsManager.white,
             showUnselectedLabels: true,
-            selectedItemColor: ColorsManager.white,
+            selectedItemColor: ColorsManager.primary,
             unselectedItemColor: Colors.grey,
             items: List.generate(3, (index) {
               var BtnProp = _navigationButtonProperties[index];

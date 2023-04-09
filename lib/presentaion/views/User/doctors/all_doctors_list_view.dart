@@ -1,4 +1,5 @@
 
+import 'package:doctors_app/domain/models/ads.dart';
 import 'package:doctors_app/domain/models/user.dart';
 import 'package:doctors_app/presentaion/bloc/patient/patient_cubit.dart';
 import 'package:doctors_app/presentaion/bloc/patient/patient_states.dart';
@@ -8,6 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import '../Ads/ads_details_view.dart';
 import 'doctor-details_view.dart';
 
 class AllDoctorsView extends StatelessWidget {
@@ -20,7 +22,7 @@ class AllDoctorsView extends StatelessWidget {
   Widget build(BuildContext context) {
 
     return BlocProvider(
-        create: (BuildContext context) => PatientCubit()..getAllDoctors(cat2),
+        create: (BuildContext context) => PatientCubit()..getAllDoctors(cat2)..getAllAds2(),
         child: BlocConsumer<PatientCubit, PatientStates>(
 
             listener: (context, state) {
@@ -38,7 +40,7 @@ class AllDoctorsView extends StatelessWidget {
                   backgroundColor: ColorsManager.primary,
                 ),
                 body: Container(
-                  color: Colors.grey[200],
+                  color: ColorsManager.primaryx,
                   child: ListView(
                     children: [
 
@@ -62,7 +64,7 @@ class AllDoctorsView extends StatelessWidget {
                           ],
                         ),
                       ),
-                      if(cat2=='hospital')
+                     if(cat2=='hospital')
                         Container(
                           color:ColorsManager.primary,
                           child: Column(
@@ -100,9 +102,6 @@ class AllDoctorsView extends StatelessWidget {
                             ],
                           ),
                         ),
-
-
-
                       const SizedBox(
                         height: 10,
                       ),
@@ -120,6 +119,8 @@ Widget AllDoctorsWidget(List<DoctorModel> listApp,PatientCubit cubit) {
 
   final box=GetStorage();
  String country= box.read('country')??'x';
+ print("COUNTRY");
+ print(country);
   List<DoctorModel>list=[];
  if(listApp.isNotEmpty){
    return SingleChildScrollView(
@@ -136,95 +137,115 @@ Widget AllDoctorsWidget(List<DoctorModel> listApp,PatientCubit cubit) {
 
              if(listApp[index].country==country){
                list.add(listApp[index]);
-
-               return Padding(
-                 padding: const EdgeInsets.all(8.0),
-                 child: InkWell(
-                   child: Container(
-                     decoration: BoxDecoration(
-                         borderRadius: BorderRadius.circular(15),
-                         color: Colors.white),
-                     child: Directionality(
-                       textDirection: TextDirection.rtl,
-                       child: Column(
-                         children: [
-                           const SizedBox(
-                             height: 12,
-                           ),
-                           Row(
+               return Column(
+                 children: [
+                   Padding(
+                     padding: const EdgeInsets.all(8.0),
+                     child: InkWell(
+                       child: Container(
+                         decoration: BoxDecoration(
+                             borderRadius: BorderRadius.circular(15),
+                             color: Colors.white),
+                         child: Directionality(
+                           textDirection: TextDirection.rtl,
+                           child: Column(
                              children: [
-                               SizedBox(
-                                   height: 90,
-                                   width: MediaQuery.of(context).size.width * 0.35,
-                                   child: Image.network(
-                                       listApp[index].doctor_image.toString())),
-
                                const SizedBox(
-                                 width: 23,
+                                 height: 12,
                                ),
+                               Row(
+                                 children: [
+                                   SizedBox(
+                                       height: 90,
+                                       width: MediaQuery.of(context).size.width * 0.35,
+                                       child: Image.network(
+                                           listApp[index].doctor_image.toString())),
 
-                               SizedBox(
-                                // width: MediaQuery.of(context).size.width * 0.3,
-                                 child: Column(
-                                   children: [
-                                     Custom_Text(
-                                       text: listApp[index].doctor_name.toString(),
-                                       color: ColorsManager.black,
-                                       fontSize: 16,
-                                       alignment: Alignment.center,
-                                     ),
-                                     const SizedBox(
-                                       height: 10,
-                                     ),
-                                     Custom_Text(
-                                       text: listApp[index].doctor_cat.toString(),
-                                       color: ColorsManager.primary,
-                                       fontSize: 16,
-                                       alignment: Alignment.center,
-                                     ),
-                                     const SizedBox(
-                                       height: 10,
-                                     ),
-                                     Row(
+                                   const SizedBox(
+                                     width: 23,
+                                   ),
+
+                                   SizedBox(
+                                    // width: MediaQuery.of(context).size.width * 0.3,
+                                     child: Column(
                                        children: [
-                                         const SizedBox(
-                                           width: 21,
-                                         ),
                                          Custom_Text(
-                                           text: 'سعر الكشف '.toString(),
-                                           color: Colors.grey,
-                                           fontSize: 14,
+                                           text: listApp[index].doctor_name.toString(),
+                                           color: ColorsManager.black,
+                                           fontSize: 16,
                                            alignment: Alignment.center,
                                          ),
                                          const SizedBox(
-                                           width: 12,
+                                           height: 10,
                                          ),
                                          Custom_Text(
-                                           text: listApp[index].price.toString(),
+                                           text: listApp[index].doctor_cat.toString(),
                                            color: ColorsManager.primary,
                                            fontSize: 16,
                                            alignment: Alignment.center,
                                          ),
+                                         const SizedBox(
+                                           height: 10,
+                                         ),
+                                         Row(
+                                           children: [
+                                             const SizedBox(
+                                               width: 21,
+                                             ),
+                                             Custom_Text(
+                                               text: 'سعر الكشف '.toString(),
+                                               color: Colors.grey,
+                                               fontSize: 14,
+                                               alignment: Alignment.center,
+                                             ),
+                                             const SizedBox(
+                                               width: 12,
+                                             ),
+                                             Custom_Text(
+                                               text: listApp[index].price.toString(),
+                                               color: ColorsManager.primary,
+                                               fontSize: 16,
+                                               alignment: Alignment.center,
+                                             ),
+                                           ],
+                                         ),
                                        ],
                                      ),
-                                   ],
-                                 ),
-                               ),
+                                   ),
 
+
+                                 ],
+                               ),
+                               const SizedBox(
+                                 height: 12,
+                               ),
 
                              ],
                            ),
-                           const SizedBox(
-                             height: 12,
-                           ),
-                         ],
+                         ),
                        ),
+                       onTap: () {
+                         Get.to(DoctorDetailsView(listApp[index]));
+                       },
                      ),
                    ),
-                   onTap: () {
-                     Get.to(DoctorDetailsView(listApp[index]));
-                   },
-                 ),
+                   SizedBox(height: 10,),
+                   (index==0)?NewAdsWidget(
+                       cubit.adsList2,cubit,0
+                   ):SizedBox(height: 1,),
+
+                   (index==2)?NewAdsWidget(
+                       cubit.adsList2,cubit,1
+                   ):SizedBox(height: 1,),
+
+                   (index==5)?NewAdsWidget(
+                       cubit.adsList2,cubit,2
+                   ):SizedBox(height: 1,),
+
+                   (index==8)?NewAdsWidget(
+                       cubit.adsList2,cubit,4
+                   ):SizedBox(height: 1,)
+                 ],
                );
              }
              if(list.isEmpty){
@@ -299,4 +320,94 @@ Widget AllDoctorsWidget(List<DoctorModel> listApp,PatientCubit cubit) {
    );
  }
 
+}
+
+Widget NewAdsWidget(List<Ads> listApp,PatientCubit cubit,int index2){
+
+
+  if(index2>=listApp.length){
+    index2==listApp.length-1;
+  }
+print('NNN');
+  return Container(
+    height:110,
+    color: ColorsManager.primary,
+    padding: const EdgeInsets.only(top: 9, left: 7, right: 7),
+    child:
+    ListView.builder(
+        physics: const NeverScrollableScrollPhysics(),
+        itemCount: 1,
+        itemBuilder: (context, index) {
+
+            return Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: InkWell(
+                child: Container(
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(15),
+                      color: ColorsManager.primary),
+                  child: Column(
+                    children: [
+                      const SizedBox(
+                        height: 4,
+                      ),
+                      Row(
+                        children: [
+                          SizedBox(
+                              height: 80,
+                              width: MediaQuery.of(context).size.width * 0.38,
+                              child: Image.network(
+                                  listApp[index2].image.toString(),
+                              fit:BoxFit.fill,
+                              )),
+
+                          const SizedBox(
+                            width: 35,
+                          ),
+
+                          SizedBox(
+                            // width: MediaQuery.of(context).size.width * 0.3,
+                            child: Column(
+                              children: [
+                                Custom_Text(
+                                  text: listApp[index2].name.toString(),
+                                  color: ColorsManager.white,
+                                  fontSize: 16,
+                                  alignment: Alignment.center,
+                                ),
+                                const SizedBox(
+                                  height: 10,
+                                ),
+                                Custom_Text(
+                                  text: listApp[index2].details.toString(),
+                                  color: Colors.black,
+                                  fontSize: 12,
+                                  alignment: Alignment.center,
+                                ),
+                                const SizedBox(
+                                  height: 10,
+                                ),
+
+                              ],
+                            ),
+                          ),
+
+
+                        ],
+                      ),
+
+                    ],
+                  ),
+                ),
+                onTap: () {
+                  Get.to(AdDetailsView(
+                    ad: listApp[index2],
+                  ));
+                },
+              ),
+            );
+
+
+        }),
+  );
 }

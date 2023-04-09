@@ -23,8 +23,46 @@ class getAdsErrorState extends PatientStates{
 }
 
 
+class getFiltersSuccessState extends PatientStates{
+}
+
+class getFiltersLoadingState extends PatientStates{
+}
+
+class getFiltersErrorState extends PatientStates{
+
+  String error;
+
+  getFiltersErrorState({required this.error});
+}
 
 
+class getPlacesSuccessState extends PatientStates{
+}
+
+class getPlacesLoadingState extends PatientStates{
+}
+
+class getPlacesErrorState extends PatientStates{
+
+  String error;
+
+  getPlacesErrorState({required this.error});
+}
+
+
+class getPlacesSuccessState2 extends PatientStates{
+}
+
+class getPlacesLoadingState2 extends PatientStates{
+}
+
+class getPlacesErrorState2 extends PatientStates{
+
+  String error;
+
+  getPlacesErrorState2({required this.error});
+}
 
 
 

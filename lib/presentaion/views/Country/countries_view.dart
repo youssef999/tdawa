@@ -72,29 +72,67 @@ class CountriesView extends StatelessWidget {
            itemBuilder: (context, index) {
              return Padding(
                padding: const EdgeInsets.all(8.0),
-               child: InkWell(
-                 child: Container(
-                   height: 80,
-                   decoration: BoxDecoration(
-                       borderRadius: BorderRadius.circular(15),
-                       color: Colors.white70),
-                   child:   Custom_Text(
-                     text: listApp[index].name.toString(),
-                     color: ColorsManager.black,
-                     fontSize: 21,
-                     alignment: Alignment.center,
+               child:
+               Column(
+                 children: [
+                   InkWell(
+                     child: Row(
+                       children: [
+                         Container(
+                           height: 60,
+                           child:Image.network(listApp[index].image.toString()),
+                         ),
+                         SizedBox(width: 33,),
+                         Container(
+                           // height: 50,
+                           decoration: BoxDecoration(
+                               borderRadius: BorderRadius.circular(15),
+                               color: Colors.transparent),
+                           child:   Custom_Text(
+                             text: listApp[index].name.toString(),
+                             color: ColorsManager.black,
+                             fontSize: 21,
+                             alignment: Alignment.center,
+                           ),
+
+
+                         ),
+                       ],
+                     ),
+                     onTap: () {
+                       print(listApp[index].name.toString());
+                       final box=GetStorage();
+                       box.write('country',listApp[index].name);
+                       Get.to(const ChooseView());
+                     },
                    ),
+                   SizedBox(height: 12,)
+                 ],
+              // );
 
-
-                 ),
-                 onTap: () {
-                   print(listApp[index].name.toString());
-                   final box=GetStorage();
-                   box.write('country',listApp[index].name);
-                   Get.to(const ChooseView());
-                 },
-               ),
-             );
+               // InkWell(
+               //   child: Container(
+               //     height: 80,
+               //     decoration: BoxDecoration(
+               //         borderRadius: BorderRadius.circular(15),
+               //         color: Colors.white70),
+               //     child:   Custom_Text(
+               //       text: listApp[index].name.toString(),
+               //       color: ColorsManager.black,
+               //       fontSize: 21,
+               //       alignment: Alignment.center,
+               //     ),
+               //
+               //
+               //   ),
+               //   onTap: () {
+               //     print(listApp[index].name.toString());
+               //     final box=GetStorage();
+               //     box.write('country',listApp[index].name);
+               //     Get.to(const ChooseView());
+               //   },
+               // ),
+               ) );
            }),
      ),
    );

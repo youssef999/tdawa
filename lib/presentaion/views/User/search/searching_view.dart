@@ -128,7 +128,7 @@ if(widget.txt!=''){
                       decoration:  InputDecoration(
 
                         suffixIcon: InkWell(
-                            child: const Padding(
+                            child:  Padding(
                               padding: EdgeInsets.all(8.0),
                               child: CircleAvatar(
                                   backgroundColor:ColorsManager.primary,
@@ -152,7 +152,7 @@ if(widget.txt!=''){
                         ),
                         enabledBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(25.0),
-                          borderSide: const BorderSide(
+                          borderSide:  BorderSide(
                             color: ColorsManager.primary,
                             width: 2.0,
                           ),
@@ -210,7 +210,7 @@ if(widget.txt!=''){
                       decoration:  InputDecoration(
 
                         suffixIcon: InkWell(
-                            child: const Padding(
+                            child:  Padding(
                               padding: EdgeInsets.all(8.0),
                               child: CircleAvatar(
                                   backgroundColor:ColorsManager.primary,
@@ -234,7 +234,7 @@ if(widget.txt!=''){
                         ),
                         enabledBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(25.0),
-                          borderSide: const BorderSide(
+                          borderSide:  BorderSide(
                             color: ColorsManager.primary,
                             width: 2.0,
                           ),
@@ -338,7 +338,7 @@ if(widget.txt!=''){
                                         ),
                                       ],
                                       borderRadius: BorderRadius.circular(15),
-                                      gradient: const LinearGradient(
+                                      gradient:  LinearGradient(
                                         colors: [
                                           ColorsManager.primary,
                                           ColorsManager.primary,

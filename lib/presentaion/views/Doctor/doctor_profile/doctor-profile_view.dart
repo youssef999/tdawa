@@ -65,7 +65,7 @@ class DoctorProfileView extends StatelessWidget {
                   Row(
                     children: [
 
-                      const Icon(Icons.phone,color:ColorsManager.primary,),
+                  Icon(Icons.phone,color:ColorsManager.primary,),
                       const SizedBox(width: 20,),
                       Custom_Text(text: doctorCubit.doc.doctor_phone.toString(),alignment:Alignment.topRight,
                         fontSize:15,
@@ -76,7 +76,7 @@ class DoctorProfileView extends StatelessWidget {
                   const SizedBox(height: 15,),
                   Row(
                     children: [
-                      const Icon(Icons.place,color:ColorsManager.primary,),
+                      Icon(Icons.place,color:ColorsManager.primary,),
                       const SizedBox(width: 20,),
                       Custom_Text(text: doctorCubit.doc.position.toString(),alignment:Alignment.topRight,
                         fontSize:15,
@@ -89,7 +89,7 @@ class DoctorProfileView extends StatelessWidget {
                   Row(
                     children: [
 
-                      const Icon(Icons.price_change,color:ColorsManager.primary,),
+                    Icon(Icons.price_change,color:ColorsManager.primary,),
                       const SizedBox(width: 20,),
                       const Custom_Text(text: 'السعر   -  ',alignment:Alignment.topRight,
                         fontSize:15,

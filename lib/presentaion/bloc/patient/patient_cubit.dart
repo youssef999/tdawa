@@ -3,6 +3,9 @@ import 'package:doctors_app/Data/api_connection/api_connection.dart';
 import 'package:doctors_app/domain/models/ads.dart';
 import 'package:doctors_app/domain/models/best.dart';
 import 'package:doctors_app/domain/models/cat.dart';
+import 'package:doctors_app/domain/models/filters.dart';
+import 'package:doctors_app/domain/models/places.dart';
+import 'package:doctors_app/domain/models/places2.dart';
 import 'package:doctors_app/domain/models/user.dart';
 import 'package:doctors_app/domain/models/user_model.dart';
 import 'package:doctors_app/presentaion/bloc/patient/patient_states.dart';
@@ -22,12 +25,19 @@ class PatientCubit extends Cubit<PatientStates> {
 
   static PatientCubit get(context) => BlocProvider.of(context);
   List<Ads> adsList = [];
+  List<Ads> adsList2 = [];
   List<Ads> bestList = [];
   List<DoctorModel> doctorList = [];
   List<DoctorModel> topDoctorList = [];
   List<DoctorModel> searchList = [];
   List<Cat> catList = [];
   List<Ads>newList=[];
+
+
+  List<Filter>filterList=[];
+  List<Places>placesList=[];
+  List<Places2>placesList2=[];
+
   TextEditingController searchController = TextEditingController();
 
   User user = User();
@@ -71,6 +81,175 @@ class PatientCubit extends Cubit<PatientStates> {
     }
 
     return adsList;
+  }
+
+  Future<List<Ads>> getAllAds2() async {
+    print("ALL ADS222222222");
+    final box = GetStorage();
+    String country = box.read('country') ?? 'x';
+    print("CCCC$country");
+    try {
+      emit(getAdsLoadingState());
+      var res = await http.get(
+        Uri.parse(API.ads2),
+      );
+      print("SUC..............................");
+      print(res.body);
+      if (res.statusCode == 200) {
+        print(res.body);
+        var responseBody = jsonDecode(res.body);
+
+        print("SUC..............................");
+        print(responseBody);
+
+        if (responseBody["success"] == true) {
+          print(responseBody['Data']);
+
+          (responseBody['Data'] as List).forEach((eachRecord) {
+            adsList2.add(Ads.fromJson(eachRecord));
+          });
+
+          print("ADS 2 ===$adsList2");
+        }
+        emit(getAdsSuccessState());
+      } else {
+        print("ERRRROORRRRRRRRRRR................");
+        print(res.statusCode);
+        emit(getAdsErrorState(error: 'error'));
+      }
+    } catch (e) {
+      print("ERRRROORRRRRRRRRRR................");
+      print(e.toString());
+      emit(getAdsErrorState(error: e.toString()));
+    }
+
+    return adsList2;
+  }
+
+  Future<List<Filter>> getAllFilters() async {
+    print("ALL ADS");
+    final box = GetStorage();
+    String country = box.read('country') ?? 'x';
+    print("CCCC$country");
+    try {
+      emit(getFiltersLoadingState());
+      var res = await http.get(
+        Uri.parse(API.Filters),
+      );
+      print(res.body);
+      if (res.statusCode == 200) {
+        print(res.body);
+        var responseBody = jsonDecode(res.body);
+
+        print(responseBody);
+
+        if (responseBody["success"] == true) {
+          print(responseBody['Data']);
+          (responseBody['Data'] as List).forEach((eachRecord) {
+            filterList.add(Filter.fromJson(eachRecord));
+          });
+
+          print("FILTER  ===$filterList");
+        }
+        emit(getFiltersSuccessState());
+      } else {
+        print("ERRRROORRRRRRRRRRR................");
+        print(res.statusCode);
+        emit(getFiltersErrorState(error: 'error'));
+      }
+    } catch (e) {
+      print("ERRRROORRRRRRRRRRR................");
+      print(e.toString());
+      emit(getFiltersErrorState(error: e.toString()));
+    }
+
+    return filterList;
+  }
+
+  Future<List<Places>> getAllPlaces() async {
+
+    print("ALL ADS");
+    final box = GetStorage();
+    String country = box.read('country') ?? 'x';
+    print("CCCC$country");
+    try {
+      emit(getPlacesLoadingState());
+
+      var res = await http.post(
+        Uri.parse(API.Places),body:{
+          'country':country
+          //country
+        });
+
+      print(res.body);
+      if (res.statusCode == 200) {
+        print(res.body);
+        var responseBody = jsonDecode(res.body);
+
+        print(responseBody);
+
+        if (responseBody["success"] == true) {
+          print(responseBody['Data']);
+          (responseBody['Data'] as List).forEach((eachRecord) {
+            placesList.add(Places.fromJson(eachRecord));
+          });
+
+          print("Appointment===$placesList");
+        }
+        emit(getPlacesSuccessState());
+      } else {
+        print("ERRRROORRRRRRRRRRR................");
+        print(res.statusCode);
+        emit(getPlacesErrorState(error: 'error'));
+      }
+    } catch (e) {
+      print("ERRRROORRRRRRRRRRR................");
+      print(e.toString());
+      emit(getPlacesErrorState(error: e.toString()));
+    }
+
+    return placesList;
+  }
+
+  Future<List<Places2>> getAllPlaces2(String place) async {
+
+
+    try {
+      emit(getPlacesLoadingState2());
+
+      var res = await http.post(
+          Uri.parse(API.Places2),body:{
+        'place':place
+      });
+
+      print(res.body);
+      if (res.statusCode == 200) {
+        print(res.body);
+        var responseBody = jsonDecode(res.body);
+
+        print(responseBody);
+
+        if (responseBody["success"] == true) {
+          print(responseBody['Data']);
+          (responseBody['Data'] as List).forEach((eachRecord) {
+            placesList2.add(Places2.fromJson(eachRecord));
+          });
+
+          print("PLACES 2 ===$placesList2");
+        }
+        emit(getPlacesSuccessState());
+      } else {
+        print("ERRRROORRRRRRRRRRR................");
+        print(res.statusCode);
+        emit(getPlacesErrorState(error: 'error'));
+      }
+    } catch (e) {
+      print("ERRRROORRRRRRRRRRR................");
+      print(e.toString());
+      emit(getPlacesErrorState(error: e.toString()));
+    }
+
+    return placesList2;
   }
 
 

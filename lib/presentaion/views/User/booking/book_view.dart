@@ -44,6 +44,7 @@ class _BookingViewState extends State<BookingView> {
       BookingCubit cubit = BookingCubit.get(context);
 
     return Scaffold(
+      backgroundColor: ColorsManager.primaryx,
       appBar:AppBar(
         toolbarHeight: 6,
         elevation: 0,

@@ -12,15 +12,18 @@ class Country {
   Country({
     required this.id,
     required this.name,
+    required this.image,
   });
 
   int id;
   String name;
+  String image;
 
 
   factory Country.fromJson(Map<String, dynamic> json) => Country (
     id: int.parse(json["id"]),
     name: json["name"]??"",
+    image: json["image"]??"",
 
   );
 

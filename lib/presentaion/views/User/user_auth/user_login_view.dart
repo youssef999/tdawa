@@ -122,7 +122,7 @@ import '../Home/dash_board.dart';
                                 InkWell(
                                   child: Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
-                                    children: const [
+                                    children:  [
                                       Custom_Text(text: 'ليس لديك حساب ؟ ',
                                           fontSize:17,
                                           color:Colors.grey
@@ -257,7 +257,7 @@ import '../Home/dash_board.dart';
                                 InkWell(
                                   child: Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
-                                    children: const [
+                                    children:  [
                                       Custom_Text(text: 'ليس لديك حساب ؟ ',
                                           fontSize:17,
                                           color:Colors.grey
@@ -278,7 +278,7 @@ import '../Home/dash_board.dart';
                                 InkWell(
                                   child: Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
-                                    children: const [
+                                    children: [
                                       Custom_Text(text: 'انت احد مديري حساب لطبيب ',
                                           fontSize:17,
                                           color:Colors.grey

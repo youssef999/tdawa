@@ -13,6 +13,8 @@ class  DoctorModel {
   String ?doctor_phone3;
   String ?doctor_cat;
   String ?cat2;
+  String ?place;
+  String ?place2;
   String ?doctor_info;
   String ?doctor_degree;
   String ?position;
@@ -32,7 +34,7 @@ class  DoctorModel {
   int ? rate;
   DoctorModel({
 
-    this.doctor_id, this.doctor_email, this.doctor_name,
+    this.doctor_id, this.doctor_email, this.doctor_name,this.place,this.place2,
     this.doctor_phone,this.doctor_cat,this.country,
     this.doctor_degree,this.cat2,this.days,this.rate,
     this.doctor_phone1,this.doctor_phone2,this.doctor_phone3,
@@ -52,6 +54,8 @@ class  DoctorModel {
      doctor_email: json['doctor_email'],
      doctor_name: json['doctor_name'],
         country: json['country'],
+      place:json['palce']??"",
+      place2:json["place2"]??'',
       rate:int.parse(json['rate']),
       days:json["days"],
       doctor_password:json['doctor_password'],

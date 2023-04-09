@@ -28,6 +28,7 @@ class UserBookingView extends StatelessWidget {
               BookingCubit cubit =BookingCubit.get(context);
 
               return Scaffold(
+                backgroundColor: ColorsManager.primaryx,
                 appBar: AppBar(
                   toolbarHeight: 6,
                   elevation: 0,
@@ -204,7 +205,7 @@ Widget BookingWidget(List<Booking> listApp,BookingCubit cubit) {
                                      width: MediaQuery.of(context).size.width * 0.08),
 
                                  InkWell(
-                                   child: const SizedBox(
+                                   child:  SizedBox(
                                      child:Icon(Icons.messenger_rounded,color:ColorsManager.primary
                                          ,size:32),
                                    ),

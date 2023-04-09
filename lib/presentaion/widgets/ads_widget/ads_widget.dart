@@ -37,8 +37,10 @@ import '../../views/User/Ads/ads_details_view.dart';
 
    // List<Ads> newList = adsList.where((now2) =>endDate.isBefore(now) ).toList();
     return  CarouselSlider(
-      options: CarouselOptions(height: 210.0,autoPlay:true,
-        viewportFraction: 0.8,
+      options: CarouselOptions(height: 196.0,autoPlay:true,
+        viewportFraction: 0.83,
+        autoPlayCurve: Curves.fastLinearToSlowEaseIn,
+        autoPlayAnimationDuration:Duration(seconds: 2)
 
       ),
       items: newList.map((i) {
@@ -46,76 +48,92 @@ import '../../views/User/Ads/ads_details_view.dart';
         // DateTime now = DateTime.now();
         // DateTime endDate = DateTime.parse(i.date_end.toString());
         // if (endDate.isAfter(now)&&i.country==c) {
-          return Builder(
-            builder: (BuildContext context) {
+        return Builder(
+          builder: (BuildContext context) {
 
-
-              return InkWell(
-                child: Container(
-                    width: MediaQuery.of(context).size.width,
-                    margin: const EdgeInsets.symmetric(horizontal: 10.0),
-                    decoration: BoxDecoration(
-
-                        boxShadow: const [
-                          BoxShadow(
-                            color: Colors.white,
-                            spreadRadius: 5,
-                            blurRadius: 7,
-                            offset: Offset(0, 3), // changes position of shadow
+            return InkWell(
+              child: Container(
+                  child:
+                  Stack(
+                    children: [
+                      Column(
+                        children: [
+                          Container(
+                            height: 178,
+                            child: Image.asset('assets/images/mix.jpg',
+                              fit:BoxFit.contain,
+                            ),
                           ),
+
                         ],
-                        borderRadius: BorderRadius.circular(30),
-                        gradient: const LinearGradient(
-                          begin: Alignment.topRight,
-                          end: Alignment.bottomLeft,
-                          colors: [
-                            ColorsManager.primary5,
-                            ColorsManager.primary5,
-                            ColorsManager.primary5,
-                            ColorsManager.primary6,
-                            ColorsManager.primary5,
-                            //  Colors.blue,
-                          ],
+                      ),
+                      Row(
+                        children: [
+                          SizedBox(width: 6,),
+                          Column(
+                            children: [
+                              SizedBox(height: 30,),
+                              Custom_Text(
+                                text:i.name.toString(),
+                                color:ColorsManager.white,
+                                alignment:Alignment.center,
+                                fontSize: 16,
+                              ),
+                              const SizedBox(height:12,),
+                              Custom_Text(
+                                text:i.details.toString(),
+                                color:Colors.black,
+                                alignment:Alignment.center,
+                                fontSize: 12,
+                              ),
+                              const SizedBox(height:32,),
+                              CustomButton(
+                                text: "احجز الان ",
+                                color1:ColorsManager.white,
+                                color2:ColorsManager.primary,
+                                onPressed:(){
 
-                        )
+                                  Get.to(AdDetailsView(
+                                    ad: i,
+                                  ));
+                                },
+                              ),
+                            ],
+                          ),
+                          SizedBox(width: 6,),
+                          Padding(
+                            padding: const EdgeInsets.all(1.0),
+                            child: SizedBox(
+                                height:164,
+                                width: 118,
+                                child: Container(
+                                    decoration:BoxDecoration(
+                                        borderRadius:BorderRadius.circular(6),
+                                        color:Colors.transparent
+                                    ),
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(2.0),
+                                      child: Image.network(i.image.toString(),
+                                        fit:BoxFit.fill,
+                                      ),
+                                    ))),
+                          ),
 
-                    ),
-                    child:
-                    Column(
-                      children: [
-                        SizedBox(
-                            height:110,
-                            width: 420,
-                            child: Image.network(i.image.toString(),fit:BoxFit.fill)),
-                        const SizedBox(height:8,),
-                        Custom_Text(
-                          text:i.name.toString(),
-                          color:ColorsManager.white,
-                          alignment:Alignment.center,
-                          fontSize: 16,
-                        ),
-                        const SizedBox(height:5,),
-                        CustomButton(
-                          text: "احجز الان ",
-                          color1:ColorsManager.white,
-                          color2:ColorsManager.primary,
-                          onPressed:(){
 
-                            Get.to(AdDetailsView(
-                              ad: i,
-                            ));
-                          },
-                        ),
-                        const SizedBox(height:12,),
-                      ],
-                    )
-                ),
-                onTap:(){
+                        ],
+                      ),
+                    ],
+                    // child:
+                    //
 
-                },
-              );
-            },
-          );
+                  )
+              ),
+              onTap:(){
+
+              },
+            );
+          },
+        );
         // }
         //
         // else{

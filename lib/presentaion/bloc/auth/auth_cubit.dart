@@ -21,6 +21,8 @@ import 'package:get_storage/get_storage.dart';
   static AuthCubit get(context) => BlocProvider.of(context);
   TextEditingController nameController = TextEditingController();
   TextEditingController catController = TextEditingController();
+  TextEditingController placeController = TextEditingController();
+  TextEditingController place2Controller = TextEditingController();
   TextEditingController emailController = TextEditingController();
   TextEditingController phoneController = TextEditingController();
   TextEditingController phoneController1 = TextEditingController();
@@ -147,7 +149,9 @@ import 'package:get_storage/get_storage.dart';
           "doctor_phone3":phoneController3.text.trim(),
           "doctor_phone1":phoneController1.text.trim(),
           "doctor_image":imageLink,
-           'cat2':selectedOption,
+          'place':placeController.text.trim(),
+          'place2':place2Controller.text.trim(),
+          'cat2':selectedOption,
           "address1":addressController.text,
           "address2":addressController2.text,
           "address3":addressController3.text,

@@ -70,6 +70,7 @@ class _MySplashScreenState extends State<SplashView>
   {
     return
      Scaffold(
+
         appBar: AppBar(
           toolbarHeight: 10,
           backgroundColor:ColorsManager.primary,
@@ -77,10 +78,10 @@ class _MySplashScreenState extends State<SplashView>
         body:
 
         Container(
-          color: Colors.white,
+          color:    ColorsManager.primaryx,
           child:   Center(
             child: Container(
-                color:ColorsManager.white,
+                color:ColorsManager.primaryx,
                 height: 290, child:
             CircleAvatar(
                backgroundColor: ColorsManager.primary,

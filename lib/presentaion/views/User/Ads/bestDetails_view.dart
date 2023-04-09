@@ -32,7 +32,7 @@ Ads ad;
           children:[
 
             Container(
-              decoration: const BoxDecoration(
+              decoration:  BoxDecoration(
                   borderRadius:BorderRadius.all(Radius.circular(30)),
                   color:ColorsManager.primary
               ),
@@ -116,7 +116,7 @@ Ads ad;
                   Row(
                     children: [
 
-                      const Icon(Icons.phone,color:ColorsManager.primary,),
+                      Icon(Icons.phone,color:ColorsManager.primary,),
                       const SizedBox(width: 20,),
                       Custom_Text(text:ad.doctor_phone.toString(),alignment:Alignment.topRight,
                         fontSize:15,
@@ -133,7 +133,7 @@ Ads ad;
                   Row(
                     children: [
 
-                      const Icon(Icons.place,color:ColorsManager.primary,),
+                 Icon(Icons.place,color:ColorsManager.primary,),
                       const SizedBox(width: 20,),
                       Custom_Text(text: ad.address.toString(),alignment:Alignment.topRight,
                         fontSize:15,
@@ -150,7 +150,7 @@ Ads ad;
                   const SizedBox(height: 15,),
                   InkWell(
                     child: Row(
-                      children: const [
+                      children:  [
                         SizedBox(width: 60,),
                         Icon(Icons.maps_ugc_sharp,color:ColorsManager.primary,),
                         SizedBox(width: 20,),
@@ -175,7 +175,7 @@ Ads ad;
                   Row(
                     children: [
 
-                      const Icon(Icons.place,color:ColorsManager.primary,),
+                      Icon(Icons.place,color:ColorsManager.primary,),
                       const SizedBox(width: 20,),
                       Custom_Text(text: ad.address2.toString(),alignment:Alignment.topRight,
                         fontSize:15,
@@ -195,7 +195,7 @@ Ads ad;
                   if(ad.location2!='')
                     InkWell(
                       child: Row(
-                        children: const [
+                        children: [
                           SizedBox(width: 60,),
                           Icon(Icons.maps_ugc_sharp,color:ColorsManager.primary,),
                           SizedBox(width: 20,),
@@ -219,7 +219,7 @@ Ads ad;
                   Row(
                     children: [
 
-                      const Icon(Icons.place,color:ColorsManager.primary,),
+                     Icon(Icons.place,color:ColorsManager.primary,),
                       const SizedBox(width: 20,),
                       Custom_Text(text: ad.address3.toString(),alignment:Alignment.topRight,
                         fontSize:15,
@@ -237,7 +237,7 @@ Ads ad;
                   if(ad.location3!='')
                     InkWell(
                       child: Row(
-                        children: const [
+                        children: [
                           SizedBox(width: 60,),
                           Icon(Icons.maps_ugc_sharp,color:ColorsManager.primary,),
                           SizedBox(width: 20,),
@@ -258,7 +258,7 @@ Ads ad;
                   Row(
                     children: [
 
-                      const Icon(Icons.price_change,color:ColorsManager.primary,),
+                       Icon(Icons.price_change,color:ColorsManager.primary,),
                       const SizedBox(width: 20,),
                       const Custom_Text(text: 'السعر   -  ',alignment:Alignment.topRight,
                         fontSize:15,

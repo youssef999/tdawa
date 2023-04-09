@@ -5,6 +5,7 @@ import 'package:doctors_app/presentaion/widgets/Custom_Text.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import '../views/Country/change_country.dart';
 import '../views/Doctor/moderator/mod_view.dart';
 
 
@@ -55,7 +56,7 @@ class _MainDrawerState extends State<MainDrawer> {
                           child: Row(
                             children: const [
                               SizedBox(width: 30,),
-                              Icon(Icons.logout,color:Colors.red,size:30,),
+                              Icon(Icons.ad_units_outlined,color:Colors.purple,size:30,),
                               SizedBox(width: 30,),
                               Custom_Text(
                                 text:'مديرين حسابك ',
@@ -65,11 +66,11 @@ class _MainDrawerState extends State<MainDrawer> {
                           ),
                           onTap:(){
                         Get.to(ModView());
-                          },
-                        ),
+                        },),
                         const SizedBox(
                           height: 30,
                         ),
+
 
                         InkWell(
                           child: Row(
@@ -109,6 +110,23 @@ class _MainDrawerState extends State<MainDrawer> {
                           height: 30,
                         ),
 
+                        InkWell(
+                          child: Row(
+                            children: const [
+                              SizedBox(width: 30,),
+                              Icon(Icons.flag_circle,color:Colors.purple,size:30,),
+                              SizedBox(width: 30,),
+                              Custom_Text(
+                                text: 'تغيير الدولة ',
+                                fontSize:21,
+                              )
+                            ],
+                          ),
+                          onTap:(){
+                            Get.to(ChangeCountry());
+                          },
+                        ),
+                        SizedBox(height: 33,),
                         InkWell(
                           child: Row(
                             children: const [

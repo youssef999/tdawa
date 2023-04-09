@@ -2,7 +2,8 @@
 
 class API {
 
-  static const hostConnection ='http://192.168.1.13/tdawa';
+  static const hostConnection = //'https://tadawiapp.com/tdawa';
+      'http://192.168.1.13/tdawa';
       //'http://192.168.1.5/tdawa';
      // 'http://192.168.1.13/tdawa';
       //'http://192.168.1.13/tdawa';
@@ -34,6 +35,12 @@ class API {
 
   static const bouquet = '$hostConnection/doctor/bouquet.php';
   static const ads = '$hostConnection/doctor/ads.php';
+  static const ads2 = '$hostConnection/doctor/ads2.php';
+
+  static const Filters = '$hostConnection/doctor/get_filters.php';
+
+  static const Places = '$hostConnection/doctor/get_places.php';
+  static const Places2 = '$hostConnection/doctor/get_places2.php';
 
   static const TopDoctors = '$hostConnection/doctor/top_doctors.php';
 

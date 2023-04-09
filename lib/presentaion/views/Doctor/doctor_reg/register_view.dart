@@ -1,6 +1,4 @@
 import 'dart:io';
-
-import 'package:another_flushbar/flushbar.dart';
 import 'package:doctors_app/presentaion/bloc/auth/auth_cubit.dart';
 import 'package:doctors_app/presentaion/bloc/auth/auth_states.dart';
 import 'package:doctors_app/presentaion/const/app_message.dart';
@@ -22,7 +20,8 @@ class RegisterView extends StatefulWidget {
 
 class _RegisterViewState extends State<RegisterView> {
 //   RegisterView({Key? key}) : super(key: key);
-  List<String> _options = ['طبيب', 'مستشفي', 'صيدلية','علاج نفسي','مركز تجميل','مركز اشاعة وتحليل','اخري'];
+  List<String> _options = ['طبيب', 'مستشفي', 'صيدلية','علاج نفسي','مركز تجميل','مركز اشاعة'
+    ,'مركز تحاليل','اخري'];
 
   String selectedOption='طبيب';
 
@@ -179,6 +178,28 @@ class _RegisterViewState extends State<RegisterView> {
                             ),
                             const SizedBox(height: 10,),
                             CustomTextFormField(
+                              controller:authCubit.placeController,
+                              color:Colors.black,
+                              hint: " المدينة ",
+                              obs: false,
+                              max:2,
+                              obx: false,
+                              ontap:(){},
+                              type:TextInputType.text,
+                            ),
+                            const SizedBox(height: 10,),
+                            CustomTextFormField(
+                              controller:authCubit.place2Controller,
+                              color:Colors.black,
+                              hint: " المنطقة مثل : مدينة نصر او الهرم ...  ",
+                              obs: false,
+                              max:2,
+                              obx: false,
+                              ontap:(){},
+                              type:TextInputType.text,
+                            ),
+                            const SizedBox(height: 10,),
+                            CustomTextFormField(
                               controller:authCubit.infoController,
                               color:Colors.black,
                               hint: "معلومات و تفاصيل ",
@@ -299,7 +320,7 @@ class _RegisterViewState extends State<RegisterView> {
                             (authCubit.x1==false)?
                             InkWell(child:
                             Column(
-                              children: const [
+                              children: [
                                 Icon(Icons.add,color:ColorsManager.primary,size:30,),
                                 Custom_Text(text: 'اضافة مكان عمل ',
                                 color:Colors.black, alignment:Alignment.center,
@@ -310,7 +331,7 @@ class _RegisterViewState extends State<RegisterView> {
                               authCubit.addNew();
                             },
                             ):  InkWell(child:
-                            const Icon(Icons.minimize,color:ColorsManager.primary,size:30,),
+                           Icon(Icons.minimize,color:ColorsManager.primary,size:30,),
                               onTap:(){
                                 authCubit.removeNew();
                               },
@@ -370,7 +391,7 @@ class _RegisterViewState extends State<RegisterView> {
                             (authCubit.x2==false)?
                             InkWell(child:
                             Column(
-                              children: const [
+                              children:  [
                                 Icon(Icons.add,color:ColorsManager.primary,size:30,),
                                 Custom_Text(text: 'اضافة مكان عمل ',
                                   color:Colors.black, alignment:Alignment.center,
@@ -381,7 +402,7 @@ class _RegisterViewState extends State<RegisterView> {
                                 authCubit.addNew2();
                               },
                             ):  InkWell(child:
-                            const Icon(Icons.minimize,color:ColorsManager.primary,size:30,),
+                             Icon(Icons.minimize,color:ColorsManager.primary,size:30,),
                               onTap:(){
                                 authCubit.removeNew2();
                               },
