@@ -9,11 +9,18 @@ import 'package:doctors_app/presentaion/widgets/custom_textformfield.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
+import 'package:toggle_switch/toggle_switch.dart';
 import '../../User/user_auth/user_login_view.dart';
+import '../../sales/sales_view.dart';
 
 
 
 class RegisterView extends StatefulWidget {
+
+  bool sales;
+
+  RegisterView({required this.sales});
+
   @override
   State<RegisterView> createState() => _RegisterViewState();
 }
@@ -21,7 +28,7 @@ class RegisterView extends StatefulWidget {
 class _RegisterViewState extends State<RegisterView> {
 //   RegisterView({Key? key}) : super(key: key);
   List<String> _options = ['طبيب', 'مستشفي', 'صيدلية','علاج نفسي','مركز تجميل','مركز اشاعة'
-    ,'مركز تحاليل','اخري'];
+    ,'مركز تحاليل','تمريض','اخري'];
 
   String selectedOption='طبيب';
 
@@ -51,21 +58,26 @@ class _RegisterViewState extends State<RegisterView> {
         create: (BuildContext context) => AuthCubit(),
         child: BlocConsumer<AuthCubit, AuthStates>(
             listener: (context, state) {
-
+              AuthCubit authCubit = AuthCubit.get(context);
               if(state is RegisterSuccessState){
-
+                AuthCubit cubit = AuthCubit.get(context);
+                // cubit.addNewFilter();
                 appMessage(text: 'تم انشاء حسابك بنجاح');
 
-              Get.offAll(UserLoginView(
-                  cat: 'doctor',
-                ));
+                if(widget.sales==true){
+                  Get.offAll(SalesView());
+                }else{
+                  Get.offAll(UserLoginView(
+                    cat: 'doctor',
+                  ));
+                }
+                authCubit.addNewPlaces();
+                authCubit.addNewPlaces2();
               }
 
               if(state is RegisterErrorState){
 
                 appMessage(text: 'حدث خطا ربما ادخلت بيانات بشكل خاطئ');
-
-
               }
             },
             builder: (context, state) {
@@ -74,7 +86,6 @@ class _RegisterViewState extends State<RegisterView> {
                 backgroundColor:ColorsManager.white,
                 appBar: AppBar(
                   elevation: 0,
-
                   backgroundColor: ColorsManager.primary,
                   toolbarHeight: 1,
                 ),
@@ -88,9 +99,14 @@ class _RegisterViewState extends State<RegisterView> {
                         child: Column(
                           children:  [
                             const SizedBox(height: 20,),
-                            Image.asset('assets/images/logo2.png'),
+
+                            const SizedBox(height: 20,),
+                            CircleAvatar(
+                              radius: 100,
+                                backgroundColor:ColorsManager.primary,
+                                child: Image.asset('assets/images/logo.png')),
                             const SizedBox(height: 10,),
-                            const Custom_Text(text: ' بيانات الطبيب',
+                            const Custom_Text(text: 'البيانات ',
                               fontSize:24,
                               alignment:Alignment.center,
                               color:Colors.black,
@@ -120,6 +136,7 @@ class _RegisterViewState extends State<RegisterView> {
                                 children: [
 
                                   CircleAvatar(
+                                    backgroundColor:ColorsManager.primary,
                                     radius: 100,
                                     child:Image.asset('assets/images/doc2.png'),
                                   ),
@@ -460,7 +477,8 @@ class _RegisterViewState extends State<RegisterView> {
                             const SizedBox(height: 20,),
                             CustomButton(text: "تسجيل",
                                 onPressed: (){
-                                  authCubit.registerAndSaveUserRecord(selectedOption: selectedOption);
+                                  authCubit.registerAndSaveUserRecord(selectedOption: selectedOption
+                                      ,sales:widget.sales);
                                 }, color1:ColorsManager.primary,
                                 color2: Colors.white),
                             const SizedBox(height: 30,),

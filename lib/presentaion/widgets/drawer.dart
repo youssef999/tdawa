@@ -7,6 +7,7 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import '../views/Country/change_country.dart';
 import '../views/Doctor/moderator/mod_view.dart';
+import '../views/User/Home/change_theme.dart';
 
 
  class MainDrawer extends StatefulWidget {
@@ -126,6 +127,25 @@ class _MainDrawerState extends State<MainDrawer> {
                             Get.to(ChangeCountry());
                           },
                         ),
+                        SizedBox(height: 30,),
+                        InkWell(
+                          child: Row(
+                            children: const [
+                              SizedBox(width: 30,),
+                              Icon(Icons.color_lens,color:Colors.black,size:30,),
+                              SizedBox(width: 30,),
+                              Custom_Text(
+                                text: 'لون التطبيق ',
+                                fontSize:21,
+                              )
+                            ],
+                          ),
+                          onTap:(){
+                            Get.to( ChangeThemeScreen());
+                          },
+                        ),
+
+
                         SizedBox(height: 33,),
                         InkWell(
                           child: Row(

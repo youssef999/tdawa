@@ -1,5 +1,6 @@
 
 import 'package:bloc/bloc.dart';
+import 'package:doctors_app/presentaion/resources/color_manager.dart';
 import 'package:doctors_app/presentaion/views/splash/splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -25,7 +26,7 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         title: 'Tdawa',
         theme: ThemeData(
-            primarySwatch: Colors.deepPurple
+            primarySwatch: Colors.blue
         ),
         home:
         const SplashView()

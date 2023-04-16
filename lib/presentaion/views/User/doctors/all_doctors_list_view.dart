@@ -17,7 +17,6 @@ class AllDoctorsView extends StatelessWidget {
 
   AllDoctorsView(this.cat2, {super.key});
 
-
   @override
   Widget build(BuildContext context) {
 
@@ -44,7 +43,7 @@ class AllDoctorsView extends StatelessWidget {
                   child: ListView(
                     children: [
 
-                      if(cat2=='doctor')
+                      if(cat2=='طبيب')
                       Container(
                         color: ColorsManager.primary,
                         child: Column(
@@ -64,7 +63,7 @@ class AllDoctorsView extends StatelessWidget {
                           ],
                         ),
                       ),
-                     if(cat2=='hospital')
+                     if(cat2=='مستشفي')
                         Container(
                           color:ColorsManager.primary,
                           child: Column(
@@ -84,7 +83,7 @@ class AllDoctorsView extends StatelessWidget {
                             ],
                           ),
                         ),
-                      if(cat2=='pharmacy')
+                      if(cat2=='صيدلية')
                         Container(
                           color:ColorsManager.primary,
                           child: Column(
@@ -328,9 +327,9 @@ Widget NewAdsWidget(List<Ads> listApp,PatientCubit cubit,int index2){
   if(index2>=listApp.length){
     index2==listApp.length-1;
   }
-print('NNN');
+      print('NNN');
   return Container(
-    height:110,
+    height:104,
     color: ColorsManager.primary,
     padding: const EdgeInsets.only(top: 9, left: 7, right: 7),
     child:
@@ -348,13 +347,11 @@ print('NNN');
                       color: ColorsManager.primary),
                   child: Column(
                     children: [
-                      const SizedBox(
-                        height: 4,
-                      ),
+
                       Row(
                         children: [
                           SizedBox(
-                              height: 80,
+                              height: 70,
                               width: MediaQuery.of(context).size.width * 0.38,
                               child: Image.network(
                                   listApp[index2].image.toString(),
@@ -380,14 +377,13 @@ print('NNN');
                                 ),
                                 Custom_Text(
                                   text: listApp[index2].details.toString(),
-                                  color: Colors.black,
+                                  color: Colors.grey,
                                   fontSize: 12,
                                   alignment: Alignment.center,
                                 ),
                                 const SizedBox(
                                   height: 10,
                                 ),
-
                               ],
                             ),
                           ),

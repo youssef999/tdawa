@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:doctors_app/domain/models/sales.dart';
 import 'package:doctors_app/domain/models/user.dart';
 import 'package:doctors_app/domain/models/user_model.dart';
 import 'package:doctors_app/presentaion/bloc/auth/auth_states.dart';
@@ -34,13 +35,14 @@ import 'package:get_storage/get_storage.dart';
   TextEditingController passwordController = TextEditingController();
   TextEditingController passwordCheck = TextEditingController();
   TextEditingController priceController = TextEditingController();
-
+  TextEditingController code=TextEditingController();
   TextEditingController  addressController = TextEditingController();
   TextEditingController  timeController = TextEditingController();
   TextEditingController  locationController = TextEditingController();
   TextEditingController  days = TextEditingController();
 
-
+  Sales  salesInfo=Sales();
+  List<Sales>  salesList=[];
   TextEditingController  addressController2 = TextEditingController();
   TextEditingController  timeController2 = TextEditingController();
   TextEditingController  locationController2 = TextEditingController();
@@ -51,6 +53,7 @@ import 'package:get_storage/get_storage.dart';
   bool x1=false;
   bool x2=false;
 
+  int toogleIndex=4;
 
   DoctorModel doctorModel = DoctorModel();
   User user = User();
@@ -59,18 +62,23 @@ import 'package:get_storage/get_storage.dart';
   XFile? pickedImageXFile;
 
 
+  changeToogleIndex (int index){
+
+    toogleIndex = index;
+    emit(ChangeToogleIndexSuccessState());
+
+  }
+
+
   removeNew(){
     x1=false;
     emit(removeNewSuccess());
   }
 
-
   removeNew2(){
     x2=false;
     emit(removeNewSuccess2());
   }
-
-
 
   addNew(){
     x1=true;
@@ -82,8 +90,8 @@ import 'package:get_storage/get_storage.dart';
     emit(addNewSuccess2());
   }
 
-
-  registerAndSaveUserRecord({required String selectedOption}) async {
+  
+  registerAndSaveUserRecord({required String selectedOption,required bool sales}) async {
 
     final box=GetStorage();
     String country=box.read('country')??'x';
@@ -99,6 +107,7 @@ import 'package:get_storage/get_storage.dart';
     }
     else if(catController.text.length<2){
       appMessage(text: 'ادخل التخصص بشكل سليم');
+
     }
     else if(nameController.text.length<2){
       appMessage(text: 'ادخل الاسم بشكل سليم');
@@ -125,13 +134,12 @@ import 'package:get_storage/get_storage.dart';
     }
     else if(timeController.text.length<1){
       appMessage(text: 'ادخل التوقيت  بشكل سليم');
-
-
     }
 
 
     else{
       try {
+
         emit(RegisterLoadingState());
         var res =
         await http.post(Uri.parse(API.signup), body:
@@ -163,7 +171,11 @@ import 'package:get_storage/get_storage.dart';
           "location3":locationController3.text,
            'country':country
         }
+
+
         );
+
+
 
         if (res.statusCode == 200) {
 
@@ -174,6 +186,13 @@ import 'package:get_storage/get_storage.dart';
 
             print("SUCCESS");
             emit(RegisterSuccessState());
+            addNewFilter();
+
+
+            if(sales==true){
+              SalesCoins();
+            }
+
 
           } else {
             print(res.body);
@@ -190,7 +209,310 @@ import 'package:get_storage/get_storage.dart';
     }
     }
 
+  addNewFilter() async {
 
+    final box=GetStorage();
+    String country=box.read('country')??'x';
+    emit(AddNewFilterLoadingState());
+    try {
+      var res = await http.post(Uri.parse(API.AddFilters), body: {
+        'name': catController.text,
+        'country':country
+      });
+
+      print("res======== ${res.body}");
+
+      if (res.statusCode == 200) {
+        print("200");
+
+        var resOfLogin = jsonDecode((res.body));
+
+        if (resOfLogin['success'] == true) {
+
+
+          print("SUCCESSS");
+          emit(AddNewFilterSuccessState());
+
+
+
+        }
+
+        else {
+          emit(AddNewFilterErrorState('not 200'));
+
+        }
+      }
+      else{
+        print(res.statusCode);
+      }
+    } catch (e) {
+      print(e);
+      emit(AddNewFilterErrorState('$e'));
+
+    }
+  }
+
+  addNewPlaces() async {
+
+    final box=GetStorage();
+    String country=box.read('country')??'x';
+    emit(AddNewPlacesLoadingState());
+    try {
+      var res = await http.post(Uri.parse(API.AddPlaces), body: {
+        'name': placeController.text,
+        'country':country
+      });
+
+      print("res======== ${res.body}");
+
+      if (res.statusCode == 200) {
+        print("200");
+
+        var resOfLogin = jsonDecode((res.body));
+
+        if (resOfLogin['success'] == true) {
+          print("SUCCESSS");
+          emit(AddNewPlacesSuccessState());
+        }
+        else {
+          emit(AddNewPlacesErrorState('not 200'));
+        }
+      }
+      else{
+        print(res.statusCode);
+      }
+    } catch (e) {
+      print(e);
+      emit(AddNewPlacesErrorState('$e'));
+
+    }
+  }
+
+  addNewPlaces2() async {
+
+    final box=GetStorage();
+    String country=box.read('country')??'x';
+    emit(AddNewPlacesLoadingState2());
+    try {
+      var res = await http.post(Uri.parse(API.AddPlaces2), body: {
+        'name': place2Controller.text,
+        'place':placeController.text,
+      });
+
+      print("res======== ${res.body}");
+
+      if (res.statusCode == 200) {
+        print("200");
+
+        var resOfLogin = jsonDecode((res.body));
+
+        if (resOfLogin['success'] == true) {
+
+
+          print("SUCCESSS");
+          emit(AddNewPlacesSuccessState2());
+
+
+        }
+
+        else {
+          emit(AddNewPlacesErrorState2('error'));
+
+        }
+      }
+      else{
+        print(res.statusCode);
+      }
+    } catch (e) {
+      print(e);
+      emit(AddNewPlacesErrorState2('$e'));
+
+    }
+  }
+
+  SalesCoins() async {
+
+    final box=GetStorage();
+    var id=box.read('SalesId');
+  String coins=box.read('SalesCoins');
+
+  int c=int.parse(coins);
+  int c2=c+10;
+  String c3=c2.toString();
+
+    print('COINS=='+coins.toString());
+    print('COINS=='+id.toString());
+      try {
+        emit(SalesCoinsLoadingState());
+        var res =
+        await http.post(Uri.parse(API.SalesCoins), body:
+        {
+            'id':id,
+             'coins':c3
+        });
+        if (res.statusCode == 200) {
+
+          var resOfSignUp = jsonDecode(res.body);
+
+          print(resOfSignUp);
+          if (resOfSignUp['success'] == true) {
+            print("SUCCESS");
+            emit(SalesLoginSuccessState());
+
+          } else {
+            print(res.body);
+            print("error${res.statusCode}");
+            emit(SalesCoinsErrorState('not 200'));
+
+          }
+        }
+      } catch (e) {
+        print("ERROR==$e");
+        emit(SalesCoinsErrorState('$e'));
+
+      }
+
+  }
+
+  salesLogin() async {
+
+    emit(SalesLoginLoadingState());
+    try {
+      var res = await http.post(Uri.parse(API.SalesLogin), body: {
+        'code': code.text.trim(),
+      });
+
+      print("res======== ${res.body}");
+
+      if (res.statusCode == 200) {
+        print("200");
+
+        var resOfLogin = jsonDecode((res.body));
+
+        if (resOfLogin['success'] == true) {
+
+
+          print("UserINfo====${salesInfo.id}");
+          final box = GetStorage();
+          box.write('SalesId',salesInfo.id);
+          box.write('SalesCoins',salesInfo.coins);
+          box.write('SalesName',salesInfo.name);
+          print("SUCCESSS");
+          emit(SalesLoginSuccessState());
+        }
+
+        else {
+          emit(SalesLoginErrorState('not 200'));
+
+        }
+      }
+      else{
+        print(res.statusCode);
+      }
+    } catch (e) {
+      print(e);
+      emit(SalesLoginErrorState('$e'));
+
+    }
+  }
+
+  getSalesData() async {
+
+    final box=GetStorage();
+    String id=box.read('SalesId')??'x';
+    emit(SalesLoginLoadingState());
+    try {
+      var res = await http.post(Uri.parse(API.SalesData), body: {
+        'id': id,
+      });
+
+      print("res======== ${res.body}");
+
+      if (res.statusCode == 200) {
+        print("200");
+
+        var resOfLogin = jsonDecode((res.body));
+
+        if (resOfLogin['success'] == true) {
+
+          salesInfo = Sales.fromJson(resOfLogin['Data']);
+
+          print("SALES");
+          print(salesInfo.coins);
+          print("UserINfo====${salesInfo.id}");
+          emit(SalesLoginSuccessState());
+        }
+        else {
+          emit(SalesLoginErrorState('not 200'));
+
+        }
+      }
+      else{
+        print(res.statusCode);
+      }
+    } catch (e) {
+      print(e);
+      emit(SalesLoginErrorState('$e'));
+
+    }
+  }
+
+
+
+
+
+
+
+
+  loginDoctorWithPhone() async {
+
+    emit(LoginLoadingState());
+
+
+    try {
+
+      var res = await http.post(Uri.parse(API.DoctorPhoneLogin), body: {
+
+        'doctor_phone': phoneController.text.trim(),
+        'doctor_password': passwordController.text.trim(),
+      });
+
+      print("res${res.body}");
+
+      if (res.statusCode == 200) {
+        print("200");
+
+        var resOfLogin = jsonDecode((res.body));
+
+        if (resOfLogin['success'] == true) {
+          DoctorModel doc_Info = DoctorModel.fromJson(resOfLogin['userData']);
+          print("UserINfo====${doc_Info.doctor_email}");
+
+          final box = GetStorage();
+
+          box.write('doc_email',doc_Info.doctor_email);
+          box.write('doc_Id',doc_Info.doctor_id);
+
+          print("SUCCESSS");
+          emit(LoginSuccessState());
+
+
+        }
+
+        else {
+          emit(LoginErrorState('not 200'));
+
+        }
+      }
+      else{
+        print(res.statusCode);
+      }
+    } catch (e) {
+      print(e);
+      emit(LoginErrorState(e.toString()));
+
+    }
+  }
 
 
   login() async {
@@ -282,10 +604,12 @@ import 'package:get_storage/get_storage.dart';
 
   userLogin() async {
     if(emailController.text=='sales@gmail.com'&&passwordController.text=='123456'){
-      Get.to( SalesCodeView());
+      Get.offAll( SalesCodeView());
     }
     else{
       emit(UserLoginLoadingState());
+
+
       try {
 
         var res = await http.post(Uri.parse(API.userLogin), body: {
@@ -335,6 +659,66 @@ import 'package:get_storage/get_storage.dart';
       }
     }
   }
+
+  userLoginWithPhone() async {
+    if(emailController.text=='sales@gmail.com'&&passwordController.text=='123456'){
+      Get.offAll( SalesCodeView());
+    }
+    else{
+      emit(UserLoginLoadingState());
+
+
+      try {
+
+        var res = await http.post(Uri.parse(API.UserPhoneLogin), body: {
+          'phone': phoneController.text.trim(),
+          'password': passwordController.text.trim(),
+        });
+
+        print("res${res.body}");
+
+        if (res.statusCode == 200) {
+          print("200");
+
+
+          var resOfLogin = jsonDecode((res.body));
+
+          if (resOfLogin['success'] == true) {
+
+            user = User.fromJson(resOfLogin['userData']);
+
+            print("UserINfo====${user.email}");
+            final box = GetStorage();
+            box.write('email', user.email);
+            box.write('userName',user.name);
+            box.write('userId', user.id);
+            print(user.id);
+
+            print("SUCCESSS");
+            // appMessage(text: 'تم تسجيل الدخول بنجاح');
+
+
+            emit(UserLoginSuccessState());
+
+
+          }
+          else {
+            emit(UserLoginErrorState('not 200'));
+
+          }
+        }
+        else{
+          print(res.statusCode);
+        }
+      } catch (e) {
+        print(e);
+        emit(UserLoginErrorState(e.toString()));
+
+      }
+    }
+  }
+
+
   showDialogBox(BuildContext context) {
     return showDialog(
         context: context,
@@ -435,7 +819,6 @@ import 'package:get_storage/get_storage.dart';
 
       Map<String, dynamic> jsonRes = json.decode(resultFromImgurApi);
       imageLink = (jsonRes["data"]["link"]).toString();
-      String deleteHash = (jsonRes["data"]["deletehash"]).toString();
 
       emit(setImageSuccessState());
     } catch (e) {

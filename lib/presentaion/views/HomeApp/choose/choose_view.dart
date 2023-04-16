@@ -29,7 +29,16 @@ class ChooseView extends StatelessWidget {
         child: Column(
           children:  [
             const SizedBox(height: 30,),
-            Image.asset('assets/images/logo2.png'),
+            SizedBox(
+
+              child: CircleAvatar(
+                  radius: 100,
+                  backgroundColor: ColorsManager.primary,
+                  child: Image.asset(
+                    'assets/images/logo.png',
+                    fit: BoxFit.scaleDown,
+                  )),
+            ),
             const SizedBox(height: 30,),
             const Custom_Text(
               text: 'نوع حسابك ',

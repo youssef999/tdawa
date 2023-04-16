@@ -30,6 +30,7 @@ class PatientCubit extends Cubit<PatientStates> {
   List<DoctorModel> doctorList = [];
   List<DoctorModel> topDoctorList = [];
   List<DoctorModel> searchList = [];
+  List<Filter> searchFilter = [];
   List<Cat> catList = [];
   List<Ads>newList=[];
 
@@ -475,6 +476,39 @@ class PatientCubit extends Cubit<PatientStates> {
     }
     return searchList;
   }
+
+
+  Future<List<Filter>> searchFilters(String name) async {
+    emit(SearchLoadingState());
+    try {
+      var res = await http.post(Uri.parse(API.SEARCHFilters), body: {
+        'typedkeyWords': name,
+      });
+
+      print("res${res.body}");
+      if (res.statusCode == 200) {
+        print("......HERE...SEARCH........");
+
+        var resOfFavValidate = jsonDecode((res.body));
+
+        if (resOfFavValidate['success'] == true) {
+          (resOfFavValidate['Data'] as List).forEach((eachRecord) {
+            searchFilter.add(Filter.fromJson(eachRecord));
+          });
+          print("success");
+          emit(SearchSuccessState());
+        } else {
+          print("errrorr");
+          emit(SearchErrorState(error: 'e'));
+        }
+      }
+    } catch (e) {
+      print("ERROR22::$e");
+      emit(SearchErrorState(error: e.toString()));
+    }
+    return searchFilter;
+  }
+
 
   void updateData(String emailHint, String nameHint, String phoneHint) async {
     String e, n, p;

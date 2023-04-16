@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:doctors_app/presentaion/resources/color_manager.dart';
 import 'package:doctors_app/presentaion/views/Country/countries_view.dart';
 import 'package:doctors_app/presentaion/views/Doctor/Home/dashboard.dart';
+import 'package:doctors_app/presentaion/views/sales/sales_view.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -29,16 +30,29 @@ class _MySplashScreenState extends State<SplashView>
     // String email=box.read('email');
     String userId=box.read('userId')??'x';
     String modId=box.read('mod_Id')??'x';
+    String salesId=box.read('SalesId')??'x';
+    String theme=box.read('Theme')??'x';
 
+    if(theme=='blue'){
+      ColorsManager.primary = Color(0xFFF0a19db);
+      ColorsManager.primary4=Color(0xFFF00a1e6);
+    }
+    if(theme=='green'){
+      ColorsManager.primary = Color(0xFFF21a300);
+      ColorsManager.primary4=Color(0xFFF2ee600);
+    }
 
     Timer(const Duration(seconds: 5), () async
     {
       if(modId !='x'){
-
         Get.offAll( DashBoardDoctorView (type: 'mod',));
-
       }
 
+      if(salesId !='x'){
+
+        Get.offAll( SalesView ());
+
+      }
       else if(docId !='x'){
 
         Get.offAll( DashBoardDoctorView (type: 'doctor',));

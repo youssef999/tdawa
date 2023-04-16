@@ -1,27 +1,40 @@
 
+import 'dart:convert';
+
+import 'package:doctors_app/Data/api_connection/api_connection.dart';
+import 'package:doctors_app/domain/models/filters.dart';
 import 'package:doctors_app/presentaion/bloc/patient/patient_cubit.dart';
 import 'package:doctors_app/presentaion/bloc/patient/patient_states.dart';
 import 'package:doctors_app/presentaion/resources/color_manager.dart';
+import 'package:doctors_app/presentaion/views/User/Filter/search_filter.dart';
 import 'package:doctors_app/presentaion/widgets/Custom_Text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 import '../../../../domain/models/places2.dart';
 import 'Filter_doctors_view.dart';
+import 'package:http/http.dart' as http;
 
-
-class PlacesView extends StatelessWidget {
+class PlacesView extends StatefulWidget {
 
 String place;
 
 
 PlacesView({required this.place});
 
+  @override
+  State<PlacesView> createState() => _PlacesViewState();
+}
+
+
+
+
+class _PlacesViewState extends State<PlacesView> {
 @override
 
   Widget build(BuildContext context) {
     return BlocProvider(
-        create: (BuildContext context) => PatientCubit()..getAllPlaces2(place),
+        create: (BuildContext context) => PatientCubit()..getAllPlaces2(widget.place),
         child: BlocConsumer<PatientCubit, PatientStates>(
 
             listener: (context, state) {
@@ -43,6 +56,9 @@ PlacesView({required this.place});
                   child: ListView(
                     children: [
 
+
+
+
                       Container(
                         color:ColorsManager.primary,
                         child: Column(
@@ -63,6 +79,45 @@ PlacesView({required this.place});
                         ),
                       ),
 
+                      const SizedBox(
+                        height: 30,
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(left:12.0,right: 20),
+                        child: Container(
+                          decoration: BoxDecoration(
+                              borderRadius:BorderRadius.circular(17),
+                              color: Colors.white
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.only(left:20.0,right: 20),
+                            child: Row(
+                              children: [
+                                Container(
+                                  width:MediaQuery.of(context).size.width*0.66,
+                                  child: TextFormField(
+                                    controller: cubit.searchController,
+                                    decoration: InputDecoration(
+                                      hintText: 'ادخل منطقتك  ',
+                                      hintStyle: TextStyle(color: Colors.grey),
+                                    ),
+                                  ),
+                                ),
+                                SizedBox(width: 20,),
+                                InkWell(child: const Icon(Icons.search,color:ColorsManager.black,size:33),
+                                  onTap:(){
+                                    Get.to( SearchFilter(
+
+                                      txt: cubit.searchController.text,
+                                    ));
+                                  },
+                                ),
+
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
                       const SizedBox(
                         height: 10,
                       ),

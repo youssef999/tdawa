@@ -63,6 +63,9 @@ List<DoctorModel>searchList= [];
   return searchList;
 }
 
+
+
+
  List<DoctorModel>displayList=List.from(searchList);
  TextEditingController nameController= TextEditingController();
 
@@ -75,8 +78,6 @@ if(widget.txt!=''){
   updateList(nameController.text);
 }
     super.initState();
-
-
     searchData( nameController.text);
   }
 

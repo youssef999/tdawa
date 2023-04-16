@@ -66,6 +66,11 @@ class AdsSlider2 extends StatelessWidget {
 
                         ],
                       ),
+                      Container(
+                        height: 178,
+                        width: 190,
+                        color:ColorsManager.primary4,
+                      ),
                       Row(
                         children: [
                           SizedBox(width: 6,),

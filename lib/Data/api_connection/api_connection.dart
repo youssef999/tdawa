@@ -10,7 +10,13 @@ class API {
   static const hostConnectionUser = '$hostConnection/user';
   static const validateEmail = '$hostConnection/user/validate_email.php';
   static const signup = '$hostConnection/doctor/signup.php';
+  static const SalesCoins = '$hostConnection/doctor/sales_coins.php';
+  static const AddFilters = '$hostConnection/doctor/add_filter.php';
   static const login = '$hostConnection/doctor/login.php';
+  static const DoctorPhoneLogin = '$hostConnection/doctor/doctor_login_phone.php';
+  static const UserPhoneLogin = '$hostConnection/doctor/user_login_phone.php';
+  static const SalesLogin = '$hostConnection/doctor/sales.php';
+  static const SalesData = '$hostConnection/doctor/get_sales_data.php';
   static const ModLogin = '$hostConnection/doctor/mod_login.php';
   static const getMod = '$hostConnection/doctor/All_moderators.php';
   static const addMod = '$hostConnection/doctor/moderators_add.php';
@@ -26,6 +32,7 @@ class API {
   static const addBooking = '$hostConnection/doctor/add_booking.php';
   static const getBooking = '$hostConnection/doctor/get_booking.php';
   static const SEARCH = '$hostConnection/doctor/search.php';
+  static const SEARCHFilters = '$hostConnection/doctor/search_filters.php';
   static const allDoctorsData = '$hostConnection/patient/all_doctors.php';
   static const Country = '$hostConnection/doctor/country.php';
   static const addFav = '$hostConnection/doctor/add_fav.php';
@@ -67,6 +74,9 @@ class API {
   static const deleteFromCart = '$hostConnection/cart/delete.php';
   static const getCart = '$hostConnection/cart/read.php';
   static const updateQuantity = '$hostConnection/cart/update.php';
+
+    static const AddPlaces = '$hostConnection/doctor/add_places.php';
+  static const AddPlaces2 = '$hostConnection/doctor/add_places2.php';
 
 }
 //192.168.1.10

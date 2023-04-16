@@ -67,6 +67,11 @@ import '../../views/User/Ads/ads_details_view.dart';
 
                         ],
                       ),
+                      Container(
+                        height: 178,
+                      width: 190,
+                      color:ColorsManager.primary,
+                      ),
                       Row(
                         children: [
                           SizedBox(width: 6,),

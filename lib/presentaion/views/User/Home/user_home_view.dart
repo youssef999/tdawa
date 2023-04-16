@@ -254,7 +254,6 @@ import '../doctors/doctor-details_view.dart';
 }
 
 
-
 Widget TopDoctorsWidget(List<DoctorModel> catList) {
 
   final box=GetStorage();
@@ -293,11 +292,11 @@ Widget TopDoctorsWidget(List<DoctorModel> catList) {
                             child: Column(
                               children: [
 
-                                const SizedBox(
-                                  height: 12,
-                                ),
+                                // const SizedBox(
+                                //   height: 12,
+                                // ),
                                 Container(
-                                    color:Colors.blue,
+                                    color:ColorsManager.primary,
                                     height: 106,
                                     width: MediaQuery.of(context).size.width * 0.5,
                                     child: Image.network(
@@ -425,114 +424,3 @@ Widget TopDoctorsWidget(List<DoctorModel> catList) {
 
 }
 
-//   Widget TopDoctorsWidget(List<DoctorModel> catList){
-//
-//   return   SizedBox(
-//     height: 270,
-//     child: ListView.builder(
-//       scrollDirection:Axis.horizontal,
-//       //  physics: const NeverScrollableScrollPhysics(),
-//         itemCount: catList.length,
-//
-//         itemBuilder: (context, index) {
-//           return InkWell(
-//             child: Padding(
-//               padding: const EdgeInsets.all(8.0),
-//               child: InkWell(
-//                 child: Container(
-//                   decoration: BoxDecoration(
-//                       borderRadius: BorderRadius.circular(25),
-//                       color: Colors.white70),
-//                   child: Directionality(
-//                     textDirection: TextDirection.rtl,
-//                     child: Column(
-//                       children: [
-//
-//                         const SizedBox(
-//                           height: 12,
-//                         ),
-//                         Container(
-//                           color:Colors.blue,
-//                             height: 106,
-//                             width: MediaQuery.of(context).size.width * 0.5,
-//                             child: Image.network(
-//                                 catList[index].doctor_image.toString(),
-//                             fit:BoxFit.scaleDown,
-//                             )),
-//                         const SizedBox(
-//                           height: 30,
-//                         ),
-//
-//                         SizedBox(
-//                           width: MediaQuery.of(context).size.width * 0.2,
-//                           child: Column(
-//                             children: [
-//                               Custom_Text(
-//                                 text: catList[index].doctor_name.toString(),
-//                                 color: ColorsManager.black,
-//                                 fontSize: 20,
-//                                 alignment: Alignment.center,
-//                               ),
-//                               const SizedBox(
-//                                 height: 5,
-//                               ),
-//                               RatingBar.builder(
-//                                 itemSize:12,
-//                                 initialRating:double.parse( catList[index].rate.toString()),
-//                                 minRating: 1,
-//                                 direction: Axis.horizontal,
-//                                 allowHalfRating: true,
-//                                 itemCount: 5,
-//                                 itemPadding:
-//                                 EdgeInsets.symmetric(horizontal: 1.0),
-//                                 itemBuilder: (context, _) => Icon(
-//                                   Icons.star,
-//                                   color: Colors.amber,
-//                                 ),
-//                                 unratedColor:Colors.grey,
-//                                 onRatingUpdate: (rating) {
-//                                   print(rating);
-//                                 },
-//                               ),
-//                               const SizedBox(
-//                                 height: 13,
-//                               ),
-//                                   Custom_Text(text:catList[index].rate.toString(),
-//                                     fontSize:16,
-//                                     color:Colors.black,
-//                                     alignment:Alignment.center,
-//
-//                                   )
-//
-//
-//                             ],
-//                           ),
-//                         ),
-//
-//                         SizedBox(
-//                             width: MediaQuery.of(context).size.width * 0.1),
-//
-//                       ],
-//                     ),
-//                   ),
-//                 ),
-//                 onTap: () {
-//                   Get.to(DoctorDetailsView(
-//                       catList[index]
-//                   ));
-//                   // print(AllDoctorsView(catList[index].cat2));
-//                   // Get.to(AllDoctorsView(catList[index].cat2));
-//
-//                 },
-//               ),
-//             ),
-//             onTap:(){
-//               Get.to(DoctorDetailsView(
-//                   catList[index]
-//               ));
-//             },
-//           );
-//         }),
-//   );
-//
-// }

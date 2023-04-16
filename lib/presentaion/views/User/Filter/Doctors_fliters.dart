@@ -263,35 +263,36 @@ Widget AllDoctorsWidget(List<DoctorModel> listApp,PatientCubit cubit,String cat,
           //       );
               }
               else{
-                return    Container(
-                  color:Colors.white,
-                  child:
-
-                  Center(
-                    child:
-
-                    Column(
-                      mainAxisAlignment:MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-
-                        SizedBox(
-                          height:260,
-                          child:Image.asset("assets/images/data.png"),
-                        ),
-                        const SizedBox(height: 11,),
-                        const Custom_Text(
-                          text: 'القسم لا يحتوي علي بيانات الان ',
-                          fontSize: 22,
-                          color:Colors.black,
-                          alignment:Alignment.center,
-                        ),
-                        const SizedBox(height: 400,),
-
-                      ],
-                    ),
-                  ),
-                );
+                return const SizedBox(height: 2,);
+                // return    Container(
+                //   color:Colors.white,
+                //   child:
+                //
+                //   Center(
+                //     child:
+                //
+                //     Column(
+                //       mainAxisAlignment:MainAxisAlignment.center,
+                //       crossAxisAlignment: CrossAxisAlignment.center,
+                //       children: [
+                //
+                //         SizedBox(
+                //           height:260,
+                //           child:Image.asset("assets/images/data.png"),
+                //         ),
+                //         const SizedBox(height: 11,),
+                //         const Custom_Text(
+                //           text: 'القسم لا يحتوي علي بيانات الان ',
+                //           fontSize: 22,
+                //           color:Colors.black,
+                //           alignment:Alignment.center,
+                //         ),
+                //         const SizedBox(height: 400,),
+                //
+                //       ],
+                //     ),
+                //   ),
+                // );
               //  return const SizedBox(height: 2,);
               }
 

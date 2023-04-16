@@ -20,7 +20,6 @@ String place2;
 FiltersDoctorView({required this.place2});
 
   @override
-
   Widget build(BuildContext context) {
     return BlocProvider(
         create: (BuildContext context) => PatientCubit()..getAllFilters(),
